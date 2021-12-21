@@ -5,6 +5,8 @@ type label = string
 
 type instr =
   | Li    of reg * int
+  | Str0  of string
+
 
 type directive =
   | Asciiz of string
@@ -20,6 +22,7 @@ let fmt_reg = function
 
 let fmt_instr = function
   | Li (r, i) -> ps "  li %s, %d" (fmt_reg r) i
+  | Str0 s    -> ps "str0 : %s " s
 
 let fmt_dir = function
   | Asciiz (s) -> ps ".asciiz \"%s\"" s
