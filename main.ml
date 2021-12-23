@@ -16,7 +16,7 @@ let () =
   let f = open_in Sys.argv.(1) in
   let buf = Lexing.from_channel f in
   try
-    let parsed = Parser.prog Lexer.token buf in
+    let parsed = Parser.block Lexer.token buf in
     close_in f ;
     let ast = Semantics.analyze parsed in
     let asm = Compiler.compile ast in
