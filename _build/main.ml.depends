@@ -1,1 +1,1 @@
-main.ml: Array Ast Compiler Lexer Lexing Parser Printf Semantics Stdlib Sys
+main.ml: Array Ast Compiler Lexer Lexing Mips Parser Printf Semantics Stdlib Sys

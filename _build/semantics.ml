@@ -50,7 +50,7 @@ let rec analyze_instr instr env =
   | Syntax.Assign a ->
      let ae, et = analyze_expr a.expr env in
      Assign (a.var, ae), Env.add a.var et env
-  | Syntax.Return r ->
+  | Syntax.Return r ->  Printf.fprintf Stdlib.stdout " Je suis dans compiler j'ai retourné Return";
      let ae, _ = analyze_expr r.expr env in
      Return ae, env
 

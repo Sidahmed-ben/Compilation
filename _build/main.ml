@@ -20,9 +20,9 @@ let () =
     close_in f ;
     let ast = Semantics.analyze parsed in
     let asm = Compiler.compile ast in
-    Printf.fprintf Stdlib.stdout " wch "
+    (* Printf.fprintf Stdlib.stdout " wch " *)
 
-    (*Mips.emit Stdlib.stdout asm *)
+    Mips.emit Stdlib.stdout asm
   with
   | Lexer.Error c ->
      err (Printf.sprintf "unrecognized char '%c'" c) (Lexing.lexeme_start_p buf)

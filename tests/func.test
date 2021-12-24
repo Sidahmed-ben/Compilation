@@ -1,4 +1,3 @@
 func main () {
-    x = 42;
-    return x ;
+    return 42 ;
 }

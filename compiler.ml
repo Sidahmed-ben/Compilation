@@ -35,6 +35,7 @@ let rec compile_expr e env =
 
 
 let rec compile_instr i info =
+  Printf.fprintf Stdlib.stdout " rani dkhelt dans instr une fois   ! \n" ;
   match i with
   (* | Decl v ->  (* dans la déclaration on ne touche pas le code juste l'environnement*)
      { info with
@@ -71,6 +72,8 @@ let rec compile_instr i info =
               @ ce.code
               @ [ Label ("endif" ^ uniq) ]
      ; counter = ce.counter } *)
+
+    | _ -> Printf.fprintf Stdlib.stdout " OUps dekhelt f else*********** ";  info  
 
 
 
