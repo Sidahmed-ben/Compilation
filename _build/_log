@@ -3,18 +3,18 @@
 /usr/bin/ocamldep.opt -modules main.ml > main.ml.depends # cached
 # Target: ast.ml.depends, tags: { extension:ml, file:ast.ml, ocaml, ocamldep, quiet }
 /usr/bin/ocamldep.opt -modules ast.ml > ast.ml.depends # cached
+# Target: ast.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:ast.cmo, file:ast.ml, implem, ocaml, quiet }
+/usr/bin/ocamlc.opt -c -o ast.cmo ast.ml # cached
 # Target: compiler.ml.depends, tags: { extension:ml, file:compiler.ml, ocaml, ocamldep, quiet }
 /usr/bin/ocamldep.opt -modules compiler.ml > compiler.ml.depends
-# Target: ast.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:ast.cmo, file:ast.ml, implem, ocaml, quiet }
-/usr/bin/ocamlc.opt -c -o ast.cmo ast.ml
 # Target: baselib.ml.depends, tags: { extension:ml, file:baselib.ml, ocaml, ocamldep, quiet }
 /usr/bin/ocamldep.opt -modules baselib.ml > baselib.ml.depends # cached
+# Target: baselib.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:baselib.cmo, file:baselib.ml, implem, ocaml, quiet }
+/usr/bin/ocamlc.opt -c -o baselib.cmo baselib.ml # cached
 # Target: mips.ml.depends, tags: { extension:ml, file:mips.ml, ocaml, ocamldep, quiet }
 /usr/bin/ocamldep.opt -modules mips.ml > mips.ml.depends # cached
 # Target: mips.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:mips.cmo, file:mips.ml, implem, ocaml, quiet }
 /usr/bin/ocamlc.opt -c -o mips.cmo mips.ml # cached
-# Target: baselib.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:baselib.cmo, file:baselib.ml, implem, ocaml, quiet }
-/usr/bin/ocamlc.opt -c -o baselib.cmo baselib.ml
 # Target: lexer.mll, tags: { extension:mll, file:lexer.mll, lexer, ocaml, ocamllex, quiet }
 /usr/bin/ocamllex.opt -q lexer.mll # cached
 # Target: lexer.ml.depends, tags: { extension:ml, file:lexer.ml, ocaml, ocamldep, quiet }
@@ -22,37 +22,26 @@
 # Target: parser.mly.depends, tags: { extension:mly, file:parser.mly, infer, menhir_ocamldep, ocaml, ocamldep, quiet }
 menhir --raw-depend --ocamldep '/usr/bin/ocamldep.opt -modules' parser.mly > parser.mly.depends # cached
 # Target: parser.mly, tags: { byte, compile, extension:ml, extension:mly, file:parser.ml, file:parser.mly, infer, menhir, ocaml, parser, quiet }
-menhir --ocamlc /usr/bin/ocamlc.opt --infer parser.mly
-+ menhir --ocamlc /usr/bin/ocamlc.opt --infer parser.mly
-File "parser.mly", line 9, characters 33-38:
-Warning: the token Lcpar is unused.
-File "parser.mly", line 9, characters 22-26:
-Warning: the token Ldiv is unused.
-File "parser.mly", line 9, characters 27-32:
-Warning: the token Lopar is unused.
-File "parser.mly", line 8, characters 16-23:
-Warning: the token Lstring is unused.
-File "parser.mly", line 9, characters 12-16:
-Warning: the token Lsub is unused.
-File "parser.mly", line 13, characters 0-5:
-Warning: the precedence level assigned to Ldiv is never useful.
-File "parser.mly", line 12, characters 0-5:
-Warning: the precedence level assigned to Lsub is never useful.
+menhir --ocamlc /usr/bin/ocamlc.opt --infer parser.mly # cached
 # Target: parser.mli.depends, tags: { extension:mli, file:parser.mli, ocaml, ocamldep, quiet }
 /usr/bin/ocamldep.opt -modules parser.mli > parser.mli.depends # cached
 # Target: parser.cmi, tags: { byte, compile, extension:mli, file:parser.mli, interf, ocaml, quiet }
-/usr/bin/ocamlc.opt -c -o parser.cmi parser.mli
+/usr/bin/ocamlc.opt -c -o parser.cmi parser.mli # cached
+# Target: lexer.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:lexer.cmo, file:lexer.ml, implem, ocaml, quiet }
+/usr/bin/ocamlc.opt -c -o lexer.cmo lexer.ml # cached
 # Target: semantics.ml.depends, tags: { extension:ml, file:semantics.ml, ocaml, ocamldep, quiet }
 /usr/bin/ocamldep.opt -modules semantics.ml > semantics.ml.depends # cached
+# Target: semantics.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:semantics.cmo, file:semantics.ml, implem, ocaml, quiet }
+/usr/bin/ocamlc.opt -c -o semantics.cmo semantics.ml # cached
 # Target: compiler.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:compiler.cmo, file:compiler.ml, implem, ocaml, quiet }
 /usr/bin/ocamlc.opt -c -o compiler.cmo compiler.ml
 + /usr/bin/ocamlc.opt -c -o compiler.cmo compiler.ml
-File "compiler.ml", line 38, characters 2-593:
+File "compiler.ml", line 38, characters 2-730:
 38 | ..match i with
 39 |   (* | Decl v ->  (* dans la déclaration on ne touche pas le code juste l'environnement*)
 40 |      { info with
 41 |        env = Env.add v (Mem (FP, -info.fpo)) info.env
-42 |      ; fpo = info.fpo + 4 }
+42 |      ; fpo = info.fpo + 4 } *)
 ...
 53 |      { info with
 54 |        code = info.code
@@ -60,10 +49,22 @@ File "compiler.ml", line 38, characters 2-593:
 56 |               @  [ Sw (V0, Env.find lv info.env) ] }.
 Warning 8: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
-Return _
-File "compiler.ml", line 85, characters 17-21:
-85 | let compile_def (Func (name, args, b)) counter =
-                      ^^^^
-Error: Unbound constructor Func
-Command exited with code 2.
-# Compilation unsuccessful.
+(Decl _|Expr _|Cond (_, _, _))
+File "compiler.ml", line 108, characters 6-7:
+108 |     | _ -> Printf.fprintf Stdlib.stdout " makach fonction 3emi ! " ;  0, []         )
+            ^
+Warning 11: this match case is unused.
+# Target: main.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:main.cmo, file:main.ml, implem, ocaml, quiet }
+/usr/bin/ocamlc.opt -c -o main.cmo main.ml
++ /usr/bin/ocamlc.opt -c -o main.cmo main.ml
+File "main.ml", line 22, characters 8-11:
+22 |     let asm = Compiler.compile ast in
+             ^^^
+Warning 26: unused variable asm.
+# Target: parser.ml.depends, tags: { extension:ml, file:parser.ml, ocaml, ocamldep, quiet }
+/usr/bin/ocamldep.opt -modules parser.ml > parser.ml.depends # cached
+# Target: parser.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:parser.cmo, file:parser.ml, implem, ocaml, quiet }
+/usr/bin/ocamlc.opt -c -o parser.cmo parser.ml # cached
+# Target: main.byte, tags: { byte, dont_link_with, extension:byte, file:main.byte, link, ocaml, program, quiet }
+/usr/bin/ocamlc.opt ast.cmo baselib.cmo mips.cmo compiler.cmo parser.cmo lexer.cmo semantics.cmo main.cmo -o main.byte
+# Compilation successful.

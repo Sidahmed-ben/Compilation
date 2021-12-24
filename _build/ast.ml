@@ -31,6 +31,13 @@ module Syntax = struct
     | Return of { expr: expr
                 ; pos: Lexing.position }
   and block = instr list
+  type def = 
+    | Func of { nom: ident
+              ; args: ident list
+              ; block : instr list
+              ; pos: Lexing.position }
+  type prog = def list
+
 end
 
 
@@ -40,7 +47,6 @@ type value =
   | Int  of  int
   | Str  of  string
 
-
 module IR = struct
   type ident = string
   type expr =
@@ -48,8 +54,14 @@ module IR = struct
     | Var  of ident
     | Call of ident * expr list
   type instr =
+    | Decl   of ident
     | Assign of ident * expr
     | Return of expr
+    | Expr   of expr
+    | Cond   of expr * block * block
   and block = instr list
+  type def = 
+    | Func of ident * ident list * block
+  type prog = def list
 
 end

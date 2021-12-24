@@ -39,17 +39,17 @@ let rec compile_instr i info =
   (* | Decl v ->  (* dans la déclaration on ne touche pas le code juste l'environnement*)
      { info with
        env = Env.add v (Mem (FP, -info.fpo)) info.env
-     ; fpo = info.fpo + 4 }
-  | Return e ->
+     ; fpo = info.fpo + 4 } *)
+  | Return e -> Printf.fprintf Stdlib.stdout " Yes rani dkhelt f Return   ! \n" ;
      { info with
        code = info.code
               @ compile_expr e info.env
               @ [ B info.return ] }
-  | Expr e ->
+  (*| Expr e ->
      { info with
        code = info.code
               @ compile_expr e info.env } *)
-  | Assign (lv, e) ->
+  | Assign (lv, e) -> Printf.fprintf Stdlib.stdout " Yes rani dkhelt f Assign   ! \n" ;
      { info with
        code = info.code
               @ compile_expr e info.env
@@ -77,32 +77,35 @@ let rec compile_instr i info =
 and compile_block b info =
   match b with
   | [] -> info
-  | i :: r ->
+  | i :: r -> Printf.fprintf Stdlib.stdout " Yes rani dkhelt f compile block   ! \n" ;
     compile_block r (compile_instr i info)
 
 
-
-let compile_def (Func (name, args, b)) counter =
-  let cb = compile_block b  { code = []  (* le code compilé de la déffinition *)
-                            ; env =  List.fold_left  (fun e (i, a) -> Env.add a (Mem (FP, 4 * i)) e) Env.empty (*e*)
-                                (List.mapi (fun i a -> i + 1, a) args) (*(i,a)*)
-                            ; fpo = 8
-                            ; counter = counter + 1
-                            ; return = "ret" ^ (string_of_int counter) }   
-  (* Après la compilation de la définition de toute la fonction en exécute ça ...*)
-  (* valeur de retour de compile_def *)
-  in cb.counter (* first *) , [] (* second *)
-                              @ [ Label name
-                                ; Addi (SP, SP, -cb.fpo)
-                                ; Sw (RA, Mem (SP, cb.fpo - 4))
-                                ; Sw (FP, Mem (SP, cb.fpo - 8))
-                                ; Addi (FP, SP, cb.fpo - 4) ]
-                              @ cb.code
-                              @ [ Label cb.return
-                                ; Addi (SP, SP, cb.fpo)
-                                ; Lw (RA, Mem (FP, 0))
-                                ; Lw (FP, Mem (FP, -4))
-                                ; Jr (RA) ]
+  
+let compile_def  func counter =
+  (match func with 
+    | Func (name, args, b) -> Printf.fprintf Stdlib.stdout " Yes rani dkhelt f la fonction  ! \n" ;
+          let cb = compile_block b  { code = []  (* le code compilé de la déffinition *)
+                                    ; env =  List.fold_left  (fun e (i, a) -> Env.add a (Mem (FP, 4 * i)) e) Env.empty (*e*)
+                                        (List.mapi (fun i a -> i + 1, a) args) (*(i,a)*)
+                                    ; fpo = 8
+                                    ; counter = counter + 1
+                                    ; return = "ret" ^ (string_of_int counter) }   
+          (* Après la compilation de la définition de toute la fonction en exécute ça ...*)
+          (* valeur de retour de compile_def *)
+          in cb.counter (* first *) , [] (* second *)
+                                      @ [ Label name
+                                        ; Addi (SP, SP, -cb.fpo)
+                                        ; Sw (RA, Mem (SP, cb.fpo - 4))
+                                        ; Sw (FP, Mem (SP, cb.fpo - 8))
+                                        ; Addi (FP, SP, cb.fpo - 4) ]
+                                      @ cb.code
+                                      @ [ Label cb.return
+                                        ; Addi (SP, SP, cb.fpo)
+                                        ; Lw (RA, Mem (FP, 0))
+                                        ; Lw (FP, Mem (FP, -4))
+                                        ; Jr (RA) ]
+    | _ -> Printf.fprintf Stdlib.stdout " makach fonction 3emi ! " ;  0, []         )
      
 
 
@@ -115,7 +118,7 @@ let rec compile_prog p counter =
 
 
 
-let compile (code, data, env) =
+let compile (code) =
   { text = Baselib.builtins @ compile_prog code 0
-  ; data }
+  ; data = [] }
 

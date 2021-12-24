@@ -32,16 +32,20 @@ module Syntax = struct
                 ; pos: Lexing.position }
   and block = instr list
   type def = 
-    | Func of ident *  ident * ident list * block
+    | Func of { nom: ident
+              ; args: ident list
+              ; block : instr list
+              ; pos: Lexing.position }
+  type prog = def list
+
 end
 
-Func
+
 type value = 
   | Nil
   | Bool of  int 
   | Int  of  int
   | Str  of  string
-
 
 module IR = struct
   type ident = string
@@ -57,7 +61,7 @@ module IR = struct
     | Cond   of expr * block * block
   and block = instr list
   type def = 
-    | Func of ident *  ident * ident list * block
+    | Func of ident * ident list * block
   type prog = def list
 
 end

@@ -16,11 +16,13 @@ let () =
   let f = open_in Sys.argv.(1) in
   let buf = Lexing.from_channel f in
   try
-    let parsed = Parser.block Lexer.token buf in
+    let parsed = Parser.prog Lexer.token buf in
     close_in f ;
     let ast = Semantics.analyze parsed in
     let asm = Compiler.compile ast in
-    Mips.emit Stdlib.stdout asm
+    Printf.fprintf Stdlib.stdout " wch "
+
+    (*Mips.emit Stdlib.stdout asm *)
   with
   | Lexer.Error c ->
      err (Printf.sprintf "unrecognized char '%c'" c) (Lexing.lexeme_start_p buf)

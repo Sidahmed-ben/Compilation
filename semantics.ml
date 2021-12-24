@@ -22,7 +22,7 @@ let errt expected given pos =
 
 let rec analyze_expr expr env =
   match expr with
-  | Syntax.Int n  -> Int n.value, Int_t
+  | Syntax.Int n  -> Value(Int n.value), Int_t
   | Syntax.Var v  ->
      if Env.mem v.name env then
        Var v.name, Env.find v.name env
@@ -61,5 +61,15 @@ let rec analyze_block block env =
      let ai, new_env = analyze_instr instr env in
      ai :: (analyze_block rest new_env)
 
+let rec analyze_func def env =
+  match def with 
+    | Syntax.Func f -> [Func (f.nom , [] , analyze_block f.block env )]
+    | _ -> [] 
+
+let rec analyze_prog prog env =
+  match prog with 
+    | [] -> []
+    | func :: reste -> analyze_func func env 
+
 let analyze parsed =
-  analyze_block parsed Baselib._types_
+  analyze_prog parsed Baselib._types_

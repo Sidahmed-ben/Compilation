@@ -18,9 +18,15 @@ rule token = parse
 | num+  as n      { Lint (int_of_string n )}
 | '*'             { Lmul }
 | ';'             { Lsc }
-| identifier+ as var { Lvar (var) }
 | '='             { Lassign}        
 | '+'             { Ladd }
+| "func"          {Lfunc}
+| '('             {Lparo}
+| ')'             {Lparf}
+| '{'             {Lacoo}
+| '}'             {Lacof}
+| identifier+ as var { Lvar (var) }
+
 | '"'             { Lstring ( String.of_seq (List.to_seq (string_ lexbuf)) )  }
 and string_ = parse
 (* | eof { raise (StrEndError) } *)
@@ -29,6 +35,7 @@ and string_ = parse
 | "\\t" { '\t' :: (string_ lexbuf) } (* idem pour "\t" *)
 | "\\\\" { '\\' :: (string_ lexbuf) } (* idem pour "\\" *)
 | _ as c { c :: (string_ lexbuf) } (* pour tous les autres caractères pas de traitement particulier ils se valent eux-mêmes *)
+
 
 
 | _ as c          { raise (Error c) }
