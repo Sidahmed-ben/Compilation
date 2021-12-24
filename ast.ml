@@ -24,7 +24,11 @@ module Syntax = struct
               ; args: expr list
               ; pos: Lexing.position }
   type instr =
-  
+    | Decl   of { 
+                  name : ident
+                ; type_t: type_t 
+                ; pos: Lexing.position
+                }
     | Assign of { var: ident
                 ; expr: expr
                 ; pos: Lexing.position }

@@ -8,13 +8,12 @@
 %token <string> Lstring
 %token Ladd Lsub Lmul Ldiv Lopar Lcpar
 %token Lreturn Lassign Lsc Lend
-
+%token <Ast.type_t>Ldecl_int
 %token Lparo
 %token Lparf
 %token Lacoo
 %token Lacof
 %token Lfunc
-
 
 
 %left Ladd Lsub
@@ -42,17 +41,27 @@ prog:
 
 
 block: 
+| i = Ldecl_int ; v = Lvar ; Lsc  ; b = block { [ Decl {  name = v
+                                                        ; type_t = i
+                                                        ; pos  = $startpos(i)
+                                                   } 
+                                            ] @ b 
+                                          }
+
 | v = Lvar  ; Lassign ; e = expr ; Lsc ; b = block {
-                                        [ Assign {    var = v 
-                                                    ; expr = e
-                                                    ; pos = $startpos($2)
-                                                    }  ] @ b
+                                                      [ Assign {    var = v 
+                                                                  ; expr = e
+                                                                  ; pos = $startpos($2)
+                                                               }      
+                                                      ] @ b
                                         }
 
 | Lreturn ; e = expr ; Lsc {
-                            [ Return {  expr = e 
-                              ; pos = $startpos($1) }]
-                            } 
+                              [ Return {  expr = e 
+                                        ; pos = $startpos($1) 
+                                       }
+                              ]
+                           } 
 
 ;
 

@@ -1,3 +1,6 @@
-func main () {
+func test () {
+    int a;
+    int b;
+    a = b;
     return 42 ;
 }

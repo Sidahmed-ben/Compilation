@@ -25,6 +25,7 @@ rule token = parse
 | ')'             {Lparf}
 | '{'             {Lacoo}
 | '}'             {Lacof}
+| "int"          {Ldecl_int (Int_t)}
 | identifier+ as var { Lvar (var) }
 
 | '"'             { Lstring ( String.of_seq (List.to_seq (string_ lexbuf)) )  }

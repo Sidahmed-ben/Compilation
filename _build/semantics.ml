@@ -47,12 +47,22 @@ let rec analyze_expr expr env =
 
 let rec analyze_instr instr env =
   match instr with
+  | Syntax.Decl d -> Decl d.name , Env.add d.name d.type_t  env
   | Syntax.Assign a ->
-     let ae, et = analyze_expr a.expr env in
-     Assign (a.var, ae), Env.add a.var et env
+     if Env.mem a.var env then
+      let ae,et = analyze_expr a.expr env in
+      let vt = Env.find a.var env in
+      if vt = et then
+        Assign (a.var, ae), Env.add a.var et env
+      else
+        errt vt et (expr_pos a.expr)
+    else
+      raise (Error (Printf.sprintf "unbound variable '%s'" a.var,a.pos))
+
   | Syntax.Return r ->  Printf.fprintf Stdlib.stdout " Je suis dans compiler j'ai retourné Return";
      let ae, _ = analyze_expr r.expr env in
      Return ae, env
+  
 
 let rec analyze_block block env =
   match block with
