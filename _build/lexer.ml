@@ -559,17 +559,17 @@ and comment lexbuf =
 and __ocaml_lex_comment_rec lexbuf __ocaml_lex_state =
   match Lexing.engine __ocaml_lex_tables __ocaml_lex_state lexbuf with
       | 0 ->
-# 52 "lexer.mll"
+# 50 "lexer.mll"
        ( Lend )
 # 565 "lexer.ml"
 
   | 1 ->
-# 53 "lexer.mll"
+# 51 "lexer.mll"
        ( Lexing.new_line lexbuf; token lexbuf )
 # 570 "lexer.ml"
 
   | 2 ->
-# 54 "lexer.mll"
+# 52 "lexer.mll"
        ( comment lexbuf )
 # 575 "lexer.ml"
 

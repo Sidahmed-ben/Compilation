@@ -1,0 +1,5 @@
+func main () {
+    int a;
+    a = 5+5;
+    return 42 ;
+}

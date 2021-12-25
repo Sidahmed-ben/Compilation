@@ -9,12 +9,12 @@
 /usr/bin/ocamldep.opt -modules compiler.ml > compiler.ml.depends # cached
 # Target: baselib.ml.depends, tags: { extension:ml, file:baselib.ml, ocaml, ocamldep, quiet }
 /usr/bin/ocamldep.opt -modules baselib.ml > baselib.ml.depends # cached
+# Target: mips.ml.depends, tags: { extension:ml, file:mips.ml, ocaml, ocamldep, quiet }
+/usr/bin/ocamldep.opt -modules mips.ml > mips.ml.depends
+# Target: mips.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:mips.cmo, file:mips.ml, implem, ocaml, quiet }
+/usr/bin/ocamlc.opt -c -o mips.cmo mips.ml
 # Target: baselib.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:baselib.cmo, file:baselib.ml, implem, ocaml, quiet }
 /usr/bin/ocamlc.opt -c -o baselib.cmo baselib.ml # cached
-# Target: mips.ml.depends, tags: { extension:ml, file:mips.ml, ocaml, ocamldep, quiet }
-/usr/bin/ocamldep.opt -modules mips.ml > mips.ml.depends # cached
-# Target: mips.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:mips.cmo, file:mips.ml, implem, ocaml, quiet }
-/usr/bin/ocamlc.opt -c -o mips.cmo mips.ml # cached
 # Target: compiler.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:compiler.cmo, file:compiler.ml, implem, ocaml, quiet }
 /usr/bin/ocamlc.opt -c -o compiler.cmo compiler.ml # cached
 # Target: lexer.mll, tags: { extension:mll, file:lexer.mll, lexer, ocaml, ocamllex, quiet }
@@ -42,5 +42,5 @@ menhir --ocamlc /usr/bin/ocamlc.opt --infer parser.mly # cached
 # Target: parser.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:parser.cmo, file:parser.ml, implem, ocaml, quiet }
 /usr/bin/ocamlc.opt -c -o parser.cmo parser.ml # cached
 # Target: main.byte, tags: { byte, dont_link_with, extension:byte, file:main.byte, link, ocaml, program, quiet }
-/usr/bin/ocamlc.opt ast.cmo baselib.cmo mips.cmo compiler.cmo parser.cmo lexer.cmo semantics.cmo main.cmo -o main.byte # cached
+/usr/bin/ocamlc.opt ast.cmo mips.cmo baselib.cmo compiler.cmo parser.cmo lexer.cmo semantics.cmo main.cmo -o main.byte
 # Compilation successful.

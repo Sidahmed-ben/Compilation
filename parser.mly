@@ -71,14 +71,14 @@ expr:
 | v  = Lvar {  Var { name = v ; pos = $startpos(v)} }
 
 | a = expr ; Lmul ; b = expr {
-  Call { func = "%mul" 
+  Call { func = "_mul" 
         ;args = [a ; b] 
         ;pos  = $startpos($2)}
   }
 
 | a = expr ; Ladd ; b = expr {   
   Call {
-      func = "%add"
+      func = "_add"
     ; args = [a ; b]
     ; pos = $startpos($2)}
   }

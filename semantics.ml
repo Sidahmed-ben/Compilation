@@ -36,7 +36,7 @@ let rec analyze_expr expr env =
      else
        raise (Error (Printf.sprintf "unbound variable '%s'" v.name,
                      v.pos))
-  | Syntax.Call c ->
+  | Syntax.Call c -> 
      match Env.find_opt c.func env with
      | Some (Func_t (rt, at)) -> 
         if List.length at != List.length c.args then

@@ -272,7 +272,7 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
         let _v : (Ast.Syntax.expr) = 
 # 73 "parser.mly"
                              (
-  Call { func = "%mul" 
+  Call { func = "_mul" 
         ;args = [a ; b] 
         ;pos  = _startpos__2_}
   )
@@ -294,7 +294,7 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
 # 79 "parser.mly"
                              (   
   Call {
-      func = "%add"
+      func = "_add"
     ; args = [a ; b]
     ; pos = _startpos__2_}
   )

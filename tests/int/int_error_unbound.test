@@ -1,0 +1,6 @@
+func test () {
+    int a;
+    int b;
+    a = c;
+    return 42 ;
+}
