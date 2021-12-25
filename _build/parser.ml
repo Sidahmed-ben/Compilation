@@ -270,7 +270,7 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
         let (((_menhir_stack, _menhir_s, (a : (Ast.Syntax.expr))), _startpos__2_), _, (b : (Ast.Syntax.expr))) = _menhir_stack in
         let _2 = () in
         let _v : (Ast.Syntax.expr) = 
-# 71 "parser.mly"
+# 73 "parser.mly"
                              (
   Call { func = "%mul" 
         ;args = [a ; b] 
@@ -291,7 +291,7 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
             let (((_menhir_stack, _menhir_s, (a : (Ast.Syntax.expr))), _startpos__2_), _, (b : (Ast.Syntax.expr))) = _menhir_stack in
             let _2 = () in
             let _v : (Ast.Syntax.expr) = 
-# 77 "parser.mly"
+# 79 "parser.mly"
                              (   
   Call {
       func = "%add"
@@ -325,8 +325,8 @@ and _menhir_run8 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
     )) = _v in
     let _startpos_v_ = _startpos in
     let _v : (Ast.Syntax.expr) = 
-# 76 "parser.mly"
-            ( Var { name = v ; pos = _startpos_v_} )
+# 71 "parser.mly"
+            (  Var { name = v ; pos = _startpos_v_} )
 # 331 "parser.ml"
      in
     _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v
@@ -347,7 +347,7 @@ and _menhir_run9 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
     let _startpos_n_ = _startpos in
     let _v : (Ast.Syntax.expr) = 
 # 70 "parser.mly"
-           ( Int { value = n ; pos = _startpos_n_} )
+             ( Int { value = n ; pos = _startpos_n_} )
 # 352 "parser.ml"
      in
     _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v

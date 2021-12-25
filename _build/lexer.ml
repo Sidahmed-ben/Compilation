@@ -486,21 +486,21 @@ let
 
   | 15 ->
 # 28 "lexer.mll"
-                 (Ldecl_int (Int_t))
+                 (Ldecl_int (Int_t(Int_t,false)))
 # 491 "lexer.ml"
 
   | 16 ->
 let
-# 29 "lexer.mll"
+# 30 "lexer.mll"
                  var
 # 497 "lexer.ml"
 = Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos lexbuf.Lexing.lex_curr_pos in
-# 29 "lexer.mll"
+# 30 "lexer.mll"
                      ( Lvar (var) )
 # 501 "lexer.ml"
 
   | 17 ->
-# 31 "lexer.mll"
+# 32 "lexer.mll"
                   ( Lstring ( String.of_seq (List.to_seq (string_ lexbuf)) )  )
 # 506 "lexer.ml"
 
@@ -512,42 +512,42 @@ and string_ lexbuf =
 and __ocaml_lex_string__rec lexbuf __ocaml_lex_state =
   match Lexing.engine __ocaml_lex_tables __ocaml_lex_state lexbuf with
       | 0 ->
-# 34 "lexer.mll"
+# 35 "lexer.mll"
       ( [] )
 # 518 "lexer.ml"
 
   | 1 ->
-# 35 "lexer.mll"
+# 36 "lexer.mll"
         ( '\n' :: (string_ lexbuf) )
 # 523 "lexer.ml"
 
   | 2 ->
-# 36 "lexer.mll"
+# 37 "lexer.mll"
         ( '\t' :: (string_ lexbuf) )
 # 528 "lexer.ml"
 
   | 3 ->
-# 37 "lexer.mll"
+# 38 "lexer.mll"
          ( '\\' :: (string_ lexbuf) )
 # 533 "lexer.ml"
 
   | 4 ->
 let
-# 38 "lexer.mll"
+# 39 "lexer.mll"
        c
 # 539 "lexer.ml"
 = Lexing.sub_lexeme_char lexbuf lexbuf.Lexing.lex_start_pos in
-# 38 "lexer.mll"
+# 39 "lexer.mll"
          ( c :: (string_ lexbuf) )
 # 543 "lexer.ml"
 
   | 5 ->
 let
-# 42 "lexer.mll"
+# 43 "lexer.mll"
        c
 # 549 "lexer.ml"
 = Lexing.sub_lexeme_char lexbuf lexbuf.Lexing.lex_start_pos in
-# 42 "lexer.mll"
+# 43 "lexer.mll"
                   ( raise (Error c) )
 # 553 "lexer.ml"
 
@@ -559,17 +559,17 @@ and comment lexbuf =
 and __ocaml_lex_comment_rec lexbuf __ocaml_lex_state =
   match Lexing.engine __ocaml_lex_tables __ocaml_lex_state lexbuf with
       | 0 ->
-# 51 "lexer.mll"
+# 52 "lexer.mll"
        ( Lend )
 # 565 "lexer.ml"
 
   | 1 ->
-# 52 "lexer.mll"
+# 53 "lexer.mll"
        ( Lexing.new_line lexbuf; token lexbuf )
 # 570 "lexer.ml"
 
   | 2 ->
-# 53 "lexer.mll"
+# 54 "lexer.mll"
        ( comment lexbuf )
 # 575 "lexer.ml"
 

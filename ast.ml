@@ -1,11 +1,14 @@
 
+type type_t_aux = 
+| Int_t 
+
 type type_t =
-| Int_t
+| Int_t of type_t_aux * bool 
 | Func_t of type_t * type_t list
 
 let rec string_of_type_t t =
   match t with
-  | Int_t  -> "int"
+  | Int_t(_,_)  -> "int"
   | Func_t (r, a) ->
      (if (List.length a) > 1 then "(" else "")
      ^ (String.concat ", " (List.map string_of_type_t a))

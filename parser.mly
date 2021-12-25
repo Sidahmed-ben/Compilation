@@ -67,13 +67,15 @@ block:
 
 
 expr:
-| n = Lint { Int { value = n ; pos = $startpos(n)} }
+| n  = Lint  { Int { value = n ; pos = $startpos(n)} }
+| v  = Lvar {  Var { name = v ; pos = $startpos(v)} }
+
 | a = expr ; Lmul ; b = expr {
   Call { func = "%mul" 
         ;args = [a ; b] 
         ;pos  = $startpos($2)}
   }
-| v  = Lvar { Var { name = v ; pos = $startpos(v)} }
+
 | a = expr ; Ladd ; b = expr {   
   Call {
       func = "%add"

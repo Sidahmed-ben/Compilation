@@ -16,12 +16,12 @@ let compile_value v =
   | Nil          -> [ Li (V0, 0) ]
   | Bool b       -> [ Li (V0, b) ]
   | Int n        -> [ Li (V0, n) ]
-  | Str label   -> [ La(V0, Lbl(label)) ] 
+  | Str label   ->  [ La(V0, Lbl(label)) ] 
 
 let rec compile_expr e env =
   match e with
-  | Value v -> compile_value v
-  | Var v   -> [ Lw (V0, Env.find v env) ]
+  | Value v ->  compile_value v
+  | Var v   -> Printf.fprintf Stdlib.stdout " COMPILE VAR \n";[ Lw (V0, Env.find v env) ]
   | Call (f, args) ->
      let ca = List.map (fun a ->
                   compile_expr a env
@@ -37,15 +37,15 @@ let rec compile_expr e env =
 let rec compile_instr i info =
   Printf.fprintf Stdlib.stdout " rani dkhelt dans instr une fois   ! \n" ;
   match i with
-  (* | Decl v ->  (* dans la déclaration on ne touche pas le code juste l'environnement*)
+  | Decl v ->  (* dans la déclaration on ne touche pas le code juste l'environnement*)
      { info with
        env = Env.add v (Mem (FP, -info.fpo)) info.env
-     ; fpo = info.fpo + 4 } *)
-  | Return e -> Printf.fprintf Stdlib.stdout " Yes rani dkhelt f Return   ! \n" ;
+     ; fpo = info.fpo + 4 } 
+  (*| Return e -> Printf.fprintf Stdlib.stdout " Yes rani dkhelt f Return   ! \n" ;
      { info with
        code = info.code
               @ compile_expr e info.env
-              @ [ B info.return ] }
+              @ [ B info.return ] }*)
   (*| Expr e ->
      { info with
        code = info.code
