@@ -15,8 +15,9 @@ type token =
   | Lfunc
   | Lend
   | Ldiv
-  | Ldecl_int of (Ast.type_t)
+  | Ldecl of (Ast.type_t)
   | Lcpar
+  | Lbool of (bool)
   | Lassign
   | Ladd
   | Lacoo

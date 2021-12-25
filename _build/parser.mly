@@ -6,9 +6,10 @@
 %token <int> Lint
 %token <string> Lvar
 %token <string> Lstring
+%token <bool> Lbool
 %token Ladd Lsub Lmul Ldiv Lopar Lcpar
 %token Lreturn Lassign Lsc Lend
-%token <Ast.type_t>Ldecl_int
+%token <Ast.type_t>Ldecl
 %token Lparo
 %token Lparf
 %token Lacoo
@@ -41,7 +42,7 @@ prog:
 
 
 block: 
-| i = Ldecl_int ; v = Lvar ; Lsc  ; b = block { [ Decl {  name = v
+| i = Ldecl ; v = Lvar ; Lsc  ; b = block { [ Decl {      name = v
                                                         ; type_t = i
                                                         ; pos  = $startpos(i)
                                                    } 
@@ -67,8 +68,9 @@ block:
 
 
 expr:
-| n  = Lint  { Int { value = n ; pos = $startpos(n)} }
-| v  = Lvar {  Var { name = v ; pos = $startpos(v)} }
+| n  = Lint  { Int  { value = n ; pos = $startpos(n)} }
+| b  = Lbool { Bool { value = b ; pos = $startpos(b)} }                                  
+| v  = Lvar  { Var  { name =  v ; pos = $startpos(v)} }
 
 | a = expr ; Lmul ; b = expr {
   Call { func = "_mul" 

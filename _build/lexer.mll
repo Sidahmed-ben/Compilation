@@ -25,7 +25,10 @@ rule token = parse
 | ')'             {Lparf}
 | '{'             {Lacoo}
 | '}'             {Lacof}
-| "int"          {Ldecl_int (Int_t(Int_t,false))}
+| "int"           {Ldecl (Int_t(Int_t,false))}
+| "bool"          {Ldecl (Bool_t(Bool_t,false))}
+| "True"          {Lbool (true)}
+| "False"         {Lbool (false)}
 
 | identifier+ as var { Lvar (var) }
 

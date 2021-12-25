@@ -1,15 +1,17 @@
 
 type type_t_aux = 
 | Int_t 
-
+| Bool_t
 
 type type_t =
-| Int_t of type_t_aux * bool 
+| Int_t  of type_t_aux * bool 
+| Bool_t of type_t_aux * bool  
 | Func_t of type_t * type_t list
 
 let rec string_of_type_t t =
   match t with
-  | Int_t (_,_)-> "int"
+  | Int_t  (_,_)-> "int"
+  | Bool_t (_,_)-> "bool"
   | Func_t (r, a) ->
      (if (List.length a) > 1 then "(" else "")
      ^ (String.concat ", " (List.map string_of_type_t a))
@@ -22,6 +24,9 @@ module Syntax = struct
   type expr =
     | Int  of { value: int
               ; pos: Lexing.position }
+    | Bool of { value:bool
+              ; pos: Lexing.position
+              }
     | Var  of { name: ident
               ; pos: Lexing.position }
     | Call of { func: ident

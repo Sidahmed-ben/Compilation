@@ -1,0 +1,6 @@
+func main(){
+    bool b ;
+    bool a ;
+    b = a;
+    return 0;
+}

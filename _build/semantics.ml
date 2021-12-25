@@ -8,15 +8,21 @@ exception Error of string * Lexing.position
 
 let verify_type type1 type2 =
   match type1 with 
-    | Int_t(Int_t,_) -> match type2 with 
+    | Int_t(Int_t,_) -> (match type2 with 
                           | Int_t(Int_t,_) -> true 
-                          | _ -> false 
+                          | _ -> false)
+
+    | Bool_t(Bool_t,_) -> (match type2 with 
+                          | Bool_t(Bool_t,_) -> true 
+                          | _ -> false) 
+    
 
 
 let expr_pos expr =
   match expr with
-  | Syntax.Int n  -> n.pos
-  | Syntax.Var v  -> v.pos
+  | Syntax.Int  n -> n.pos
+  | Syntax.Bool b -> b.pos
+  | Syntax.Var  v -> v.pos
   | Syntax.Call c -> c.pos
 
 let errt expected given pos =
@@ -30,6 +36,10 @@ let errt expected given pos =
 let rec analyze_expr expr env =
   match expr with
   | Syntax.Int n  -> Value(Int n.value), Int_t(Int_t,true)
+  | Syntax.Bool b -> (match b.value with 
+                      | true  ->  Value(Bool 1), Bool_t(Bool_t,true)
+                      | false ->  Value(Bool 0), Bool_t(Bool_t,true) )
+
   | Syntax.Var v  ->
      if Env.mem v.name env then
        Var v.name, Env.find v.name env
@@ -60,13 +70,20 @@ let rec analyze_instr instr env =
           (* Value(Int n.value), Int_t(Int_t,true) *)
       let ae , et = analyze_expr a.expr env in
       match et with 
-      | Int_t(Int_t,true) -> 
+      | Int_t(Int_t,true) ->  let vt = Env.find a.var env in
+                                (* match vt  *)
+                              if verify_type vt et then
+                                Assign (a.var, ae), (Env.add a.var (Int_t(Int_t,true)) env )
+                              else
+                                errt vt et (expr_pos a.expr)
+                            
+      | Bool_t(Bool_t,true) -> 
                             let vt = Env.find a.var env in
-                              (* match vt  *)
-                             if verify_type vt et then
-                               Assign (a.var, ae), (Env.add a.var (Int_t(Int_t,true)) env )
-                             else
-                               errt vt et (expr_pos a.expr)
+                            (* match vt  *)
+                            if verify_type vt et then
+                              Assign (a.var, ae), (Env.add a.var (Bool_t(Bool_t,true)) env )
+                            else
+                              errt vt et (expr_pos a.expr)
 
       | _ ->  match a.expr with 
                 | Var v -> raise (Error (Printf.sprintf "ununsigned variable  '%s'" v.name ,v.pos))
