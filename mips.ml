@@ -32,6 +32,7 @@ type instr =
   | Beqz  of reg * label
   | Jal   of label
   | Jr    of reg
+  | Slt   of reg*reg*reg 
 
 type directive =
   | Asciiz of string
@@ -82,6 +83,7 @@ let fmt_instr = function
   | Beqz (r, l)      -> ps "  beqz %s, %s" (fmt_reg r) l
   | Jal (l)          -> ps "  jal %s" l
   | Jr (r)           -> ps "  jr %s" (fmt_reg r)
+  | Slt (r1,r2,r3)   -> ps "  slt %s, %s, %s" (fmt_reg r1) (fmt_reg r2) (fmt_reg r3)
 
 let fmt_dir = function
   | Asciiz (s) -> ps ".asciiz \"%s\"" s
@@ -89,6 +91,5 @@ let fmt_dir = function
 let emit oc asm =
   Printf.fprintf oc ".text\n.globl main\n" ;
   List.iter (fun i -> Printf.fprintf oc "%s\n" (fmt_instr i)) asm.text ;
-  Printf.fprintf oc "  move $a0, $v0\n  li $v0, 1\n  syscall\n" ;
   Printf.fprintf oc "\n.data\n" ;
   List.iter (fun (l, d) -> Printf.fprintf oc "%s: %s\n" l (fmt_dir d)) asm.data

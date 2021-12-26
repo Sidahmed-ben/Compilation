@@ -3,6 +3,7 @@
 
 type token = 
   | Lvar of (string)
+  | Lsup
   | Lsub
   | Lstring of (string)
   | Lsc
@@ -12,11 +13,14 @@ type token =
   | Lopar
   | Lmul
   | Lint of (int)
+  | Linf
   | Lfunc
   | Lend
+  | Lelse
   | Ldiv
   | Ldecl of (Ast.type_t)
   | Lcpar
+  | Lcond
   | Lbool of (bool)
   | Lassign
   | Ladd

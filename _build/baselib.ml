@@ -10,11 +10,28 @@ let _types_ =
        ; "_sub", Func_t (Int_t(Int_t,true), [ Int_t(Int_t,true) ; Int_t(Int_t,true) ])
        ; "_mul", Func_t (Int_t(Int_t,true), [ Int_t(Int_t,true) ; Int_t(Int_t,true) ])
        ; "_div", Func_t (Int_t(Int_t,true), [ Int_t(Int_t,true) ; Int_t(Int_t,true) ])
+       ; "_inf", Func_t (Int_t(Int_t,true), [ Int_t(Int_t,true) ; Int_t(Int_t,true) ])
+       ; "_sup", Func_t (Int_t(Int_t,true), [ Int_t(Int_t,true) ; Int_t(Int_t,true) ])
     ])
 
 
 let builtins =
-  [ Label "_add"
+  [ 
+  
+  Label "_inf"
+  ; Lw (T0, Mem (SP, 0))
+  ; Lw (T1, Mem (SP, 4))
+  ; Slt(V0, T1 , T0)
+  ; Jr RA
+
+  ; Label "_sup"
+  ; Lw (T0, Mem (SP, 0))
+  ; Lw (T1, Mem (SP, 4))
+  ; Slt(V0, T0 , T1)
+  ; Jr RA
+    
+  
+  ; Label "_add"
   ; Lw (T0, Mem (SP, 0))
   ; Lw (T1, Mem (SP, 4))
   ; Add (V0, T0, T1)

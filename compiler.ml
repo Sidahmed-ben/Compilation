@@ -13,10 +13,10 @@ type cinfo = { code: Mips.instr list
 
 let compile_value v =
   match v with
-  | Nil          -> [ Li (V0, 0) ]
-  | Bool b       -> [ Li (V0, b) ]
-  | Int n        -> [ Li (V0, n) ]
-  | Str label   ->  [ La(V0, Lbl(label)) ] 
+  | Nil          ->  [ Li (V0, 0) ]
+  | Bool b       ->  [ Li (V0, b) ]
+  | Int  n       ->  [ Li (V0, n) ]
+  | Str  label   ->  [ La(V0, Lbl(label)) ] 
 
 let rec compile_expr e env =
   match e with
@@ -41,11 +41,11 @@ let rec compile_instr i info =
      { info with
        env = Env.add v (Mem (FP, -info.fpo)) info.env
      ; fpo = info.fpo + 4 } 
-  (*| Return e -> Printf.fprintf Stdlib.stdout " Yes rani dkhelt f Return   ! \n" ;
+  | Return e -> Printf.fprintf Stdlib.stdout " Yes rani dkhelt f Return   ! \n" ;
      { info with
        code = info.code
               @ compile_expr e info.env
-              @ [ B info.return ] }*)
+              @ [ B info.return ] }
   (*| Expr e ->
      { info with
        code = info.code
@@ -56,7 +56,7 @@ let rec compile_instr i info =
               @ compile_expr e info.env
               @  [ Sw (V0, Env.find lv info.env) ] } 
 
-  (* | Cond (c, t, e) ->
+  | Cond (c, t, e) ->
      let uniq = string_of_int info.counter in
      let ct = compile_block t { info with code = []
                                         ; counter = info.counter + 1 } in
@@ -71,7 +71,7 @@ let rec compile_instr i info =
                 ; Label ("else" ^ uniq) ]
               @ ce.code
               @ [ Label ("endif" ^ uniq) ]
-     ; counter = ce.counter } *)
+     ; counter = ce.counter }
 
     | _ -> Printf.fprintf Stdlib.stdout " OUps dekhelt f else*********** ";  info  
 
@@ -103,6 +103,10 @@ let compile_def  func counter =
                                         ; Sw (FP, Mem (SP, cb.fpo - 8))
                                         ; Addi (FP, SP, cb.fpo - 4) ]
                                       @ cb.code
+                                      @ [ Move (A0, V0) 
+                                        ; Li (V0, 1)
+                                        ; Syscall
+                                        ]
                                       @ [ Label cb.return
                                         ; Addi (SP, SP, cb.fpo)
                                         ; Lw (RA, Mem (FP, 0))

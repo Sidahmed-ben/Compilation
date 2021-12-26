@@ -35,79 +35,81 @@ let errt expected given pos =
 
 let rec analyze_expr expr env =
   match expr with
-  | Syntax.Int n  -> Value(Int n.value), Int_t(Int_t,true)
+  | Syntax.Int n  ->  Value(Int n.value), Int_t(Int_t,true) (* retour de Int *) 
   | Syntax.Bool b -> (match b.value with 
                       | true  ->  Value(Bool 1), Bool_t(Bool_t,true)
-                      | false ->  Value(Bool 0), Bool_t(Bool_t,true) )
-
+                      | false ->  Value(Bool 0), Bool_t(Bool_t,true) ) (* retour de Bool*)
   | Syntax.Var v  ->
      if Env.mem v.name env then
-       Var v.name, Env.find v.name env
+          Var v.name, Env.find v.name env (* retour de var *)
      else
        raise (Error (Printf.sprintf "unbound variable '%s'" v.name,
                      v.pos))
   | Syntax.Call c -> 
      match Env.find_opt c.func env with
-     | Some (Func_t (rt, at)) -> 
+     | Some (Func_t (rt, at)) ->  Printf.fprintf Stdlib.stdout " Je suis dans (Func_t (rt, at)) ##";
         if List.length at != List.length c.args then
           raise (Error (Printf.sprintf "expected %d arguments but given %d"
                           (List.length at) (List.length c.args), c.pos)) ;
         let args = List.map2 (fun eat a -> let aa, at = analyze_expr a env
-                                           in if at = eat then aa
+                                           in if at = eat then aa  (* vérification des types des argument de la fonction dans la baselib.type_t et les types des arguments du call*)
                                               else errt eat at (expr_pos a))
                      at c.args in
-        Call (c.func, args), rt
+        Call (c.func, args), rt    (* retour de Call *)
      | Some _ -> raise (Error (Printf.sprintf "'%s' is not a function" c.func,
                                c.pos))
      | None -> raise (Error (Printf.sprintf "undefined function '%s'" c.func,
                              c.pos))
+
+
+
 
 let rec analyze_instr instr env =
   match instr with
   | Syntax.Decl d -> Decl d.name , Env.add d.name d.type_t env
   | Syntax.Assign a ->
      if Env.mem a.var env then
-          (* Value(Int n.value), Int_t(Int_t,true) *)
       let ae , et = analyze_expr a.expr env in
       match et with 
       | Int_t(Int_t,true) ->  let vt = Env.find a.var env in
-                                (* match vt  *)
                               if verify_type vt et then
                                 Assign (a.var, ae), (Env.add a.var (Int_t(Int_t,true)) env )
                               else
-                                errt vt et (expr_pos a.expr)
-                            
+                                errt vt et (expr_pos a.expr)                    
       | Bool_t(Bool_t,true) -> 
                             let vt = Env.find a.var env in
-                            (* match vt  *)
                             if verify_type vt et then
                               Assign (a.var, ae), (Env.add a.var (Bool_t(Bool_t,true)) env )
                             else
                               errt vt et (expr_pos a.expr)
-
       | _ ->  match a.expr with 
                 | Var v -> raise (Error (Printf.sprintf "ununsigned variable  '%s'" v.name ,v.pos))
-
-
     else 
-
       raise (Error (Printf.sprintf "unbound variable '%s'" a.var,a.pos))
+
 
   | Syntax.Return r ->  Printf.fprintf Stdlib.stdout " Je suis dans compiler j'ai retourné Return";
      let ae, _ = analyze_expr r.expr env in
      Return ae, env
   
+  |Syntax.Cond c -> let ae ,  et      = analyze_expr  c.expr   env  in 
+                    let ab1, new_env1 = analyze_block c.block1 env  in 
+                    let ab2, new_env2 = analyze_block c.block2 new_env1  in 
+                    Cond(ae, ab1, ab2) , new_env2  
 
-let rec analyze_block block env =
+                    
+
+and  analyze_block block env =
   match block with
-  | [] -> []
+  | [] -> [] , env
   | instr :: rest ->
      let ai, new_env = analyze_instr instr env in
-     ai :: (analyze_block rest new_env)
+     let ab , env = analyze_block rest new_env in
+     ai :: (ab) , new_env
 
 let rec analyze_func def env =
   match def with 
-    | Syntax.Func f -> [Func (f.nom , [] , analyze_block f.block env )]
+    | Syntax.Func f ->  let ab , env = analyze_block f.block env in [Func (f.nom , [] , ab )]
     | _ -> [] 
 
 let rec analyze_prog prog env =

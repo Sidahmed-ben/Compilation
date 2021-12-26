@@ -29,6 +29,10 @@ rule token = parse
 | "bool"          {Ldecl (Bool_t(Bool_t,false))}
 | "True"          {Lbool (true)}
 | "False"         {Lbool (false)}
+| "if"            {Lcond}
+| "else"          {Lelse}
+| ">"             {Lsup}
+| "<"             {Linf}
 
 | identifier+ as var { Lvar (var) }
 

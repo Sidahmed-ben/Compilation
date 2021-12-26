@@ -25,8 +25,12 @@ module Syntax = struct
     | Int  of { value: int
               ; pos: Lexing.position }
     | Bool of { value:bool
+              ; pos: Lexing.position }
+    (* char *)
+    | Str of  { chaine: string
               ; pos: Lexing.position
               }
+
     | Var  of { name: ident
               ; pos: Lexing.position }
     | Call of { func: ident
@@ -43,6 +47,12 @@ module Syntax = struct
                 ; pos: Lexing.position }
     | Return of { expr: expr
                 ; pos: Lexing.position }
+    | Cond   of { expr   : expr 
+                ; block1 : block
+                ; block2 : block
+                ; pos : Lexing.position
+                } 
+      
   and block = instr list
   type def = 
     | Func of { nom: ident

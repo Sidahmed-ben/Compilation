@@ -8,23 +8,45 @@
 # Target: compiler.ml.depends, tags: { extension:ml, file:compiler.ml, ocaml, ocamldep, quiet }
 /usr/bin/ocamldep.opt -modules compiler.ml > compiler.ml.depends # cached
 # Target: baselib.ml.depends, tags: { extension:ml, file:baselib.ml, ocaml, ocamldep, quiet }
-/usr/bin/ocamldep.opt -modules baselib.ml > baselib.ml.depends # cached
+/usr/bin/ocamldep.opt -modules baselib.ml > baselib.ml.depends
 # Target: mips.ml.depends, tags: { extension:ml, file:mips.ml, ocaml, ocamldep, quiet }
 /usr/bin/ocamldep.opt -modules mips.ml > mips.ml.depends # cached
 # Target: mips.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:mips.cmo, file:mips.ml, implem, ocaml, quiet }
 /usr/bin/ocamlc.opt -c -o mips.cmo mips.ml # cached
 # Target: baselib.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:baselib.cmo, file:baselib.ml, implem, ocaml, quiet }
-/usr/bin/ocamlc.opt -c -o baselib.cmo baselib.ml # cached
-# Target: compiler.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:compiler.cmo, file:compiler.ml, implem, ocaml, quiet }
-/usr/bin/ocamlc.opt -c -o compiler.cmo compiler.ml # cached
+/usr/bin/ocamlc.opt -c -o baselib.cmo baselib.ml
 # Target: lexer.mll, tags: { extension:mll, file:lexer.mll, lexer, ocaml, ocamllex, quiet }
 /usr/bin/ocamllex.opt -q lexer.mll # cached
 # Target: lexer.ml.depends, tags: { extension:ml, file:lexer.ml, ocaml, ocamldep, quiet }
 /usr/bin/ocamldep.opt -modules lexer.ml > lexer.ml.depends # cached
 # Target: parser.mly.depends, tags: { extension:mly, file:parser.mly, infer, menhir_ocamldep, ocaml, ocamldep, quiet }
-menhir --raw-depend --ocamldep '/usr/bin/ocamldep.opt -modules' parser.mly > parser.mly.depends # cached
+menhir --raw-depend --ocamldep '/usr/bin/ocamldep.opt -modules' parser.mly > parser.mly.depends
++ menhir --raw-depend --ocamldep '/usr/bin/ocamldep.opt -modules' parser.mly > parser.mly.depends
+File "parser.mly", line 10, characters 33-38:
+Warning: the token Lcpar is unused.
+File "parser.mly", line 10, characters 22-26:
+Warning: the token Ldiv is unused.
+File "parser.mly", line 10, characters 27-32:
+Warning: the token Lopar is unused.
+File "parser.mly", line 10, characters 12-16:
+Warning: the token Lsub is unused.
 # Target: parser.mly, tags: { byte, compile, extension:ml, extension:mly, file:parser.ml, file:parser.mly, infer, menhir, ocaml, parser, quiet }
-menhir --ocamlc /usr/bin/ocamlc.opt --infer parser.mly # cached
+menhir --ocamlc /usr/bin/ocamlc.opt --infer parser.mly
++ menhir --ocamlc /usr/bin/ocamlc.opt --infer parser.mly
+File "parser.mly", line 10, characters 33-38:
+Warning: the token Lcpar is unused.
+File "parser.mly", line 10, characters 22-26:
+Warning: the token Ldiv is unused.
+File "parser.mly", line 10, characters 27-32:
+Warning: the token Lopar is unused.
+File "parser.mly", line 10, characters 12-16:
+Warning: the token Lsub is unused.
+File "parser.mly", line 24, characters 0-5:
+Warning: the precedence level assigned to Ldiv is never useful.
+File "parser.mly", line 23, characters 0-5:
+Warning: the precedence level assigned to Lsub is never useful.
+Warning: 4 states have shift/reduce conflicts.
+Warning: 12 shift/reduce conflicts were arbitrarily resolved.
 # Target: parser.mli.depends, tags: { extension:mli, file:parser.mli, ocaml, ocamldep, quiet }
 /usr/bin/ocamldep.opt -modules parser.mli > parser.mli.depends # cached
 # Target: parser.cmi, tags: { byte, compile, extension:mli, file:parser.mli, interf, ocaml, quiet }
@@ -33,14 +55,67 @@ menhir --ocamlc /usr/bin/ocamlc.opt --infer parser.mly # cached
 /usr/bin/ocamlc.opt -c -o lexer.cmo lexer.ml # cached
 # Target: semantics.ml.depends, tags: { extension:ml, file:semantics.ml, ocaml, ocamldep, quiet }
 /usr/bin/ocamldep.opt -modules semantics.ml > semantics.ml.depends # cached
+# Target: compiler.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:compiler.cmo, file:compiler.ml, implem, ocaml, quiet }
+/usr/bin/ocamlc.opt -c -o compiler.cmo compiler.ml
++ /usr/bin/ocamlc.opt -c -o compiler.cmo compiler.ml
+File "compiler.ml", line 115, characters 6-7:
+115 |     | _ -> Printf.fprintf Stdlib.stdout " makach fonction 3emi ! " ;  0, []         )
+            ^
+Warning 11: this match case is unused.
 # Target: semantics.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:semantics.cmo, file:semantics.ml, implem, ocaml, quiet }
-/usr/bin/ocamlc.opt -c -o semantics.cmo semantics.ml # cached
+/usr/bin/ocamlc.opt -c -o semantics.cmo semantics.ml
++ /usr/bin/ocamlc.opt -c -o semantics.cmo semantics.ml
+File "semantics.ml", line 10, characters 2-294:
+10 | ..match type1 with 
+11 |     | Int_t(Int_t,_) -> (match type2 with 
+12 |                           | Int_t(Int_t,_) -> true 
+13 |                           | _ -> false)
+14 | 
+15 |     | Bool_t(Bool_t,_) -> (match type2 with 
+16 |                           | Bool_t(Bool_t,_) -> true 
+17 |                           | _ -> false).
+Warning 8: this pattern-matching is not exhaustive.
+Here is an example of a case that is not matched:
+(Int_t (Bool_t, _)|Bool_t (Int_t, _)|Func_t (_, _))
+File "semantics.ml", line 22, characters 2-125:
+22 | ..match expr with
+23 |   | Syntax.Int  n -> n.pos
+24 |   | Syntax.Bool b -> b.pos
+25 |   | Syntax.Var  v -> v.pos
+26 |   | Syntax.Call c -> c.pos
+Warning 8: this pattern-matching is not exhaustive.
+Here is an example of a case that is not matched:
+Str _
+File "semantics.ml", line 37, characters 2-1546:
+37 | ..match expr with
+38 |   | Syntax.Int n  ->  Value(Int n.value), Int_t(Int_t,true) (* retour de Int *) 
+39 |   | Syntax.Bool b -> (match b.value with 
+40 |                       | true  ->  Value(Bool 1), Bool_t(Bool_t,true)
+41 |                       | false ->  Value(Bool 0), Bool_t(Bool_t,true) ) (* retour de Bool*)
+...
+59 |      | Some _ -> raise (Error (Printf.sprintf "'%s' is not a function" c.func,
+60 |                                c.pos))
+61 |      | None -> raise (Error (Printf.sprintf "undefined function '%s'" c.func,
+62 |                              c.pos))
+Warning 8: this pattern-matching is not exhaustive.
+Here is an example of a case that is not matched:
+Str _
+File "semantics.ml", line 85, characters 14-132:
+85 | ..............match a.expr with 
+86 |                 | Var v -> raise (Error (Printf.sprintf "ununsigned variable  '%s'" v.name ,v.pos))
+Warning 8: this pattern-matching is not exhaustive.
+Here is an example of a case that is not matched:
+Int {pos=_; _ }
+File "semantics.ml", line 113, characters 6-7:
+113 |     | _ -> [] 
+            ^
+Warning 11: this match case is unused.
 # Target: main.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:main.cmo, file:main.ml, implem, ocaml, quiet }
-/usr/bin/ocamlc.opt -c -o main.cmo main.ml # cached
+/usr/bin/ocamlc.opt -c -o main.cmo main.ml
 # Target: parser.ml.depends, tags: { extension:ml, file:parser.ml, ocaml, ocamldep, quiet }
-/usr/bin/ocamldep.opt -modules parser.ml > parser.ml.depends # cached
+/usr/bin/ocamldep.opt -modules parser.ml > parser.ml.depends
 # Target: parser.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:parser.cmo, file:parser.ml, implem, ocaml, quiet }
-/usr/bin/ocamlc.opt -c -o parser.cmo parser.ml # cached
+/usr/bin/ocamlc.opt -c -o parser.cmo parser.ml
 # Target: main.byte, tags: { byte, dont_link_with, extension:byte, file:main.byte, link, ocaml, program, quiet }
-/usr/bin/ocamlc.opt ast.cmo mips.cmo baselib.cmo compiler.cmo parser.cmo lexer.cmo semantics.cmo main.cmo -o main.byte # cached
+/usr/bin/ocamlc.opt ast.cmo mips.cmo baselib.cmo compiler.cmo parser.cmo lexer.cmo semantics.cmo main.cmo -o main.byte
 # Compilation successful.
