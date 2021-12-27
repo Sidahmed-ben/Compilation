@@ -1,0 +1,10 @@
+func main () {
+    int a ;
+    int b ;
+    b = 0;
+    for( a = 1 ; a < 5 ; a = a * 2 )
+    
+        b = b + 10 ;
+    }
+
+}

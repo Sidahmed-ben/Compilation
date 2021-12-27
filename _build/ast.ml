@@ -52,6 +52,13 @@ module Syntax = struct
                 ; block2 : block
                 ; pos : Lexing.position
                 } 
+
+    |Boucle of { init   : instr
+               ;condit  : expr 
+               ;incr    : instr
+               ;bloc_f  : block
+               ;pos     : Lexing.position
+              }
       
   and block = instr list
   type def = 
@@ -75,13 +82,14 @@ module IR = struct
   type expr =
     | Value of value
     | Var  of ident
-    | Call of ident * expr list
+    | Call of ident * expr list 
   type instr =
     | Decl   of ident
     | Assign of ident * expr
     | Return of expr
-    | Expr   of expr
-    | Cond   of expr * block * block
+    | Cond   of expr  * block * block
+    | Boucle of instr * expr  * instr * block
+
   and block = instr list
   type def = 
     | Func of ident * ident list * block

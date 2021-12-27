@@ -15,6 +15,7 @@ type token =
   | Lint of (int)
   | Linf
   | Lfunc
+  | Lfor
   | Lend
   | Lelse
   | Ldiv

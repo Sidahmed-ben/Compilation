@@ -10,16 +10,8 @@
 %token Ladd Lsub Lmul Ldiv Lopar Lcpar
 %token Lreturn Lassign Lsc Lend
 %token <Ast.type_t>Ldecl
-%token Lparo
-%token Lparf
-%token Lacoo
-%token Lacof
-%token Lfunc
-%token Lcond
-%token Lelse
-%token Lsup
-%token Linf
-
+%token Lparo Lparf Lacoo Lacof Lfunc Lcond Lelse Lsup Linf Lfor
+ 
 %left Ladd Lsub
 %left Lmul Ldiv
 
@@ -45,6 +37,19 @@ prog:
 
 
 block: 
+
+
+| Lfor ; Lparo ; v = Lvar ; Lassign ; init = expr ; 
+  Lsc ; cond = expr ; Lsc ;  v_incr = Lvar  ; Lassign ; e_incr = expr  ; Lparf ; Lacoo ; b_for = block ; b = block { 
+                                                                      [Boucle{ 
+                                                                              init   = Assign { var = v ; expr = init ; pos = $startpos($2) }  
+                                                                            ; condit = cond
+                                                                            ; incr   = Assign { var = v_incr ; expr = e_incr ; pos = $startpos(e_incr) }
+                                                                            ; bloc_f = b_for
+                                                                            ; pos    = $startpos(v)
+                                                                             }] @ b  
+                                                                      
+                                                                      }    
 
 | Lcond ; Lparo ; e = expr ; Lparf ; Lacoo ; b1 = block  ; Lelse ; Lacoo ; b2 = block ; b = block
                                                                {
@@ -88,6 +93,7 @@ block:
                                        }
                               ] @ b
                            }
+
 
 | Lacof { [] }
  

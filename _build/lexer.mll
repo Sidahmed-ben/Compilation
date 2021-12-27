@@ -33,10 +33,15 @@ rule token = parse
 | "else"          {Lelse}
 | ">"             {Lsup}
 | "<"             {Linf}
+| "for"           {Lfor}
 
 | identifier+ as var { Lvar (var) }
-
 | '"'             { Lstring ( String.of_seq (List.to_seq (string_ lexbuf)) )  }
+
+| _ as c          {Printf.fprintf Stdlib.stdout "wch" ;raise (Error c) }
+
+
+
 and string_ = parse
 (* | eof { raise (StrEndError) } *)
 | '"' { [] } (* on a fini de lire la chaine, on renvoie la liste vide, dans tous les autres cas on construit une liste des caractères dans la chaine : celui lu suivi par la suite de la chaîne *)
@@ -47,7 +52,6 @@ and string_ = parse
 
 
 
-| _ as c          { raise (Error c) }
 
 
 

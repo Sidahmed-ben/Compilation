@@ -46,10 +46,7 @@ let rec compile_instr i info =
        code = info.code
               @ compile_expr e info.env
               @ [ B info.return ] }
-  (*| Expr e ->
-     { info with
-       code = info.code
-              @ compile_expr e info.env } *)
+
   | Assign (lv, e) -> Printf.fprintf Stdlib.stdout " Yes rani dkhelt f Assign   ! \n" ;
      { info with
        code = info.code
@@ -73,7 +70,30 @@ let rec compile_instr i info =
               @ [ Label ("endif" ^ uniq) ]
      ; counter = ce.counter }
 
-    | _ -> Printf.fprintf Stdlib.stdout " OUps dekhelt f else*********** ";  info  
+  | Boucle (init,condit,instr_incr,block_for) -> 
+        let uniq        =  string_of_int info.counter   in
+        let init_comp   =  compile_instr init           { info       with  code = [] }     in
+        let condit_comp =  compile_expr  condit   init_comp.env   in
+        let block_for_comp  =  compile_block block_for  { init_comp  with  code = [] }     in
+        let instr_incr_comp   =  compile_instr instr_incr    { block_for_comp  with code = [] } in
+
+        { info with 
+          code = info.code 
+                 @ init_comp.code 
+                 @ [Label ("loop"^uniq)]
+                 @ condit_comp 
+                 @ [Beqz(V0,"exit_loop"^uniq)]
+                 @ block_for_comp.code
+                 @ instr_incr_comp.code 
+                 @ [B ("loop"^uniq)
+                   ;Label ("exit_loop"^uniq)]
+        }        
+        
+        
+
+
+
+  | _ -> Printf.fprintf Stdlib.stdout " OUps dekhelt f else*********** ";  info  
 
 
 

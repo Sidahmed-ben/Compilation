@@ -16,6 +16,10 @@ let verify_type type1 type2 =
                           | Bool_t(Bool_t,_) -> true 
                           | _ -> false) 
     
+let verify_assignation = function
+  |  Int_t(Int_t,true)   -> true 
+  |  Bool_t(Bool_t, true) -> true
+  |  _ -> false
 
 
 let expr_pos expr =
@@ -24,6 +28,14 @@ let expr_pos expr =
   | Syntax.Bool b -> b.pos
   | Syntax.Var  v -> v.pos
   | Syntax.Call c -> c.pos
+
+  let var_name expr =
+    match expr with
+    | Var v -> v
+
+
+
+
 
 let errt expected given pos =
   raise (Error (Printf.sprintf "expected %s but given %s"
@@ -47,13 +59,20 @@ let rec analyze_expr expr env =
                      v.pos))
   | Syntax.Call c -> 
      match Env.find_opt c.func env with
-     | Some (Func_t (rt, at)) ->  Printf.fprintf Stdlib.stdout " Je suis dans (Func_t (rt, at)) ##";
+     | Some (Func_t (rt, at)) ->  (*Printf.fprintf Stdlib.stdout " Je suis dans (Func_t (rt, at)) ##";*)
         if List.length at != List.length c.args then
           raise (Error (Printf.sprintf "expected %d arguments but given %d"
                           (List.length at) (List.length c.args), c.pos)) ;
         let args = List.map2 (fun eat a -> let aa, at = analyze_expr a env
-                                           in if at = eat then aa  (* vérification des types des argument de la fonction dans la baselib.type_t et les types des arguments du call*)
-                                              else errt eat at (expr_pos a))
+                                           in if  verify_assignation at then 
+                                                begin
+                                                  if  verify_type at  eat then aa  (* vérification des types des argument de la fonction dans la baselib.type_t et les types des arguments du call*)
+                                                  else errt eat at (expr_pos a) 
+                                                end
+                                              else
+                                                begin
+                                                  raise (Error (Printf.sprintf "unasigned variable  '%s'" (var_name aa) ,c.pos))
+                                                end )
                      at c.args in
         Call (c.func, args), rt    (* retour de Call *)
      | Some _ -> raise (Error (Printf.sprintf "'%s' is not a function" c.func,
@@ -83,7 +102,7 @@ let rec analyze_instr instr env =
                             else
                               errt vt et (expr_pos a.expr)
       | _ ->  match a.expr with 
-                | Var v -> raise (Error (Printf.sprintf "ununsigned variable  '%s'" v.name ,v.pos))
+                | Var v -> raise (Error (Printf.sprintf "unasigned variable  '%s'" v.name ,v.pos))
     else 
       raise (Error (Printf.sprintf "unbound variable '%s'" a.var,a.pos))
 
@@ -96,8 +115,16 @@ let rec analyze_instr instr env =
                     let ab1, new_env1 = analyze_block c.block1 env  in 
                     let ab2, new_env2 = analyze_block c.block2 new_env1  in 
                     Cond(ae, ab1, ab2) , new_env2  
+  
+  |Syntax.Boucle b -> let ai , new_env  = analyze_instr b.init env         in
+                      let ae , et       = analyze_expr  b.condit  new_env  in
+                      let abf, new_enbf = analyze_block b.bloc_f  new_env  in  
+                      let aii , new_envb = analyze_instr b.incr   new_enbf in
+                     
+                      Boucle(ai,ae,aii,abf),  new_envb 
 
-                    
+
+
 
 and  analyze_block block env =
   match block with

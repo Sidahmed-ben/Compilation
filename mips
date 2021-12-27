@@ -1,3 +1,23 @@
+ Je suis dans (Func_t (rt, at)) ## Je suis dans (Func_t (rt, at)) ## Je suis dans (Func_t (rt, at)) ## Yes rani dkhelt f la fonction  ! 
+ Yes rani dkhelt f compile block   ! 
+ rani dkhelt dans instr une fois   ! 
+ Yes rani dkhelt f compile block   ! 
+ rani dkhelt dans instr une fois   ! 
+ Yes rani dkhelt f compile block   ! 
+ rani dkhelt dans instr une fois   ! 
+ Yes rani dkhelt f Assign   ! 
+ Yes rani dkhelt f compile block   ! 
+ rani dkhelt dans instr une fois   ! 
+ rani dkhelt dans instr une fois   ! 
+ Yes rani dkhelt f Assign   ! 
+ COMPILE VAR 
+ Yes rani dkhelt f compile block   ! 
+ rani dkhelt dans instr une fois   ! 
+ Yes rani dkhelt f Assign   ! 
+ COMPILE VAR 
+ rani dkhelt dans instr une fois   ! 
+ Yes rani dkhelt f Assign   ! 
+ COMPILE VAR 
 .text
 .globl main
 _inf:
@@ -73,7 +93,7 @@ loop1:
   sw $v0, -8($fp)
   b loop1
 exit_loop1:
-  lw $a0, -12($fp)
+  move $a0, $v0
   li $v0, 1
   syscall
 ret0:
