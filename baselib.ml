@@ -6,12 +6,13 @@ module Env = Map.Make(String)
 let _types_ =
   Env.of_seq
     (List.to_seq
-       [ "_add", Func_t (Int_t(Int_t,true), [ Int_t(Int_t,true) ; Int_t(Int_t,true) ])
-       ; "_sub", Func_t (Int_t(Int_t,true), [ Int_t(Int_t,true) ; Int_t(Int_t,true) ])
-       ; "_mul", Func_t (Int_t(Int_t,true), [ Int_t(Int_t,true) ; Int_t(Int_t,true) ])
-       ; "_div", Func_t (Int_t(Int_t,true), [ Int_t(Int_t,true) ; Int_t(Int_t,true) ])
-       ; "_inf", Func_t (Int_t(Int_t,true), [ Int_t(Int_t,true) ; Int_t(Int_t,true) ])
-       ; "_sup", Func_t (Int_t(Int_t,true), [ Int_t(Int_t,true) ; Int_t(Int_t,true) ])
+       [ "_add",  Func_t (Int_t(Int_t,true), [ Int_t(Int_t,true) ; Int_t(Int_t,true) ])
+       ; "_sub",  Func_t (Int_t(Int_t,true), [ Int_t(Int_t,true) ; Int_t(Int_t,true) ])
+       ; "_mul",  Func_t (Int_t(Int_t,true), [ Int_t(Int_t,true) ; Int_t(Int_t,true) ])
+       ; "_div",  Func_t (Int_t(Int_t,true), [ Int_t(Int_t,true) ; Int_t(Int_t,true) ])
+       ; "_inf",  Func_t (Int_t(Int_t,true), [ Int_t(Int_t,true) ; Int_t(Int_t,true) ])
+       ; "_sup",  Func_t (Int_t(Int_t,true), [ Int_t(Int_t,true) ; Int_t(Int_t,true) ])
+       ; "_puts", Func_t (Void_t, [Str_t])
     ])
 
 
@@ -43,19 +44,19 @@ let builtins =
   ; Mul (V0, T0, T1)
   ; Jr RA
 
-  ; Label "puti"
+  ; Label "_puti"
   ; Lw (A0, Mem (SP, 0))
   ; Li (V0, Syscall.print_int)
   ; Syscall
   ; Jr RA
 
-  ; Label "geti"
+  ; Label "_geti"
   (* ; Lw (A0, Mem (SP, 0)) *)
   ; Li (V0, Syscall.read_int)
   ; Syscall
   ; Jr RA
 
-  ; Label "puts"
+  ; Label "_puts"
   ; Lw (A0, Mem (SP, 0))
   ; Li (V0, Syscall.print_str)
   ; Syscall

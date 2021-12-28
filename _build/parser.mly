@@ -10,7 +10,7 @@
 %token Ladd Lsub Lmul Ldiv Lopar Lcpar
 %token Lreturn Lassign Lsc Lend
 %token <Ast.type_t>Ldecl
-%token Lparo Lparf Lacoo Lacof Lfunc Lcond Lelse Lsup Linf Lfor Lwhile
+%token Lparo Lparf Lacoo Lacof Lfunc Lcond Lelse Lsup Linf Lfor Lwhile Lprints
  
 %left Ladd Lsub
 %left Lmul Ldiv
@@ -37,6 +37,16 @@ prog:
 
 
 block: 
+
+| Lprints; Lparo ; str = expr ;Lparf ; Lsc ; b = block {
+                                                            [Call_func {
+                                                                          appel = Call { func = "_puts" 
+                                                                                        ;args = [str] 
+                                                                                        ;pos  = $startpos($1)}
+
+                                                                          ; pos = $startpos($1)
+                                                                       }] @ b
+                                                          }   
 
 | Lwhile ; Lparo ; condi = expr ; Lparf ; Lacoo ; b_while = block ; b = block {
                                                                             [Boucle_while{ 
@@ -124,6 +134,8 @@ expr:
                                           ;args = [i1 ; i2] 
                                           ;pos  = $startpos($2)}
                                }
+
+
 
 
 | a = expr ; Lmul ; b = expr {

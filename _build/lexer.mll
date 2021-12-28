@@ -35,9 +35,11 @@ rule token = parse
 | "<"             {Linf}
 | "for"           {Lfor}
 | "while"         {Lwhile}
-| identifier+ as var { Lvar (var) }
+| "prints"        {Lprints}
 | '"'             { Lstring ( String.of_seq (List.to_seq (string_ lexbuf)) )  }
 
+
+| identifier+ as var { Lvar (var) }
 | _ as c          {Printf.fprintf Stdlib.stdout "wch" ;raise (Error c) }
 
 

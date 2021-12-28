@@ -9,6 +9,7 @@ type token =
   | Lstring of (string)
   | Lsc
   | Lreturn
+  | Lprints
   | Lparo
   | Lparf
   | Lopar

@@ -13,10 +13,10 @@ type cinfo = { code: Mips.instr list
 
 let compile_value v =
   match v with
-  | Nil          ->  [ Li (V0, 0) ]
+  | Void          -> [ Li (V0, 0) ]
   | Bool b       ->  [ Li (V0, b) ]
   | Int  n       ->  [ Li (V0, n) ]
-  | Str  label   ->  [ La(V0, Lbl(label)) ] 
+  | Str  label   -> Printf.fprintf Stdlib.stdout "la chaine ->> %s\n" label ; [ La (V0, Lbl(label)) ] 
 
 let rec compile_expr e env =
   match e with
@@ -89,7 +89,7 @@ let rec compile_instr i info =
                    ;Label ("exit_loop_for"^uniq)]
           ; counter = info.counter +1
         }        
-        
+
     | Boucle_while(ana_cond, ana_blco_w) -> 
         let uniq =  string_of_int  (info.counter) in 
         let condit_comp      =  compile_expr ana_cond      info.env in
@@ -105,10 +105,17 @@ let rec compile_instr i info =
                    ;Label ("exit_loop_while"^uniq)]
           ; counter = info.counter +1
         }        
-        
+
+    | Call_func(appel) -> let call_compil =  compile_expr appel  info.env  in
+      {
+        info with 
+          code = info.code 
+                  @call_compil
+      }
 
 
 
+    
   | _ -> Printf.fprintf Stdlib.stdout " OUps dekhelt f else*********** ";  info  
 
 
@@ -161,7 +168,6 @@ let rec compile_prog p counter =
 
 
 
-let compile (code) =
+let compile (code, data,env) =
   { text = Baselib.builtins @ compile_prog code 0
-  ; data = [] }
-
+  ; data = List.map (fun (l, s) -> (l, Asciiz s)) data }

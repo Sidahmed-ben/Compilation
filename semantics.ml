@@ -15,10 +15,21 @@ let verify_type type1 type2 =
     | Bool_t(Bool_t,_) -> (match type2 with 
                           | Bool_t(Bool_t,_) -> true 
                           | _ -> false) 
+
+    | Str_t            -> (match type2 with
+                            | Str_t -> true
+                            | _     -> false)
+
+    | Void_t            -> (match type2 with
+                            | Void_t -> true
+                            | _     -> false)
+
     
 let verify_assignation = function
-  |  Int_t(Int_t,true)   -> true 
+  |  Int_t(Int_t,true)    -> true 
   |  Bool_t(Bool_t, true) -> true
+  |  Void_t                 -> true
+  |  Str_t                -> true 
   |  _ -> false
 
 
@@ -47,7 +58,9 @@ let errt expected given pos =
 
 let rec analyze_expr expr env =
   match expr with
-  | Syntax.Int n  ->  Value(Int n.value), Int_t(Int_t,true) (* retour de Int *) 
+  | Syntax.Void v   -> Value(Void) , Void_t
+  | Syntax.Str s   ->  Value(Str s.chaine), Str_t
+  | Syntax.Int n   ->  Value(Int n.value) , Int_t(Int_t,true) (* retour de Int *) 
   | Syntax.Bool b -> (match b.value with 
                       | true  ->  Value(Bool 1), Bool_t(Bool_t,true)
                       | false ->  Value(Bool 0), Bool_t(Bool_t,true) ) (* retour de Bool*)
@@ -129,6 +142,12 @@ let rec analyze_instr instr env =
                     let ana_blco_w, new_env = analyze_block w.bloc_w env  in
 
                     Boucle_while(ana_cond, ana_blco_w), new_env
+
+  |Syntax.Call_func f -> 
+                    let ana_call, type_Call_fun = analyze_expr f.appel env in
+
+                    Call_func (ana_call), env
+                              (*Call("_puts", [Value(Str_t("hello"))] )*)
 
 
 

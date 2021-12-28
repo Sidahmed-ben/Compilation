@@ -19,6 +19,7 @@ module MenhirBasics = struct
   )
     | Lsc
     | Lreturn
+    | Lprints
     | Lparo
     | Lparf
     | Lopar
@@ -26,7 +27,7 @@ module MenhirBasics = struct
     | Lint of (
 # 6 "parser.mly"
        (int)
-# 30 "parser.ml"
+# 31 "parser.ml"
   )
     | Linf
     | Lfunc
@@ -37,14 +38,14 @@ module MenhirBasics = struct
     | Ldecl of (
 # 12 "parser.mly"
        (Ast.type_t)
-# 41 "parser.ml"
+# 42 "parser.ml"
   )
     | Lcpar
     | Lcond
     | Lbool of (
 # 9 "parser.mly"
        (bool)
-# 48 "parser.ml"
+# 49 "parser.ml"
   )
     | Lassign
     | Ladd
@@ -66,34 +67,38 @@ type _menhir_env = {
 }
 
 and _menhir_state = 
-  | MenhirState103
+  | MenhirState114
+  | MenhirState113
+  | MenhirState111
+  | MenhirState110
+  | MenhirState107
+  | MenhirState105
   | MenhirState102
-  | MenhirState100
-  | MenhirState99
-  | MenhirState96
+  | MenhirState101
+  | MenhirState98
   | MenhirState94
-  | MenhirState91
-  | MenhirState90
-  | MenhirState87
+  | MenhirState92
+  | MenhirState88
+  | MenhirState85
   | MenhirState83
   | MenhirState81
-  | MenhirState77
-  | MenhirState75
+  | MenhirState80
+  | MenhirState78
+  | MenhirState76
   | MenhirState74
-  | MenhirState72
-  | MenhirState70
-  | MenhirState68
+  | MenhirState69
+  | MenhirState65
   | MenhirState64
+  | MenhirState62
   | MenhirState60
-  | MenhirState59
   | MenhirState57
   | MenhirState55
   | MenhirState52
-  | MenhirState50
-  | MenhirState47
-  | MenhirState44
-  | MenhirState40
-  | MenhirState38
+  | MenhirState49
+  | MenhirState45
+  | MenhirState43
+  | MenhirState39
+  | MenhirState36
   | MenhirState34
   | MenhirState32
   | MenhirState31
@@ -113,7 +118,7 @@ and _menhir_state =
   open Ast
   open Ast.Syntax
 
-# 117 "parser.ml"
+# 122 "parser.ml"
 
 let rec _menhir_run13 : _menhir_env -> 'ttv_tail * _menhir_state * (Ast.Syntax.expr) * Lexing.position -> Lexing.position -> 'ttv_return =
   fun _menhir_env _menhir_stack _startpos ->
@@ -196,7 +201,7 @@ and _menhir_fail : unit -> 'a =
     Printf.fprintf stderr "Internal failure -- please contact the parser generator's developers.\n%!";
     assert false
 
-and _menhir_reduce1 : _menhir_env -> (((((('ttv_tail * _menhir_state) * Lexing.position) * _menhir_state * (Ast.Syntax.expr) * Lexing.position))) * _menhir_state * (Ast.Syntax.block)) * _menhir_state * (Ast.Syntax.block) -> 'ttv_return =
+and _menhir_reduce2 : _menhir_env -> (((((('ttv_tail * _menhir_state) * Lexing.position) * _menhir_state * (Ast.Syntax.expr) * Lexing.position))) * _menhir_state * (Ast.Syntax.block)) * _menhir_state * (Ast.Syntax.block) -> 'ttv_return =
   fun _menhir_env _menhir_stack ->
     let (((((_menhir_stack, _menhir_s), _startpos__2_), _, (condi : (Ast.Syntax.expr)), _startpos_condi_), _, (b_while : (Ast.Syntax.block))), _, (b : (Ast.Syntax.block))) = _menhir_stack in
     let _5 = () in
@@ -204,7 +209,7 @@ and _menhir_reduce1 : _menhir_env -> (((((('ttv_tail * _menhir_state) * Lexing.p
     let _2 = () in
     let _1 = () in
     let _v : (Ast.Syntax.block) = 
-# 41 "parser.mly"
+# 51 "parser.mly"
                                                                               (
                                                                             [Boucle_while{ 
                                                                               condit = condi
@@ -212,25 +217,25 @@ and _menhir_reduce1 : _menhir_env -> (((((('ttv_tail * _menhir_state) * Lexing.p
                                                                             ; pos    = _startpos_condi_
                                                                              }] @ b  
                                                                           )
-# 216 "parser.ml"
+# 221 "parser.ml"
      in
     _menhir_goto_block _menhir_env _menhir_stack _menhir_s _v
 
-and _menhir_reduce6 : _menhir_env -> (((('ttv_tail * _menhir_state * (
+and _menhir_reduce7 : _menhir_env -> (((('ttv_tail * _menhir_state * (
 # 7 "parser.mly"
        (string)
-# 223 "parser.ml"
+# 228 "parser.ml"
 ) * Lexing.position) * Lexing.position) * _menhir_state * (Ast.Syntax.expr) * Lexing.position)) * _menhir_state * (Ast.Syntax.block) -> 'ttv_return =
   fun _menhir_env _menhir_stack ->
     let ((((_menhir_stack, _menhir_s, (v : (
 # 7 "parser.mly"
        (string)
-# 229 "parser.ml"
+# 234 "parser.ml"
     )), _startpos_v_), _startpos__2_), _, (e : (Ast.Syntax.expr)), _startpos_e_), _, (b : (Ast.Syntax.block))) = _menhir_stack in
     let _4 = () in
     let _2 = () in
     let _v : (Ast.Syntax.block) = 
-# 89 "parser.mly"
+# 99 "parser.mly"
                                                    (
                                                       [ Assign {    var = v 
                                                                   ; expr = e
@@ -238,45 +243,67 @@ and _menhir_reduce6 : _menhir_env -> (((('ttv_tail * _menhir_state * (
                                                                }      
                                                       ] @ b
                                         )
-# 242 "parser.ml"
+# 247 "parser.ml"
      in
     _menhir_goto_block _menhir_env _menhir_stack _menhir_s _v
 
-and _menhir_reduce7 : _menhir_env -> ((('ttv_tail * _menhir_state * Lexing.position) * _menhir_state * (Ast.Syntax.expr) * Lexing.position)) * _menhir_state * (Ast.Syntax.block) -> 'ttv_return =
+and _menhir_reduce8 : _menhir_env -> ((('ttv_tail * _menhir_state * Lexing.position) * _menhir_state * (Ast.Syntax.expr) * Lexing.position)) * _menhir_state * (Ast.Syntax.block) -> 'ttv_return =
   fun _menhir_env _menhir_stack ->
     let (((_menhir_stack, _menhir_s, _startpos__1_), _, (e : (Ast.Syntax.expr)), _startpos_e_), _, (b : (Ast.Syntax.block))) = _menhir_stack in
     let _3 = () in
     let _1 = () in
     let _v : (Ast.Syntax.block) = 
-# 97 "parser.mly"
+# 107 "parser.mly"
                                         (
                               [ Return {  expr = e 
                                         ; pos = _startpos__1_ 
                                        }
                               ] @ b
                            )
-# 259 "parser.ml"
+# 264 "parser.ml"
      in
     _menhir_goto_block _menhir_env _menhir_stack _menhir_s _v
 
-and _menhir_reduce2 : _menhir_env -> (((((((((((((('ttv_tail * _menhir_state) * Lexing.position) * (
+and _menhir_reduce1 : _menhir_env -> ((((('ttv_tail * _menhir_state * Lexing.position) * Lexing.position) * _menhir_state * (Ast.Syntax.expr) * Lexing.position))) * _menhir_state * (Ast.Syntax.block) -> 'ttv_return =
+  fun _menhir_env _menhir_stack ->
+    let ((((_menhir_stack, _menhir_s, _startpos__1_), _startpos__2_), _, (str : (Ast.Syntax.expr)), _startpos_str_), _, (b : (Ast.Syntax.block))) = _menhir_stack in
+    let _5 = () in
+    let _4 = () in
+    let _2 = () in
+    let _1 = () in
+    let _v : (Ast.Syntax.block) = 
+# 41 "parser.mly"
+                                                       (
+                                                            [Call_func {
+                                                                          appel = Call { func = "_puts" 
+                                                                                        ;args = [str] 
+                                                                                        ;pos  = _startpos__1_}
+
+                                                                          ; pos = _startpos__1_
+                                                                       }] @ b
+                                                          )
+# 286 "parser.ml"
+     in
+    _menhir_goto_block _menhir_env _menhir_stack _menhir_s _v
+
+and _menhir_reduce3 : _menhir_env -> (((((((((((((('ttv_tail * _menhir_state) * Lexing.position) * (
 # 7 "parser.mly"
        (string)
-# 266 "parser.ml"
+# 293 "parser.ml"
 ) * Lexing.position) * Lexing.position) * _menhir_state * (Ast.Syntax.expr) * Lexing.position)) * _menhir_state * (Ast.Syntax.expr) * Lexing.position)) * (
 # 7 "parser.mly"
        (string)
-# 270 "parser.ml"
+# 297 "parser.ml"
 ) * Lexing.position) * Lexing.position) * _menhir_state * (Ast.Syntax.expr) * Lexing.position))) * _menhir_state * (Ast.Syntax.block)) * _menhir_state * (Ast.Syntax.block) -> 'ttv_return =
   fun _menhir_env _menhir_stack ->
     let (((((((((((_menhir_stack, _menhir_s), _startpos__2_), (v : (
 # 7 "parser.mly"
        (string)
-# 276 "parser.ml"
+# 303 "parser.ml"
     )), _startpos_v_), _startpos__4_), _, (init : (Ast.Syntax.expr)), _startpos_init_), _, (cond : (Ast.Syntax.expr)), _startpos_cond_), (v_incr : (
 # 7 "parser.mly"
        (string)
-# 280 "parser.ml"
+# 307 "parser.ml"
     )), _startpos_v_incr_), _startpos__10_), _, (e_incr : (Ast.Syntax.expr)), _startpos_e_incr_), _, (b_for : (Ast.Syntax.block))), _, (b : (Ast.Syntax.block))) = _menhir_stack in
     let _13 = () in
     let _12 = () in
@@ -287,7 +314,7 @@ and _menhir_reduce2 : _menhir_env -> (((((((((((((('ttv_tail * _menhir_state) * 
     let _2 = () in
     let _1 = () in
     let _v : (Ast.Syntax.block) = 
-# 50 "parser.mly"
+# 60 "parser.mly"
                                                                                                                    ( 
                                                                       [Boucle{ 
                                                                               init   = Assign { var = v ; expr = init ; pos = _startpos__2_ }  
@@ -298,43 +325,43 @@ and _menhir_reduce2 : _menhir_env -> (((((((((((((('ttv_tail * _menhir_state) * 
                                                                              }] @ b  
                                                                       
                                                                       )
-# 302 "parser.ml"
+# 329 "parser.ml"
      in
     _menhir_goto_block _menhir_env _menhir_stack _menhir_s _v
 
-and _menhir_reduce5 : _menhir_env -> ((('ttv_tail * _menhir_state * (
+and _menhir_reduce6 : _menhir_env -> ((('ttv_tail * _menhir_state * (
 # 12 "parser.mly"
        (Ast.type_t)
-# 309 "parser.ml"
+# 336 "parser.ml"
 ) * Lexing.position) * (
 # 7 "parser.mly"
        (string)
-# 313 "parser.ml"
+# 340 "parser.ml"
 ) * Lexing.position)) * _menhir_state * (Ast.Syntax.block) -> 'ttv_return =
   fun _menhir_env _menhir_stack ->
     let (((_menhir_stack, _menhir_s, (i : (
 # 12 "parser.mly"
        (Ast.type_t)
-# 319 "parser.ml"
+# 346 "parser.ml"
     )), _startpos_i_), (v : (
 # 7 "parser.mly"
        (string)
-# 323 "parser.ml"
+# 350 "parser.ml"
     )), _startpos_v_), _, (b : (Ast.Syntax.block))) = _menhir_stack in
     let _3 = () in
     let _v : (Ast.Syntax.block) = 
-# 82 "parser.mly"
+# 92 "parser.mly"
                                           ( [ Decl {      name = v
                                                         ; type_t = i
                                                         ; pos  = _startpos_i_
                                                    } 
                                             ] @ b 
                                           )
-# 334 "parser.ml"
+# 361 "parser.ml"
      in
     _menhir_goto_block _menhir_env _menhir_stack _menhir_s _v
 
-and _menhir_reduce4 : _menhir_env -> (((((('ttv_tail * _menhir_state) * Lexing.position) * _menhir_state * (Ast.Syntax.expr) * Lexing.position))) * _menhir_state * (Ast.Syntax.block)) * _menhir_state * (Ast.Syntax.block) -> 'ttv_return =
+and _menhir_reduce5 : _menhir_env -> (((((('ttv_tail * _menhir_state) * Lexing.position) * _menhir_state * (Ast.Syntax.expr) * Lexing.position))) * _menhir_state * (Ast.Syntax.block)) * _menhir_state * (Ast.Syntax.block) -> 'ttv_return =
   fun _menhir_env _menhir_stack ->
     let (((((_menhir_stack, _menhir_s), _startpos__2_), _, (e : (Ast.Syntax.expr)), _startpos_e_), _, (b1 : (Ast.Syntax.block))), _, (b : (Ast.Syntax.block))) = _menhir_stack in
     let _5 = () in
@@ -342,7 +369,7 @@ and _menhir_reduce4 : _menhir_env -> (((((('ttv_tail * _menhir_state) * Lexing.p
     let _2 = () in
     let _1 = () in
     let _v : (Ast.Syntax.block) = 
-# 72 "parser.mly"
+# 82 "parser.mly"
                                                                (
                                                                   [ Cond { expr = e 
                                                                           ;block1 = b1
@@ -351,11 +378,11 @@ and _menhir_reduce4 : _menhir_env -> (((((('ttv_tail * _menhir_state) * Lexing.p
                                                                         }
                                                                   ] @ b
                                                                )
-# 355 "parser.ml"
+# 382 "parser.ml"
      in
     _menhir_goto_block _menhir_env _menhir_stack _menhir_s _v
 
-and _menhir_reduce3 : _menhir_env -> ((((((((('ttv_tail * _menhir_state) * Lexing.position) * _menhir_state * (Ast.Syntax.expr) * Lexing.position))) * _menhir_state * (Ast.Syntax.block)) * _menhir_state)) * _menhir_state * (Ast.Syntax.block)) * _menhir_state * (Ast.Syntax.block) -> 'ttv_return =
+and _menhir_reduce4 : _menhir_env -> ((((((((('ttv_tail * _menhir_state) * Lexing.position) * _menhir_state * (Ast.Syntax.expr) * Lexing.position))) * _menhir_state * (Ast.Syntax.block)) * _menhir_state)) * _menhir_state * (Ast.Syntax.block)) * _menhir_state * (Ast.Syntax.block) -> 'ttv_return =
   fun _menhir_env _menhir_stack ->
     let (((((((_menhir_stack, _menhir_s), _startpos__2_), _, (e : (Ast.Syntax.expr)), _startpos_e_), _, (b1 : (Ast.Syntax.block))), _), _, (b2 : (Ast.Syntax.block))), _, (b : (Ast.Syntax.block))) = _menhir_stack in
     let _8 = () in
@@ -365,7 +392,7 @@ and _menhir_reduce3 : _menhir_env -> ((((((((('ttv_tail * _menhir_state) * Lexin
     let _2 = () in
     let _1 = () in
     let _v : (Ast.Syntax.block) = 
-# 62 "parser.mly"
+# 72 "parser.mly"
                                                                (
                                                                   [ Cond { expr = e 
                                                                           ;block1 = b1
@@ -374,7 +401,7 @@ and _menhir_reduce3 : _menhir_env -> ((((((((('ttv_tail * _menhir_state) * Lexin
                                                                         }
                                                                   ] @ b
                                                                )
-# 378 "parser.ml"
+# 405 "parser.ml"
      in
     _menhir_goto_block _menhir_env _menhir_stack _menhir_s _v
 
@@ -413,7 +440,7 @@ and _menhir_run23 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
 and _menhir_run28 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 7 "parser.mly"
        (string)
-# 417 "parser.ml"
+# 444 "parser.ml"
 ) -> Lexing.position -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v _startpos ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v, _startpos) in
@@ -465,7 +492,39 @@ and _menhir_run32 : _menhir_env -> 'ttv_tail -> _menhir_state -> Lexing.position
         _menhir_env._menhir_error <- true;
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState32
 
-and _menhir_run35 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
+and _menhir_run35 : _menhir_env -> 'ttv_tail -> _menhir_state -> Lexing.position -> 'ttv_return =
+  fun _menhir_env _menhir_stack _menhir_s _startpos ->
+    let _menhir_stack = (_menhir_stack, _menhir_s, _startpos) in
+    let _menhir_env = _menhir_discard _menhir_env in
+    let _tok = _menhir_env._menhir_token in
+    match _tok with
+    | Lparo ->
+        let _menhir_stack = Obj.magic _menhir_stack in
+        let _startpos = _menhir_env._menhir_lexbuf.Lexing.lex_start_p in
+        let _menhir_stack = (_menhir_stack, _startpos) in
+        let _menhir_env = _menhir_discard _menhir_env in
+        let _tok = _menhir_env._menhir_token in
+        (match _tok with
+        | Lbool _v ->
+            _menhir_run11 _menhir_env (Obj.magic _menhir_stack) MenhirState36 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        | Lint _v ->
+            _menhir_run10 _menhir_env (Obj.magic _menhir_stack) MenhirState36 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        | Lstring _v ->
+            _menhir_run9 _menhir_env (Obj.magic _menhir_stack) MenhirState36 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        | Lvar _v ->
+            _menhir_run8 _menhir_env (Obj.magic _menhir_stack) MenhirState36 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        | _ ->
+            assert (not _menhir_env._menhir_error);
+            _menhir_env._menhir_error <- true;
+            _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState36)
+    | _ ->
+        assert (not _menhir_env._menhir_error);
+        _menhir_env._menhir_error <- true;
+        let _menhir_stack = Obj.magic _menhir_stack in
+        let (_menhir_stack, _menhir_s, _) = _menhir_stack in
+        _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
+
+and _menhir_run40 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s ->
     let _menhir_stack = (_menhir_stack, _menhir_s) in
     let _menhir_env = _menhir_discard _menhir_env in
@@ -493,17 +552,17 @@ and _menhir_run35 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
                 let _tok = _menhir_env._menhir_token in
                 (match _tok with
                 | Lbool _v ->
-                    _menhir_run11 _menhir_env (Obj.magic _menhir_stack) MenhirState38 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                    _menhir_run11 _menhir_env (Obj.magic _menhir_stack) MenhirState43 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lint _v ->
-                    _menhir_run10 _menhir_env (Obj.magic _menhir_stack) MenhirState38 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                    _menhir_run10 _menhir_env (Obj.magic _menhir_stack) MenhirState43 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lstring _v ->
-                    _menhir_run9 _menhir_env (Obj.magic _menhir_stack) MenhirState38 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                    _menhir_run9 _menhir_env (Obj.magic _menhir_stack) MenhirState43 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lvar _v ->
-                    _menhir_run8 _menhir_env (Obj.magic _menhir_stack) MenhirState38 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                    _menhir_run8 _menhir_env (Obj.magic _menhir_stack) MenhirState43 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | _ ->
                     assert (not _menhir_env._menhir_error);
                     _menhir_env._menhir_error <- true;
-                    _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState38)
+                    _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState43)
             | _ ->
                 assert (not _menhir_env._menhir_error);
                 _menhir_env._menhir_error <- true;
@@ -523,10 +582,10 @@ and _menhir_run35 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
         let (_menhir_stack, _menhir_s) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
 
-and _menhir_run48 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
+and _menhir_run53 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 12 "parser.mly"
        (Ast.type_t)
-# 530 "parser.ml"
+# 589 "parser.ml"
 ) -> Lexing.position -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v _startpos ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v, _startpos) in
@@ -546,23 +605,25 @@ and _menhir_run48 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
             let _tok = _menhir_env._menhir_token in
             (match _tok with
             | Lacof ->
-                _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState50
+                _menhir_run61 _menhir_env (Obj.magic _menhir_stack) MenhirState55
             | Lcond ->
-                _menhir_run51 _menhir_env (Obj.magic _menhir_stack) MenhirState50
+                _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState55
             | Ldecl _v ->
-                _menhir_run48 _menhir_env (Obj.magic _menhir_stack) MenhirState50 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                _menhir_run53 _menhir_env (Obj.magic _menhir_stack) MenhirState55 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
             | Lfor ->
-                _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState50
+                _menhir_run40 _menhir_env (Obj.magic _menhir_stack) MenhirState55
+            | Lprints ->
+                _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState55 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
             | Lreturn ->
-                _menhir_run32 _menhir_env (Obj.magic _menhir_stack) MenhirState50 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                _menhir_run32 _menhir_env (Obj.magic _menhir_stack) MenhirState55 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
             | Lvar _v ->
-                _menhir_run28 _menhir_env (Obj.magic _menhir_stack) MenhirState50 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                _menhir_run28 _menhir_env (Obj.magic _menhir_stack) MenhirState55 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
             | Lwhile ->
-                _menhir_run23 _menhir_env (Obj.magic _menhir_stack) MenhirState50
+                _menhir_run23 _menhir_env (Obj.magic _menhir_stack) MenhirState55
             | _ ->
                 assert (not _menhir_env._menhir_error);
                 _menhir_env._menhir_error <- true;
-                _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState50)
+                _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState55)
         | _ ->
             assert (not _menhir_env._menhir_error);
             _menhir_env._menhir_error <- true;
@@ -576,7 +637,7 @@ and _menhir_run48 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
         let (_menhir_stack, _menhir_s, _, _) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
 
-and _menhir_run51 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
+and _menhir_run56 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s ->
     let _menhir_stack = (_menhir_stack, _menhir_s) in
     let _menhir_env = _menhir_discard _menhir_env in
@@ -590,17 +651,17 @@ and _menhir_run51 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
         let _tok = _menhir_env._menhir_token in
         (match _tok with
         | Lbool _v ->
-            _menhir_run11 _menhir_env (Obj.magic _menhir_stack) MenhirState52 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run11 _menhir_env (Obj.magic _menhir_stack) MenhirState57 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lint _v ->
-            _menhir_run10 _menhir_env (Obj.magic _menhir_stack) MenhirState52 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run10 _menhir_env (Obj.magic _menhir_stack) MenhirState57 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lstring _v ->
-            _menhir_run9 _menhir_env (Obj.magic _menhir_stack) MenhirState52 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run9 _menhir_env (Obj.magic _menhir_stack) MenhirState57 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lvar _v ->
-            _menhir_run8 _menhir_env (Obj.magic _menhir_stack) MenhirState52 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run8 _menhir_env (Obj.magic _menhir_stack) MenhirState57 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | _ ->
             assert (not _menhir_env._menhir_error);
             _menhir_env._menhir_error <- true;
-            _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState52)
+            _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState57)
     | _ ->
         assert (not _menhir_env._menhir_error);
         _menhir_env._menhir_error <- true;
@@ -608,10 +669,10 @@ and _menhir_run51 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
         let (_menhir_stack, _menhir_s) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
 
-and _menhir_run56 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
+and _menhir_run61 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s ->
     let _menhir_env = _menhir_discard _menhir_env in
-    _menhir_reduce8 _menhir_env (Obj.magic _menhir_stack) _menhir_s
+    _menhir_reduce9 _menhir_env (Obj.magic _menhir_stack) _menhir_s
 
 and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax.expr) -> Lexing.position -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v _startpos ->
@@ -639,13 +700,15 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
                 let _tok = _menhir_env._menhir_token in
                 (match _tok with
                 | Lacof ->
-                    _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState22
+                    _menhir_run61 _menhir_env (Obj.magic _menhir_stack) MenhirState22
                 | Lcond ->
-                    _menhir_run51 _menhir_env (Obj.magic _menhir_stack) MenhirState22
+                    _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState22
                 | Ldecl _v ->
-                    _menhir_run48 _menhir_env (Obj.magic _menhir_stack) MenhirState22 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                    _menhir_run53 _menhir_env (Obj.magic _menhir_stack) MenhirState22 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lfor ->
-                    _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState22
+                    _menhir_run40 _menhir_env (Obj.magic _menhir_stack) MenhirState22
+                | Lprints ->
+                    _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState22 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lreturn ->
                     _menhir_run32 _menhir_env (Obj.magic _menhir_stack) MenhirState22 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lvar _v ->
@@ -689,12 +752,12 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
             let _2 = () in
             let _startpos = _startpos_i1_ in
             let _v : (Ast.Syntax.expr) = 
-# 123 "parser.mly"
+# 133 "parser.mly"
                                (    Call { func = "_sup" 
                                           ;args = [i1 ; i2] 
                                           ;pos  = _startpos__2_}
                                )
-# 698 "parser.ml"
+# 761 "parser.ml"
              in
             _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v _startpos
         | _ ->
@@ -718,13 +781,13 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
             let _2 = () in
             let _startpos = _startpos_a_ in
             let _v : (Ast.Syntax.expr) = 
-# 129 "parser.mly"
+# 141 "parser.mly"
                              (
   Call { func = "_mul" 
         ;args = [a ; b] 
         ;pos  = _startpos__2_}
   )
-# 728 "parser.ml"
+# 791 "parser.ml"
              in
             _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v _startpos
         | _ ->
@@ -752,12 +815,12 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
             let _2 = () in
             let _startpos = _startpos_i1_ in
             let _v : (Ast.Syntax.expr) = 
-# 118 "parser.mly"
+# 128 "parser.mly"
                                (    Call { func = "_inf" 
                                           ;args = [i1 ; i2] 
                                           ;pos  = _startpos__2_}
                                )
-# 761 "parser.ml"
+# 824 "parser.ml"
              in
             _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v _startpos
         | _ ->
@@ -783,14 +846,14 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
             let _2 = () in
             let _startpos = _startpos_a_ in
             let _v : (Ast.Syntax.expr) = 
-# 135 "parser.mly"
+# 147 "parser.mly"
                              (   
   Call {
       func = "_add"
     ; args = [a ; b]
     ; pos = _startpos__2_}
   )
-# 794 "parser.ml"
+# 857 "parser.ml"
              in
             _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v _startpos
         | _ ->
@@ -821,13 +884,15 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
                 let _tok = _menhir_env._menhir_token in
                 (match _tok with
                 | Lacof ->
-                    _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState27
+                    _menhir_run61 _menhir_env (Obj.magic _menhir_stack) MenhirState27
                 | Lcond ->
-                    _menhir_run51 _menhir_env (Obj.magic _menhir_stack) MenhirState27
+                    _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState27
                 | Ldecl _v ->
-                    _menhir_run48 _menhir_env (Obj.magic _menhir_stack) MenhirState27 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                    _menhir_run53 _menhir_env (Obj.magic _menhir_stack) MenhirState27 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lfor ->
-                    _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState27
+                    _menhir_run40 _menhir_env (Obj.magic _menhir_stack) MenhirState27
+                | Lprints ->
+                    _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState27 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lreturn ->
                     _menhir_run32 _menhir_env (Obj.magic _menhir_stack) MenhirState27 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lvar _v ->
@@ -869,13 +934,15 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
             let _tok = _menhir_env._menhir_token in
             (match _tok with
             | Lacof ->
-                _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState31
+                _menhir_run61 _menhir_env (Obj.magic _menhir_stack) MenhirState31
             | Lcond ->
-                _menhir_run51 _menhir_env (Obj.magic _menhir_stack) MenhirState31
+                _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState31
             | Ldecl _v ->
-                _menhir_run48 _menhir_env (Obj.magic _menhir_stack) MenhirState31 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                _menhir_run53 _menhir_env (Obj.magic _menhir_stack) MenhirState31 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
             | Lfor ->
-                _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState31
+                _menhir_run40 _menhir_env (Obj.magic _menhir_stack) MenhirState31
+            | Lprints ->
+                _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState31 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
             | Lreturn ->
                 _menhir_run32 _menhir_env (Obj.magic _menhir_stack) MenhirState31 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
             | Lvar _v ->
@@ -911,13 +978,15 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
             let _tok = _menhir_env._menhir_token in
             (match _tok with
             | Lacof ->
-                _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState34
+                _menhir_run61 _menhir_env (Obj.magic _menhir_stack) MenhirState34
             | Lcond ->
-                _menhir_run51 _menhir_env (Obj.magic _menhir_stack) MenhirState34
+                _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState34
             | Ldecl _v ->
-                _menhir_run48 _menhir_env (Obj.magic _menhir_stack) MenhirState34 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                _menhir_run53 _menhir_env (Obj.magic _menhir_stack) MenhirState34 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
             | Lfor ->
-                _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState34
+                _menhir_run40 _menhir_env (Obj.magic _menhir_stack) MenhirState34
+            | Lprints ->
+                _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState34 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
             | Lreturn ->
                 _menhir_run32 _menhir_env (Obj.magic _menhir_stack) MenhirState34 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
             | Lvar _v ->
@@ -936,7 +1005,62 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
             let _menhir_stack = Obj.magic _menhir_stack in
             let (_menhir_stack, _menhir_s, _, _) = _menhir_stack in
             _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s)
-    | MenhirState38 ->
+    | MenhirState36 ->
+        let _menhir_stack = Obj.magic _menhir_stack in
+        assert (not _menhir_env._menhir_error);
+        let _tok = _menhir_env._menhir_token in
+        (match _tok with
+        | Ladd ->
+            _menhir_run19 _menhir_env (Obj.magic _menhir_stack) _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        | Linf ->
+            _menhir_run17 _menhir_env (Obj.magic _menhir_stack) _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        | Lmul ->
+            _menhir_run15 _menhir_env (Obj.magic _menhir_stack) _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        | Lparf ->
+            let _menhir_stack = Obj.magic _menhir_stack in
+            let _menhir_env = _menhir_discard _menhir_env in
+            let _tok = _menhir_env._menhir_token in
+            (match _tok with
+            | Lsc ->
+                let _menhir_stack = Obj.magic _menhir_stack in
+                let _menhir_env = _menhir_discard _menhir_env in
+                let _tok = _menhir_env._menhir_token in
+                (match _tok with
+                | Lacof ->
+                    _menhir_run61 _menhir_env (Obj.magic _menhir_stack) MenhirState39
+                | Lcond ->
+                    _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState39
+                | Ldecl _v ->
+                    _menhir_run53 _menhir_env (Obj.magic _menhir_stack) MenhirState39 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                | Lfor ->
+                    _menhir_run40 _menhir_env (Obj.magic _menhir_stack) MenhirState39
+                | Lprints ->
+                    _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState39 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                | Lreturn ->
+                    _menhir_run32 _menhir_env (Obj.magic _menhir_stack) MenhirState39 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                | Lvar _v ->
+                    _menhir_run28 _menhir_env (Obj.magic _menhir_stack) MenhirState39 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                | Lwhile ->
+                    _menhir_run23 _menhir_env (Obj.magic _menhir_stack) MenhirState39
+                | _ ->
+                    assert (not _menhir_env._menhir_error);
+                    _menhir_env._menhir_error <- true;
+                    _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState39)
+            | _ ->
+                assert (not _menhir_env._menhir_error);
+                _menhir_env._menhir_error <- true;
+                let _menhir_stack = Obj.magic _menhir_stack in
+                let (_menhir_stack, _menhir_s, _, _) = _menhir_stack in
+                _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s)
+        | Lsup ->
+            _menhir_run13 _menhir_env (Obj.magic _menhir_stack) _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        | _ ->
+            assert (not _menhir_env._menhir_error);
+            _menhir_env._menhir_error <- true;
+            let _menhir_stack = Obj.magic _menhir_stack in
+            let (_menhir_stack, _menhir_s, _, _) = _menhir_stack in
+            _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s)
+    | MenhirState43 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         assert (not _menhir_env._menhir_error);
         let _tok = _menhir_env._menhir_token in
@@ -953,17 +1077,17 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
             let _tok = _menhir_env._menhir_token in
             (match _tok with
             | Lbool _v ->
-                _menhir_run11 _menhir_env (Obj.magic _menhir_stack) MenhirState40 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                _menhir_run11 _menhir_env (Obj.magic _menhir_stack) MenhirState45 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
             | Lint _v ->
-                _menhir_run10 _menhir_env (Obj.magic _menhir_stack) MenhirState40 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                _menhir_run10 _menhir_env (Obj.magic _menhir_stack) MenhirState45 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
             | Lstring _v ->
-                _menhir_run9 _menhir_env (Obj.magic _menhir_stack) MenhirState40 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                _menhir_run9 _menhir_env (Obj.magic _menhir_stack) MenhirState45 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
             | Lvar _v ->
-                _menhir_run8 _menhir_env (Obj.magic _menhir_stack) MenhirState40 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                _menhir_run8 _menhir_env (Obj.magic _menhir_stack) MenhirState45 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
             | _ ->
                 assert (not _menhir_env._menhir_error);
                 _menhir_env._menhir_error <- true;
-                _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState40)
+                _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState45)
         | Lsup ->
             _menhir_run13 _menhir_env (Obj.magic _menhir_stack) _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | _ ->
@@ -972,7 +1096,7 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
             let _menhir_stack = Obj.magic _menhir_stack in
             let (_menhir_stack, _menhir_s, _, _) = _menhir_stack in
             _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s)
-    | MenhirState40 ->
+    | MenhirState45 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         assert (not _menhir_env._menhir_error);
         let _tok = _menhir_env._menhir_token in
@@ -1003,17 +1127,17 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
                     let _tok = _menhir_env._menhir_token in
                     (match _tok with
                     | Lbool _v ->
-                        _menhir_run11 _menhir_env (Obj.magic _menhir_stack) MenhirState44 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                        _menhir_run11 _menhir_env (Obj.magic _menhir_stack) MenhirState49 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                     | Lint _v ->
-                        _menhir_run10 _menhir_env (Obj.magic _menhir_stack) MenhirState44 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                        _menhir_run10 _menhir_env (Obj.magic _menhir_stack) MenhirState49 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                     | Lstring _v ->
-                        _menhir_run9 _menhir_env (Obj.magic _menhir_stack) MenhirState44 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                        _menhir_run9 _menhir_env (Obj.magic _menhir_stack) MenhirState49 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                     | Lvar _v ->
-                        _menhir_run8 _menhir_env (Obj.magic _menhir_stack) MenhirState44 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                        _menhir_run8 _menhir_env (Obj.magic _menhir_stack) MenhirState49 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                     | _ ->
                         assert (not _menhir_env._menhir_error);
                         _menhir_env._menhir_error <- true;
-                        _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState44)
+                        _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState49)
                 | _ ->
                     assert (not _menhir_env._menhir_error);
                     _menhir_env._menhir_error <- true;
@@ -1034,7 +1158,7 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
             let _menhir_stack = Obj.magic _menhir_stack in
             let (_menhir_stack, _menhir_s, _, _) = _menhir_stack in
             _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s)
-    | MenhirState44 ->
+    | MenhirState49 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         assert (not _menhir_env._menhir_error);
         let _tok = _menhir_env._menhir_token in
@@ -1056,23 +1180,25 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
                 let _tok = _menhir_env._menhir_token in
                 (match _tok with
                 | Lacof ->
-                    _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState47
+                    _menhir_run61 _menhir_env (Obj.magic _menhir_stack) MenhirState52
                 | Lcond ->
-                    _menhir_run51 _menhir_env (Obj.magic _menhir_stack) MenhirState47
+                    _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState52
                 | Ldecl _v ->
-                    _menhir_run48 _menhir_env (Obj.magic _menhir_stack) MenhirState47 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                    _menhir_run53 _menhir_env (Obj.magic _menhir_stack) MenhirState52 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lfor ->
-                    _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState47
+                    _menhir_run40 _menhir_env (Obj.magic _menhir_stack) MenhirState52
+                | Lprints ->
+                    _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState52 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lreturn ->
-                    _menhir_run32 _menhir_env (Obj.magic _menhir_stack) MenhirState47 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                    _menhir_run32 _menhir_env (Obj.magic _menhir_stack) MenhirState52 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lvar _v ->
-                    _menhir_run28 _menhir_env (Obj.magic _menhir_stack) MenhirState47 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                    _menhir_run28 _menhir_env (Obj.magic _menhir_stack) MenhirState52 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lwhile ->
-                    _menhir_run23 _menhir_env (Obj.magic _menhir_stack) MenhirState47
+                    _menhir_run23 _menhir_env (Obj.magic _menhir_stack) MenhirState52
                 | _ ->
                     assert (not _menhir_env._menhir_error);
                     _menhir_env._menhir_error <- true;
-                    _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState47)
+                    _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState52)
             | _ ->
                 assert (not _menhir_env._menhir_error);
                 _menhir_env._menhir_error <- true;
@@ -1087,7 +1213,7 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
             let _menhir_stack = Obj.magic _menhir_stack in
             let (_menhir_stack, _menhir_s, _, _) = _menhir_stack in
             _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s)
-    | MenhirState52 ->
+    | MenhirState57 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         assert (not _menhir_env._menhir_error);
         let _tok = _menhir_env._menhir_token in
@@ -1109,23 +1235,25 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
                 let _tok = _menhir_env._menhir_token in
                 (match _tok with
                 | Lacof ->
-                    _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState55
+                    _menhir_run61 _menhir_env (Obj.magic _menhir_stack) MenhirState60
                 | Lcond ->
-                    _menhir_run51 _menhir_env (Obj.magic _menhir_stack) MenhirState55
+                    _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState60
                 | Ldecl _v ->
-                    _menhir_run48 _menhir_env (Obj.magic _menhir_stack) MenhirState55 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                    _menhir_run53 _menhir_env (Obj.magic _menhir_stack) MenhirState60 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lfor ->
-                    _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState55
+                    _menhir_run40 _menhir_env (Obj.magic _menhir_stack) MenhirState60
+                | Lprints ->
+                    _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState60 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lreturn ->
-                    _menhir_run32 _menhir_env (Obj.magic _menhir_stack) MenhirState55 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                    _menhir_run32 _menhir_env (Obj.magic _menhir_stack) MenhirState60 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lvar _v ->
-                    _menhir_run28 _menhir_env (Obj.magic _menhir_stack) MenhirState55 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                    _menhir_run28 _menhir_env (Obj.magic _menhir_stack) MenhirState60 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lwhile ->
-                    _menhir_run23 _menhir_env (Obj.magic _menhir_stack) MenhirState55
+                    _menhir_run23 _menhir_env (Obj.magic _menhir_stack) MenhirState60
                 | _ ->
                     assert (not _menhir_env._menhir_error);
                     _menhir_env._menhir_error <- true;
-                    _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState55)
+                    _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState60)
             | _ ->
                 assert (not _menhir_env._menhir_error);
                 _menhir_env._menhir_error <- true;
@@ -1140,7 +1268,7 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
             let _menhir_stack = Obj.magic _menhir_stack in
             let (_menhir_stack, _menhir_s, _, _) = _menhir_stack in
             _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s)
-    | MenhirState72 ->
+    | MenhirState78 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         assert (not _menhir_env._menhir_error);
         let _tok = _menhir_env._menhir_token in
@@ -1157,65 +1285,25 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
             let _tok = _menhir_env._menhir_token in
             (match _tok with
             | Lacof ->
-                _menhir_run104 _menhir_env (Obj.magic _menhir_stack) MenhirState74
+                _menhir_run115 _menhir_env (Obj.magic _menhir_stack) MenhirState80
             | Lcond ->
-                _menhir_run95 _menhir_env (Obj.magic _menhir_stack) MenhirState74
+                _menhir_run106 _menhir_env (Obj.magic _menhir_stack) MenhirState80
             | Ldecl _v ->
-                _menhir_run92 _menhir_env (Obj.magic _menhir_stack) MenhirState74 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                _menhir_run103 _menhir_env (Obj.magic _menhir_stack) MenhirState80 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
             | Lfor ->
-                _menhir_run78 _menhir_env (Obj.magic _menhir_stack) MenhirState74
+                _menhir_run89 _menhir_env (Obj.magic _menhir_stack) MenhirState80
+            | Lprints ->
+                _menhir_run84 _menhir_env (Obj.magic _menhir_stack) MenhirState80 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
             | Lreturn ->
-                _menhir_run75 _menhir_env (Obj.magic _menhir_stack) MenhirState74 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                _menhir_run81 _menhir_env (Obj.magic _menhir_stack) MenhirState80 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
             | Lvar _v ->
-                _menhir_run71 _menhir_env (Obj.magic _menhir_stack) MenhirState74 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                _menhir_run77 _menhir_env (Obj.magic _menhir_stack) MenhirState80 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
             | Lwhile ->
-                _menhir_run6 _menhir_env (Obj.magic _menhir_stack) MenhirState74
+                _menhir_run6 _menhir_env (Obj.magic _menhir_stack) MenhirState80
             | _ ->
                 assert (not _menhir_env._menhir_error);
                 _menhir_env._menhir_error <- true;
-                _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState74)
-        | Lsup ->
-            _menhir_run13 _menhir_env (Obj.magic _menhir_stack) _menhir_env._menhir_lexbuf.Lexing.lex_start_p
-        | _ ->
-            assert (not _menhir_env._menhir_error);
-            _menhir_env._menhir_error <- true;
-            let _menhir_stack = Obj.magic _menhir_stack in
-            let (_menhir_stack, _menhir_s, _, _) = _menhir_stack in
-            _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s)
-    | MenhirState75 ->
-        let _menhir_stack = Obj.magic _menhir_stack in
-        assert (not _menhir_env._menhir_error);
-        let _tok = _menhir_env._menhir_token in
-        (match _tok with
-        | Ladd ->
-            _menhir_run19 _menhir_env (Obj.magic _menhir_stack) _menhir_env._menhir_lexbuf.Lexing.lex_start_p
-        | Linf ->
-            _menhir_run17 _menhir_env (Obj.magic _menhir_stack) _menhir_env._menhir_lexbuf.Lexing.lex_start_p
-        | Lmul ->
-            _menhir_run15 _menhir_env (Obj.magic _menhir_stack) _menhir_env._menhir_lexbuf.Lexing.lex_start_p
-        | Lsc ->
-            let _menhir_stack = Obj.magic _menhir_stack in
-            let _menhir_env = _menhir_discard _menhir_env in
-            let _tok = _menhir_env._menhir_token in
-            (match _tok with
-            | Lacof ->
-                _menhir_run104 _menhir_env (Obj.magic _menhir_stack) MenhirState77
-            | Lcond ->
-                _menhir_run95 _menhir_env (Obj.magic _menhir_stack) MenhirState77
-            | Ldecl _v ->
-                _menhir_run92 _menhir_env (Obj.magic _menhir_stack) MenhirState77 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
-            | Lfor ->
-                _menhir_run78 _menhir_env (Obj.magic _menhir_stack) MenhirState77
-            | Lreturn ->
-                _menhir_run75 _menhir_env (Obj.magic _menhir_stack) MenhirState77 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
-            | Lvar _v ->
-                _menhir_run71 _menhir_env (Obj.magic _menhir_stack) MenhirState77 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
-            | Lwhile ->
-                _menhir_run6 _menhir_env (Obj.magic _menhir_stack) MenhirState77
-            | _ ->
-                assert (not _menhir_env._menhir_error);
-                _menhir_env._menhir_error <- true;
-                _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState77)
+                _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState80)
         | Lsup ->
             _menhir_run13 _menhir_env (Obj.magic _menhir_stack) _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | _ ->
@@ -1240,14 +1328,22 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
             let _menhir_env = _menhir_discard _menhir_env in
             let _tok = _menhir_env._menhir_token in
             (match _tok with
-            | Lbool _v ->
-                _menhir_run11 _menhir_env (Obj.magic _menhir_stack) MenhirState83 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
-            | Lint _v ->
-                _menhir_run10 _menhir_env (Obj.magic _menhir_stack) MenhirState83 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
-            | Lstring _v ->
-                _menhir_run9 _menhir_env (Obj.magic _menhir_stack) MenhirState83 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            | Lacof ->
+                _menhir_run115 _menhir_env (Obj.magic _menhir_stack) MenhirState83
+            | Lcond ->
+                _menhir_run106 _menhir_env (Obj.magic _menhir_stack) MenhirState83
+            | Ldecl _v ->
+                _menhir_run103 _menhir_env (Obj.magic _menhir_stack) MenhirState83 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            | Lfor ->
+                _menhir_run89 _menhir_env (Obj.magic _menhir_stack) MenhirState83
+            | Lprints ->
+                _menhir_run84 _menhir_env (Obj.magic _menhir_stack) MenhirState83 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            | Lreturn ->
+                _menhir_run81 _menhir_env (Obj.magic _menhir_stack) MenhirState83 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
             | Lvar _v ->
-                _menhir_run8 _menhir_env (Obj.magic _menhir_stack) MenhirState83 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                _menhir_run77 _menhir_env (Obj.magic _menhir_stack) MenhirState83 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            | Lwhile ->
+                _menhir_run6 _menhir_env (Obj.magic _menhir_stack) MenhirState83
             | _ ->
                 assert (not _menhir_env._menhir_error);
                 _menhir_env._menhir_error <- true;
@@ -1260,7 +1356,98 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
             let _menhir_stack = Obj.magic _menhir_stack in
             let (_menhir_stack, _menhir_s, _, _) = _menhir_stack in
             _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s)
-    | MenhirState83 ->
+    | MenhirState85 ->
+        let _menhir_stack = Obj.magic _menhir_stack in
+        assert (not _menhir_env._menhir_error);
+        let _tok = _menhir_env._menhir_token in
+        (match _tok with
+        | Ladd ->
+            _menhir_run19 _menhir_env (Obj.magic _menhir_stack) _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        | Linf ->
+            _menhir_run17 _menhir_env (Obj.magic _menhir_stack) _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        | Lmul ->
+            _menhir_run15 _menhir_env (Obj.magic _menhir_stack) _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        | Lparf ->
+            let _menhir_stack = Obj.magic _menhir_stack in
+            let _menhir_env = _menhir_discard _menhir_env in
+            let _tok = _menhir_env._menhir_token in
+            (match _tok with
+            | Lsc ->
+                let _menhir_stack = Obj.magic _menhir_stack in
+                let _menhir_env = _menhir_discard _menhir_env in
+                let _tok = _menhir_env._menhir_token in
+                (match _tok with
+                | Lacof ->
+                    _menhir_run115 _menhir_env (Obj.magic _menhir_stack) MenhirState88
+                | Lcond ->
+                    _menhir_run106 _menhir_env (Obj.magic _menhir_stack) MenhirState88
+                | Ldecl _v ->
+                    _menhir_run103 _menhir_env (Obj.magic _menhir_stack) MenhirState88 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                | Lfor ->
+                    _menhir_run89 _menhir_env (Obj.magic _menhir_stack) MenhirState88
+                | Lprints ->
+                    _menhir_run84 _menhir_env (Obj.magic _menhir_stack) MenhirState88 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                | Lreturn ->
+                    _menhir_run81 _menhir_env (Obj.magic _menhir_stack) MenhirState88 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                | Lvar _v ->
+                    _menhir_run77 _menhir_env (Obj.magic _menhir_stack) MenhirState88 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                | Lwhile ->
+                    _menhir_run6 _menhir_env (Obj.magic _menhir_stack) MenhirState88
+                | _ ->
+                    assert (not _menhir_env._menhir_error);
+                    _menhir_env._menhir_error <- true;
+                    _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState88)
+            | _ ->
+                assert (not _menhir_env._menhir_error);
+                _menhir_env._menhir_error <- true;
+                let _menhir_stack = Obj.magic _menhir_stack in
+                let (_menhir_stack, _menhir_s, _, _) = _menhir_stack in
+                _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s)
+        | Lsup ->
+            _menhir_run13 _menhir_env (Obj.magic _menhir_stack) _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        | _ ->
+            assert (not _menhir_env._menhir_error);
+            _menhir_env._menhir_error <- true;
+            let _menhir_stack = Obj.magic _menhir_stack in
+            let (_menhir_stack, _menhir_s, _, _) = _menhir_stack in
+            _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s)
+    | MenhirState92 ->
+        let _menhir_stack = Obj.magic _menhir_stack in
+        assert (not _menhir_env._menhir_error);
+        let _tok = _menhir_env._menhir_token in
+        (match _tok with
+        | Ladd ->
+            _menhir_run19 _menhir_env (Obj.magic _menhir_stack) _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        | Linf ->
+            _menhir_run17 _menhir_env (Obj.magic _menhir_stack) _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        | Lmul ->
+            _menhir_run15 _menhir_env (Obj.magic _menhir_stack) _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        | Lsc ->
+            let _menhir_stack = Obj.magic _menhir_stack in
+            let _menhir_env = _menhir_discard _menhir_env in
+            let _tok = _menhir_env._menhir_token in
+            (match _tok with
+            | Lbool _v ->
+                _menhir_run11 _menhir_env (Obj.magic _menhir_stack) MenhirState94 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            | Lint _v ->
+                _menhir_run10 _menhir_env (Obj.magic _menhir_stack) MenhirState94 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            | Lstring _v ->
+                _menhir_run9 _menhir_env (Obj.magic _menhir_stack) MenhirState94 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            | Lvar _v ->
+                _menhir_run8 _menhir_env (Obj.magic _menhir_stack) MenhirState94 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            | _ ->
+                assert (not _menhir_env._menhir_error);
+                _menhir_env._menhir_error <- true;
+                _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState94)
+        | Lsup ->
+            _menhir_run13 _menhir_env (Obj.magic _menhir_stack) _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        | _ ->
+            assert (not _menhir_env._menhir_error);
+            _menhir_env._menhir_error <- true;
+            let _menhir_stack = Obj.magic _menhir_stack in
+            let (_menhir_stack, _menhir_s, _, _) = _menhir_stack in
+            _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s)
+    | MenhirState94 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         assert (not _menhir_env._menhir_error);
         let _tok = _menhir_env._menhir_token in
@@ -1291,17 +1478,17 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
                     let _tok = _menhir_env._menhir_token in
                     (match _tok with
                     | Lbool _v ->
-                        _menhir_run11 _menhir_env (Obj.magic _menhir_stack) MenhirState87 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                        _menhir_run11 _menhir_env (Obj.magic _menhir_stack) MenhirState98 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                     | Lint _v ->
-                        _menhir_run10 _menhir_env (Obj.magic _menhir_stack) MenhirState87 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                        _menhir_run10 _menhir_env (Obj.magic _menhir_stack) MenhirState98 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                     | Lstring _v ->
-                        _menhir_run9 _menhir_env (Obj.magic _menhir_stack) MenhirState87 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                        _menhir_run9 _menhir_env (Obj.magic _menhir_stack) MenhirState98 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                     | Lvar _v ->
-                        _menhir_run8 _menhir_env (Obj.magic _menhir_stack) MenhirState87 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                        _menhir_run8 _menhir_env (Obj.magic _menhir_stack) MenhirState98 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                     | _ ->
                         assert (not _menhir_env._menhir_error);
                         _menhir_env._menhir_error <- true;
-                        _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState87)
+                        _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState98)
                 | _ ->
                     assert (not _menhir_env._menhir_error);
                     _menhir_env._menhir_error <- true;
@@ -1322,7 +1509,7 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
             let _menhir_stack = Obj.magic _menhir_stack in
             let (_menhir_stack, _menhir_s, _, _) = _menhir_stack in
             _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s)
-    | MenhirState87 ->
+    | MenhirState98 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         assert (not _menhir_env._menhir_error);
         let _tok = _menhir_env._menhir_token in
@@ -1344,23 +1531,25 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
                 let _tok = _menhir_env._menhir_token in
                 (match _tok with
                 | Lacof ->
-                    _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState90
+                    _menhir_run61 _menhir_env (Obj.magic _menhir_stack) MenhirState101
                 | Lcond ->
-                    _menhir_run51 _menhir_env (Obj.magic _menhir_stack) MenhirState90
+                    _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState101
                 | Ldecl _v ->
-                    _menhir_run48 _menhir_env (Obj.magic _menhir_stack) MenhirState90 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                    _menhir_run53 _menhir_env (Obj.magic _menhir_stack) MenhirState101 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lfor ->
-                    _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState90
+                    _menhir_run40 _menhir_env (Obj.magic _menhir_stack) MenhirState101
+                | Lprints ->
+                    _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState101 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lreturn ->
-                    _menhir_run32 _menhir_env (Obj.magic _menhir_stack) MenhirState90 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                    _menhir_run32 _menhir_env (Obj.magic _menhir_stack) MenhirState101 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lvar _v ->
-                    _menhir_run28 _menhir_env (Obj.magic _menhir_stack) MenhirState90 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                    _menhir_run28 _menhir_env (Obj.magic _menhir_stack) MenhirState101 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lwhile ->
-                    _menhir_run23 _menhir_env (Obj.magic _menhir_stack) MenhirState90
+                    _menhir_run23 _menhir_env (Obj.magic _menhir_stack) MenhirState101
                 | _ ->
                     assert (not _menhir_env._menhir_error);
                     _menhir_env._menhir_error <- true;
-                    _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState90)
+                    _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState101)
             | _ ->
                 assert (not _menhir_env._menhir_error);
                 _menhir_env._menhir_error <- true;
@@ -1375,7 +1564,7 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
             let _menhir_stack = Obj.magic _menhir_stack in
             let (_menhir_stack, _menhir_s, _, _) = _menhir_stack in
             _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s)
-    | MenhirState96 ->
+    | MenhirState107 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         assert (not _menhir_env._menhir_error);
         let _tok = _menhir_env._menhir_token in
@@ -1397,23 +1586,25 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
                 let _tok = _menhir_env._menhir_token in
                 (match _tok with
                 | Lacof ->
-                    _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState99
+                    _menhir_run61 _menhir_env (Obj.magic _menhir_stack) MenhirState110
                 | Lcond ->
-                    _menhir_run51 _menhir_env (Obj.magic _menhir_stack) MenhirState99
+                    _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState110
                 | Ldecl _v ->
-                    _menhir_run48 _menhir_env (Obj.magic _menhir_stack) MenhirState99 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                    _menhir_run53 _menhir_env (Obj.magic _menhir_stack) MenhirState110 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lfor ->
-                    _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState99
+                    _menhir_run40 _menhir_env (Obj.magic _menhir_stack) MenhirState110
+                | Lprints ->
+                    _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState110 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lreturn ->
-                    _menhir_run32 _menhir_env (Obj.magic _menhir_stack) MenhirState99 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                    _menhir_run32 _menhir_env (Obj.magic _menhir_stack) MenhirState110 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lvar _v ->
-                    _menhir_run28 _menhir_env (Obj.magic _menhir_stack) MenhirState99 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                    _menhir_run28 _menhir_env (Obj.magic _menhir_stack) MenhirState110 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lwhile ->
-                    _menhir_run23 _menhir_env (Obj.magic _menhir_stack) MenhirState99
+                    _menhir_run23 _menhir_env (Obj.magic _menhir_stack) MenhirState110
                 | _ ->
                     assert (not _menhir_env._menhir_error);
                     _menhir_env._menhir_error <- true;
-                    _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState99)
+                    _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState110)
             | _ ->
                 assert (not _menhir_env._menhir_error);
                 _menhir_env._menhir_error <- true;
@@ -1435,20 +1626,20 @@ and _menhir_goto_block : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Synta
   fun _menhir_env _menhir_stack _menhir_s _v ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v) in
     match _menhir_s with
-    | MenhirState55 ->
+    | MenhirState60 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         assert (not _menhir_env._menhir_error);
         let _tok = _menhir_env._menhir_token in
         (match _tok with
         | Lacof ->
-            _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState57
+            _menhir_run61 _menhir_env (Obj.magic _menhir_stack) MenhirState62
         | Lcond ->
-            _menhir_run51 _menhir_env (Obj.magic _menhir_stack) MenhirState57
+            _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState62
         | Ldecl _v ->
-            _menhir_run48 _menhir_env (Obj.magic _menhir_stack) MenhirState57 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run53 _menhir_env (Obj.magic _menhir_stack) MenhirState62 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lelse ->
             let _menhir_stack = Obj.magic _menhir_stack in
-            let _menhir_s = MenhirState57 in
+            let _menhir_s = MenhirState62 in
             let _menhir_stack = (_menhir_stack, _menhir_s) in
             let _menhir_env = _menhir_discard _menhir_env in
             let _tok = _menhir_env._menhir_token in
@@ -1459,23 +1650,25 @@ and _menhir_goto_block : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Synta
                 let _tok = _menhir_env._menhir_token in
                 (match _tok with
                 | Lacof ->
-                    _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState59
+                    _menhir_run61 _menhir_env (Obj.magic _menhir_stack) MenhirState64
                 | Lcond ->
-                    _menhir_run51 _menhir_env (Obj.magic _menhir_stack) MenhirState59
+                    _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState64
                 | Ldecl _v ->
-                    _menhir_run48 _menhir_env (Obj.magic _menhir_stack) MenhirState59 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                    _menhir_run53 _menhir_env (Obj.magic _menhir_stack) MenhirState64 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lfor ->
-                    _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState59
+                    _menhir_run40 _menhir_env (Obj.magic _menhir_stack) MenhirState64
+                | Lprints ->
+                    _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState64 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lreturn ->
-                    _menhir_run32 _menhir_env (Obj.magic _menhir_stack) MenhirState59 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                    _menhir_run32 _menhir_env (Obj.magic _menhir_stack) MenhirState64 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lvar _v ->
-                    _menhir_run28 _menhir_env (Obj.magic _menhir_stack) MenhirState59 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                    _menhir_run28 _menhir_env (Obj.magic _menhir_stack) MenhirState64 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lwhile ->
-                    _menhir_run23 _menhir_env (Obj.magic _menhir_stack) MenhirState59
+                    _menhir_run23 _menhir_env (Obj.magic _menhir_stack) MenhirState64
                 | _ ->
                     assert (not _menhir_env._menhir_error);
                     _menhir_env._menhir_error <- true;
-                    _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState59)
+                    _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState64)
             | _ ->
                 assert (not _menhir_env._menhir_error);
                 _menhir_env._menhir_error <- true;
@@ -1483,167 +1676,182 @@ and _menhir_goto_block : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Synta
                 let (_menhir_stack, _menhir_s) = _menhir_stack in
                 _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s)
         | Lfor ->
-            _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState57
+            _menhir_run40 _menhir_env (Obj.magic _menhir_stack) MenhirState62
+        | Lprints ->
+            _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState62 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lreturn ->
-            _menhir_run32 _menhir_env (Obj.magic _menhir_stack) MenhirState57 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run32 _menhir_env (Obj.magic _menhir_stack) MenhirState62 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lvar _v ->
-            _menhir_run28 _menhir_env (Obj.magic _menhir_stack) MenhirState57 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run28 _menhir_env (Obj.magic _menhir_stack) MenhirState62 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lwhile ->
-            _menhir_run23 _menhir_env (Obj.magic _menhir_stack) MenhirState57
+            _menhir_run23 _menhir_env (Obj.magic _menhir_stack) MenhirState62
         | _ ->
             assert (not _menhir_env._menhir_error);
             _menhir_env._menhir_error <- true;
-            _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState57)
-    | MenhirState59 ->
-        let _menhir_stack = Obj.magic _menhir_stack in
-        assert (not _menhir_env._menhir_error);
-        let _tok = _menhir_env._menhir_token in
-        (match _tok with
-        | Lacof ->
-            _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState60
-        | Lcond ->
-            _menhir_run51 _menhir_env (Obj.magic _menhir_stack) MenhirState60
-        | Ldecl _v ->
-            _menhir_run48 _menhir_env (Obj.magic _menhir_stack) MenhirState60 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
-        | Lfor ->
-            _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState60
-        | Lreturn ->
-            _menhir_run32 _menhir_env (Obj.magic _menhir_stack) MenhirState60 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
-        | Lvar _v ->
-            _menhir_run28 _menhir_env (Obj.magic _menhir_stack) MenhirState60 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
-        | Lwhile ->
-            _menhir_run23 _menhir_env (Obj.magic _menhir_stack) MenhirState60
-        | _ ->
-            assert (not _menhir_env._menhir_error);
-            _menhir_env._menhir_error <- true;
-            _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState60)
-    | MenhirState60 ->
-        let _menhir_stack = Obj.magic _menhir_stack in
-        _menhir_reduce3 _menhir_env (Obj.magic _menhir_stack)
-    | MenhirState57 ->
-        let _menhir_stack = Obj.magic _menhir_stack in
-        _menhir_reduce4 _menhir_env (Obj.magic _menhir_stack)
-    | MenhirState50 ->
-        let _menhir_stack = Obj.magic _menhir_stack in
-        _menhir_reduce5 _menhir_env (Obj.magic _menhir_stack)
-    | MenhirState47 ->
-        let _menhir_stack = Obj.magic _menhir_stack in
-        assert (not _menhir_env._menhir_error);
-        let _tok = _menhir_env._menhir_token in
-        (match _tok with
-        | Lacof ->
-            _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState64
-        | Lcond ->
-            _menhir_run51 _menhir_env (Obj.magic _menhir_stack) MenhirState64
-        | Ldecl _v ->
-            _menhir_run48 _menhir_env (Obj.magic _menhir_stack) MenhirState64 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
-        | Lfor ->
-            _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState64
-        | Lreturn ->
-            _menhir_run32 _menhir_env (Obj.magic _menhir_stack) MenhirState64 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
-        | Lvar _v ->
-            _menhir_run28 _menhir_env (Obj.magic _menhir_stack) MenhirState64 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
-        | Lwhile ->
-            _menhir_run23 _menhir_env (Obj.magic _menhir_stack) MenhirState64
-        | _ ->
-            assert (not _menhir_env._menhir_error);
-            _menhir_env._menhir_error <- true;
-            _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState64)
+            _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState62)
     | MenhirState64 ->
         let _menhir_stack = Obj.magic _menhir_stack in
-        _menhir_reduce2 _menhir_env (Obj.magic _menhir_stack)
-    | MenhirState34 ->
+        assert (not _menhir_env._menhir_error);
+        let _tok = _menhir_env._menhir_token in
+        (match _tok with
+        | Lacof ->
+            _menhir_run61 _menhir_env (Obj.magic _menhir_stack) MenhirState65
+        | Lcond ->
+            _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState65
+        | Ldecl _v ->
+            _menhir_run53 _menhir_env (Obj.magic _menhir_stack) MenhirState65 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        | Lfor ->
+            _menhir_run40 _menhir_env (Obj.magic _menhir_stack) MenhirState65
+        | Lprints ->
+            _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState65 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        | Lreturn ->
+            _menhir_run32 _menhir_env (Obj.magic _menhir_stack) MenhirState65 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        | Lvar _v ->
+            _menhir_run28 _menhir_env (Obj.magic _menhir_stack) MenhirState65 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        | Lwhile ->
+            _menhir_run23 _menhir_env (Obj.magic _menhir_stack) MenhirState65
+        | _ ->
+            assert (not _menhir_env._menhir_error);
+            _menhir_env._menhir_error <- true;
+            _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState65)
+    | MenhirState65 ->
         let _menhir_stack = Obj.magic _menhir_stack in
-        _menhir_reduce7 _menhir_env (Obj.magic _menhir_stack)
-    | MenhirState31 ->
+        _menhir_reduce4 _menhir_env (Obj.magic _menhir_stack)
+    | MenhirState62 ->
+        let _menhir_stack = Obj.magic _menhir_stack in
+        _menhir_reduce5 _menhir_env (Obj.magic _menhir_stack)
+    | MenhirState55 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         _menhir_reduce6 _menhir_env (Obj.magic _menhir_stack)
+    | MenhirState52 ->
+        let _menhir_stack = Obj.magic _menhir_stack in
+        assert (not _menhir_env._menhir_error);
+        let _tok = _menhir_env._menhir_token in
+        (match _tok with
+        | Lacof ->
+            _menhir_run61 _menhir_env (Obj.magic _menhir_stack) MenhirState69
+        | Lcond ->
+            _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState69
+        | Ldecl _v ->
+            _menhir_run53 _menhir_env (Obj.magic _menhir_stack) MenhirState69 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        | Lfor ->
+            _menhir_run40 _menhir_env (Obj.magic _menhir_stack) MenhirState69
+        | Lprints ->
+            _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState69 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        | Lreturn ->
+            _menhir_run32 _menhir_env (Obj.magic _menhir_stack) MenhirState69 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        | Lvar _v ->
+            _menhir_run28 _menhir_env (Obj.magic _menhir_stack) MenhirState69 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        | Lwhile ->
+            _menhir_run23 _menhir_env (Obj.magic _menhir_stack) MenhirState69
+        | _ ->
+            assert (not _menhir_env._menhir_error);
+            _menhir_env._menhir_error <- true;
+            _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState69)
+    | MenhirState69 ->
+        let _menhir_stack = Obj.magic _menhir_stack in
+        _menhir_reduce3 _menhir_env (Obj.magic _menhir_stack)
+    | MenhirState39 ->
+        let _menhir_stack = Obj.magic _menhir_stack in
+        _menhir_reduce1 _menhir_env (Obj.magic _menhir_stack)
+    | MenhirState34 ->
+        let _menhir_stack = Obj.magic _menhir_stack in
+        _menhir_reduce8 _menhir_env (Obj.magic _menhir_stack)
+    | MenhirState31 ->
+        let _menhir_stack = Obj.magic _menhir_stack in
+        _menhir_reduce7 _menhir_env (Obj.magic _menhir_stack)
     | MenhirState27 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         assert (not _menhir_env._menhir_error);
         let _tok = _menhir_env._menhir_token in
         (match _tok with
         | Lacof ->
-            _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState68
+            _menhir_run61 _menhir_env (Obj.magic _menhir_stack) MenhirState74
         | Lcond ->
-            _menhir_run51 _menhir_env (Obj.magic _menhir_stack) MenhirState68
+            _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState74
         | Ldecl _v ->
-            _menhir_run48 _menhir_env (Obj.magic _menhir_stack) MenhirState68 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run53 _menhir_env (Obj.magic _menhir_stack) MenhirState74 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lfor ->
-            _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState68
+            _menhir_run40 _menhir_env (Obj.magic _menhir_stack) MenhirState74
+        | Lprints ->
+            _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState74 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lreturn ->
-            _menhir_run32 _menhir_env (Obj.magic _menhir_stack) MenhirState68 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run32 _menhir_env (Obj.magic _menhir_stack) MenhirState74 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lvar _v ->
-            _menhir_run28 _menhir_env (Obj.magic _menhir_stack) MenhirState68 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run28 _menhir_env (Obj.magic _menhir_stack) MenhirState74 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lwhile ->
-            _menhir_run23 _menhir_env (Obj.magic _menhir_stack) MenhirState68
+            _menhir_run23 _menhir_env (Obj.magic _menhir_stack) MenhirState74
         | _ ->
             assert (not _menhir_env._menhir_error);
             _menhir_env._menhir_error <- true;
-            _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState68)
-    | MenhirState68 ->
+            _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState74)
+    | MenhirState74 ->
         let _menhir_stack = Obj.magic _menhir_stack in
-        _menhir_reduce1 _menhir_env (Obj.magic _menhir_stack)
+        _menhir_reduce2 _menhir_env (Obj.magic _menhir_stack)
     | MenhirState22 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         assert (not _menhir_env._menhir_error);
         let _tok = _menhir_env._menhir_token in
         (match _tok with
         | Lacof ->
-            _menhir_run104 _menhir_env (Obj.magic _menhir_stack) MenhirState70
+            _menhir_run115 _menhir_env (Obj.magic _menhir_stack) MenhirState76
         | Lcond ->
-            _menhir_run95 _menhir_env (Obj.magic _menhir_stack) MenhirState70
+            _menhir_run106 _menhir_env (Obj.magic _menhir_stack) MenhirState76
         | Ldecl _v ->
-            _menhir_run92 _menhir_env (Obj.magic _menhir_stack) MenhirState70 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run103 _menhir_env (Obj.magic _menhir_stack) MenhirState76 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lfor ->
-            _menhir_run78 _menhir_env (Obj.magic _menhir_stack) MenhirState70
+            _menhir_run89 _menhir_env (Obj.magic _menhir_stack) MenhirState76
+        | Lprints ->
+            _menhir_run84 _menhir_env (Obj.magic _menhir_stack) MenhirState76 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lreturn ->
-            _menhir_run75 _menhir_env (Obj.magic _menhir_stack) MenhirState70 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run81 _menhir_env (Obj.magic _menhir_stack) MenhirState76 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lvar _v ->
-            _menhir_run71 _menhir_env (Obj.magic _menhir_stack) MenhirState70 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run77 _menhir_env (Obj.magic _menhir_stack) MenhirState76 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lwhile ->
-            _menhir_run6 _menhir_env (Obj.magic _menhir_stack) MenhirState70
+            _menhir_run6 _menhir_env (Obj.magic _menhir_stack) MenhirState76
         | _ ->
             assert (not _menhir_env._menhir_error);
             _menhir_env._menhir_error <- true;
-            _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState70)
-    | MenhirState90 ->
+            _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState76)
+    | MenhirState101 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         assert (not _menhir_env._menhir_error);
         let _tok = _menhir_env._menhir_token in
         (match _tok with
         | Lacof ->
-            _menhir_run104 _menhir_env (Obj.magic _menhir_stack) MenhirState91
+            _menhir_run115 _menhir_env (Obj.magic _menhir_stack) MenhirState102
         | Lcond ->
-            _menhir_run95 _menhir_env (Obj.magic _menhir_stack) MenhirState91
+            _menhir_run106 _menhir_env (Obj.magic _menhir_stack) MenhirState102
         | Ldecl _v ->
-            _menhir_run92 _menhir_env (Obj.magic _menhir_stack) MenhirState91 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run103 _menhir_env (Obj.magic _menhir_stack) MenhirState102 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lfor ->
-            _menhir_run78 _menhir_env (Obj.magic _menhir_stack) MenhirState91
+            _menhir_run89 _menhir_env (Obj.magic _menhir_stack) MenhirState102
+        | Lprints ->
+            _menhir_run84 _menhir_env (Obj.magic _menhir_stack) MenhirState102 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lreturn ->
-            _menhir_run75 _menhir_env (Obj.magic _menhir_stack) MenhirState91 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run81 _menhir_env (Obj.magic _menhir_stack) MenhirState102 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lvar _v ->
-            _menhir_run71 _menhir_env (Obj.magic _menhir_stack) MenhirState91 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run77 _menhir_env (Obj.magic _menhir_stack) MenhirState102 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lwhile ->
-            _menhir_run6 _menhir_env (Obj.magic _menhir_stack) MenhirState91
+            _menhir_run6 _menhir_env (Obj.magic _menhir_stack) MenhirState102
         | _ ->
             assert (not _menhir_env._menhir_error);
             _menhir_env._menhir_error <- true;
-            _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState91)
-    | MenhirState99 ->
+            _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState102)
+    | MenhirState110 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         assert (not _menhir_env._menhir_error);
         let _tok = _menhir_env._menhir_token in
         (match _tok with
         | Lacof ->
-            _menhir_run104 _menhir_env (Obj.magic _menhir_stack) MenhirState100
+            _menhir_run115 _menhir_env (Obj.magic _menhir_stack) MenhirState111
         | Lcond ->
-            _menhir_run95 _menhir_env (Obj.magic _menhir_stack) MenhirState100
+            _menhir_run106 _menhir_env (Obj.magic _menhir_stack) MenhirState111
         | Ldecl _v ->
-            _menhir_run92 _menhir_env (Obj.magic _menhir_stack) MenhirState100 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run103 _menhir_env (Obj.magic _menhir_stack) MenhirState111 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lelse ->
             let _menhir_stack = Obj.magic _menhir_stack in
-            let _menhir_s = MenhirState100 in
+            let _menhir_s = MenhirState111 in
             let _menhir_stack = (_menhir_stack, _menhir_s) in
             let _menhir_env = _menhir_discard _menhir_env in
             let _tok = _menhir_env._menhir_token in
@@ -1654,23 +1862,25 @@ and _menhir_goto_block : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Synta
                 let _tok = _menhir_env._menhir_token in
                 (match _tok with
                 | Lacof ->
-                    _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState102
+                    _menhir_run61 _menhir_env (Obj.magic _menhir_stack) MenhirState113
                 | Lcond ->
-                    _menhir_run51 _menhir_env (Obj.magic _menhir_stack) MenhirState102
+                    _menhir_run56 _menhir_env (Obj.magic _menhir_stack) MenhirState113
                 | Ldecl _v ->
-                    _menhir_run48 _menhir_env (Obj.magic _menhir_stack) MenhirState102 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                    _menhir_run53 _menhir_env (Obj.magic _menhir_stack) MenhirState113 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lfor ->
-                    _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState102
+                    _menhir_run40 _menhir_env (Obj.magic _menhir_stack) MenhirState113
+                | Lprints ->
+                    _menhir_run35 _menhir_env (Obj.magic _menhir_stack) MenhirState113 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lreturn ->
-                    _menhir_run32 _menhir_env (Obj.magic _menhir_stack) MenhirState102 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                    _menhir_run32 _menhir_env (Obj.magic _menhir_stack) MenhirState113 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lvar _v ->
-                    _menhir_run28 _menhir_env (Obj.magic _menhir_stack) MenhirState102 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                    _menhir_run28 _menhir_env (Obj.magic _menhir_stack) MenhirState113 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lwhile ->
-                    _menhir_run23 _menhir_env (Obj.magic _menhir_stack) MenhirState102
+                    _menhir_run23 _menhir_env (Obj.magic _menhir_stack) MenhirState113
                 | _ ->
                     assert (not _menhir_env._menhir_error);
                     _menhir_env._menhir_error <- true;
-                    _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState102)
+                    _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState113)
             | _ ->
                 assert (not _menhir_env._menhir_error);
                 _menhir_env._menhir_error <- true;
@@ -1678,68 +1888,75 @@ and _menhir_goto_block : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Synta
                 let (_menhir_stack, _menhir_s) = _menhir_stack in
                 _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s)
         | Lfor ->
-            _menhir_run78 _menhir_env (Obj.magic _menhir_stack) MenhirState100
+            _menhir_run89 _menhir_env (Obj.magic _menhir_stack) MenhirState111
+        | Lprints ->
+            _menhir_run84 _menhir_env (Obj.magic _menhir_stack) MenhirState111 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lreturn ->
-            _menhir_run75 _menhir_env (Obj.magic _menhir_stack) MenhirState100 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run81 _menhir_env (Obj.magic _menhir_stack) MenhirState111 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lvar _v ->
-            _menhir_run71 _menhir_env (Obj.magic _menhir_stack) MenhirState100 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run77 _menhir_env (Obj.magic _menhir_stack) MenhirState111 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lwhile ->
-            _menhir_run6 _menhir_env (Obj.magic _menhir_stack) MenhirState100
+            _menhir_run6 _menhir_env (Obj.magic _menhir_stack) MenhirState111
         | _ ->
             assert (not _menhir_env._menhir_error);
             _menhir_env._menhir_error <- true;
-            _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState100)
-    | MenhirState102 ->
+            _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState111)
+    | MenhirState113 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         assert (not _menhir_env._menhir_error);
         let _tok = _menhir_env._menhir_token in
         (match _tok with
         | Lacof ->
-            _menhir_run104 _menhir_env (Obj.magic _menhir_stack) MenhirState103
+            _menhir_run115 _menhir_env (Obj.magic _menhir_stack) MenhirState114
         | Lcond ->
-            _menhir_run95 _menhir_env (Obj.magic _menhir_stack) MenhirState103
+            _menhir_run106 _menhir_env (Obj.magic _menhir_stack) MenhirState114
         | Ldecl _v ->
-            _menhir_run92 _menhir_env (Obj.magic _menhir_stack) MenhirState103 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run103 _menhir_env (Obj.magic _menhir_stack) MenhirState114 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lfor ->
-            _menhir_run78 _menhir_env (Obj.magic _menhir_stack) MenhirState103
+            _menhir_run89 _menhir_env (Obj.magic _menhir_stack) MenhirState114
+        | Lprints ->
+            _menhir_run84 _menhir_env (Obj.magic _menhir_stack) MenhirState114 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lreturn ->
-            _menhir_run75 _menhir_env (Obj.magic _menhir_stack) MenhirState103 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run81 _menhir_env (Obj.magic _menhir_stack) MenhirState114 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lvar _v ->
-            _menhir_run71 _menhir_env (Obj.magic _menhir_stack) MenhirState103 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run77 _menhir_env (Obj.magic _menhir_stack) MenhirState114 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lwhile ->
-            _menhir_run6 _menhir_env (Obj.magic _menhir_stack) MenhirState103
+            _menhir_run6 _menhir_env (Obj.magic _menhir_stack) MenhirState114
         | _ ->
             assert (not _menhir_env._menhir_error);
             _menhir_env._menhir_error <- true;
-            _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState103)
-    | MenhirState103 ->
-        let _menhir_stack = Obj.magic _menhir_stack in
-        _menhir_reduce3 _menhir_env (Obj.magic _menhir_stack)
-    | MenhirState100 ->
+            _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState114)
+    | MenhirState114 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         _menhir_reduce4 _menhir_env (Obj.magic _menhir_stack)
-    | MenhirState94 ->
+    | MenhirState111 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         _menhir_reduce5 _menhir_env (Obj.magic _menhir_stack)
-    | MenhirState91 ->
-        let _menhir_stack = Obj.magic _menhir_stack in
-        _menhir_reduce2 _menhir_env (Obj.magic _menhir_stack)
-    | MenhirState77 ->
-        let _menhir_stack = Obj.magic _menhir_stack in
-        _menhir_reduce7 _menhir_env (Obj.magic _menhir_stack)
-    | MenhirState74 ->
+    | MenhirState105 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         _menhir_reduce6 _menhir_env (Obj.magic _menhir_stack)
-    | MenhirState70 ->
+    | MenhirState102 ->
+        let _menhir_stack = Obj.magic _menhir_stack in
+        _menhir_reduce3 _menhir_env (Obj.magic _menhir_stack)
+    | MenhirState88 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         _menhir_reduce1 _menhir_env (Obj.magic _menhir_stack)
+    | MenhirState83 ->
+        let _menhir_stack = Obj.magic _menhir_stack in
+        _menhir_reduce8 _menhir_env (Obj.magic _menhir_stack)
+    | MenhirState80 ->
+        let _menhir_stack = Obj.magic _menhir_stack in
+        _menhir_reduce7 _menhir_env (Obj.magic _menhir_stack)
+    | MenhirState76 ->
+        let _menhir_stack = Obj.magic _menhir_stack in
+        _menhir_reduce2 _menhir_env (Obj.magic _menhir_stack)
     | MenhirState5 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         let _menhir_stack = Obj.magic _menhir_stack in
         let (((_menhir_stack, (v : (
 # 7 "parser.mly"
        (string)
-# 1743 "parser.ml"
+# 1960 "parser.ml"
         )), _startpos_v_), _startpos__3_), _, (b : (Ast.Syntax.block))) = _menhir_stack in
         let _5 = () in
         let _4 = () in
@@ -1748,7 +1965,7 @@ and _menhir_goto_block : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Synta
         let _v : (
 # 20 "parser.mly"
       (Ast.Syntax.prog)
-# 1752 "parser.ml"
+# 1969 "parser.ml"
         ) = 
 # 26 "parser.mly"
                                                               ( [Func {  nom  = v;
@@ -1757,7 +1974,7 @@ and _menhir_goto_block : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Synta
                                                                         pos  = _startpos_v_
                                                                       }]
                                                               )
-# 1761 "parser.ml"
+# 1978 "parser.ml"
          in
         _menhir_goto_prog _menhir_env _menhir_stack _v
     | _ ->
@@ -1766,7 +1983,7 @@ and _menhir_goto_block : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Synta
 and _menhir_run8 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 7 "parser.mly"
        (string)
-# 1770 "parser.ml"
+# 1987 "parser.ml"
 ) -> Lexing.position -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v _startpos ->
     let _menhir_env = _menhir_discard _menhir_env in
@@ -1774,21 +1991,21 @@ and _menhir_run8 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
     let (v : (
 # 7 "parser.mly"
        (string)
-# 1778 "parser.ml"
+# 1995 "parser.ml"
     )) = _v in
     let _startpos_v_ = _startpos in
     let _startpos = _startpos_v_ in
     let _v : (Ast.Syntax.expr) = 
-# 113 "parser.mly"
+# 123 "parser.mly"
               ( Var  { name =  v ; pos = _startpos_v_} )
-# 1785 "parser.ml"
+# 2002 "parser.ml"
      in
     _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v _startpos
 
 and _menhir_run9 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 8 "parser.mly"
        (string)
-# 1792 "parser.ml"
+# 2009 "parser.ml"
 ) -> Lexing.position -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v _startpos ->
     let _menhir_env = _menhir_discard _menhir_env in
@@ -1796,21 +2013,21 @@ and _menhir_run9 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
     let (s : (
 # 8 "parser.mly"
        (string)
-# 1800 "parser.ml"
+# 2017 "parser.ml"
     )) = _v in
     let _startpos_s_ = _startpos in
     let _startpos = _startpos_s_ in
     let _v : (Ast.Syntax.expr) = 
-# 116 "parser.mly"
+# 126 "parser.mly"
               ( Str  { chaine = s; pos = _startpos_s_} )
-# 1807 "parser.ml"
+# 2024 "parser.ml"
      in
     _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v _startpos
 
 and _menhir_run10 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 6 "parser.mly"
        (int)
-# 1814 "parser.ml"
+# 2031 "parser.ml"
 ) -> Lexing.position -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v _startpos ->
     let _menhir_env = _menhir_discard _menhir_env in
@@ -1818,21 +2035,21 @@ and _menhir_run10 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
     let (n : (
 # 6 "parser.mly"
        (int)
-# 1822 "parser.ml"
+# 2039 "parser.ml"
     )) = _v in
     let _startpos_n_ = _startpos in
     let _startpos = _startpos_n_ in
     let _v : (Ast.Syntax.expr) = 
-# 111 "parser.mly"
+# 121 "parser.mly"
               ( Int  { value = n ; pos = _startpos_n_} )
-# 1829 "parser.ml"
+# 2046 "parser.ml"
      in
     _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v _startpos
 
 and _menhir_run11 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 9 "parser.mly"
        (bool)
-# 1836 "parser.ml"
+# 2053 "parser.ml"
 ) -> Lexing.position -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v _startpos ->
     let _menhir_env = _menhir_discard _menhir_env in
@@ -1840,65 +2057,81 @@ and _menhir_run11 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
     let (b : (
 # 9 "parser.mly"
        (bool)
-# 1844 "parser.ml"
+# 2061 "parser.ml"
     )) = _v in
     let _startpos_b_ = _startpos in
     let _startpos = _startpos_b_ in
     let _v : (Ast.Syntax.expr) = 
-# 112 "parser.mly"
+# 122 "parser.mly"
               ( Bool { value = b ; pos = _startpos_b_} )
-# 1851 "parser.ml"
+# 2068 "parser.ml"
      in
     _menhir_goto_expr _menhir_env _menhir_stack _menhir_s _v _startpos
 
-and _menhir_reduce8 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
+and _menhir_reduce9 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s ->
     let _1 = () in
     let _v : (Ast.Syntax.block) = 
-# 105 "parser.mly"
+# 115 "parser.mly"
         ( [] )
-# 1861 "parser.ml"
+# 2078 "parser.ml"
      in
     _menhir_goto_block _menhir_env _menhir_stack _menhir_s _v
 
 and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s ->
     match _menhir_s with
-    | MenhirState103 ->
+    | MenhirState114 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
-    | MenhirState102 ->
+    | MenhirState113 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
-    | MenhirState100 ->
+    | MenhirState111 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
-    | MenhirState99 ->
+    | MenhirState110 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _, _) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
-    | MenhirState96 ->
+    | MenhirState107 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         let ((_menhir_stack, _menhir_s), _) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
-    | MenhirState94 ->
+    | MenhirState105 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         let ((_menhir_stack, _menhir_s, _, _), _, _) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
-    | MenhirState91 ->
+    | MenhirState102 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
-    | MenhirState90 ->
+    | MenhirState101 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _, _) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
-    | MenhirState87 ->
+    | MenhirState98 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         let (((_menhir_stack, _menhir_s, _, _), _, _), _) = _menhir_stack in
+        _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
+    | MenhirState94 ->
+        let _menhir_stack = Obj.magic _menhir_stack in
+        let (_menhir_stack, _menhir_s, _, _) = _menhir_stack in
+        _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
+    | MenhirState92 ->
+        let _menhir_stack = Obj.magic _menhir_stack in
+        let ((((_menhir_stack, _menhir_s), _), _, _), _) = _menhir_stack in
+        _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
+    | MenhirState88 ->
+        let _menhir_stack = Obj.magic _menhir_stack in
+        let (_menhir_stack, _menhir_s, _, _) = _menhir_stack in
+        _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
+    | MenhirState85 ->
+        let _menhir_stack = Obj.magic _menhir_stack in
+        let ((_menhir_stack, _menhir_s, _), _) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
     | MenhirState83 ->
         let _menhir_stack = Obj.magic _menhir_stack in
@@ -1906,75 +2139,75 @@ and _menhir_errorcase : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
     | MenhirState81 ->
         let _menhir_stack = Obj.magic _menhir_stack in
-        let ((((_menhir_stack, _menhir_s), _), _, _), _) = _menhir_stack in
+        let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
-    | MenhirState77 ->
+    | MenhirState80 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _, _) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
-    | MenhirState75 ->
+    | MenhirState78 ->
+        let _menhir_stack = Obj.magic _menhir_stack in
+        let ((_menhir_stack, _menhir_s, _, _), _) = _menhir_stack in
+        _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
+    | MenhirState76 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
     | MenhirState74 ->
         let _menhir_stack = Obj.magic _menhir_stack in
-        let (_menhir_stack, _menhir_s, _, _) = _menhir_stack in
+        let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
-    | MenhirState72 ->
-        let _menhir_stack = Obj.magic _menhir_stack in
-        let ((_menhir_stack, _menhir_s, _, _), _) = _menhir_stack in
-        _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
-    | MenhirState70 ->
+    | MenhirState69 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
-    | MenhirState68 ->
+    | MenhirState65 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
     | MenhirState64 ->
         let _menhir_stack = Obj.magic _menhir_stack in
+        let (_menhir_stack, _menhir_s) = _menhir_stack in
+        _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
+    | MenhirState62 ->
+        let _menhir_stack = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
     | MenhirState60 ->
         let _menhir_stack = Obj.magic _menhir_stack in
-        let (_menhir_stack, _menhir_s, _) = _menhir_stack in
-        _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
-    | MenhirState59 ->
-        let _menhir_stack = Obj.magic _menhir_stack in
-        let (_menhir_stack, _menhir_s) = _menhir_stack in
+        let (_menhir_stack, _menhir_s, _, _) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
     | MenhirState57 ->
         let _menhir_stack = Obj.magic _menhir_stack in
-        let (_menhir_stack, _menhir_s, _) = _menhir_stack in
+        let ((_menhir_stack, _menhir_s), _) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
     | MenhirState55 ->
         let _menhir_stack = Obj.magic _menhir_stack in
-        let (_menhir_stack, _menhir_s, _, _) = _menhir_stack in
+        let ((_menhir_stack, _menhir_s, _, _), _, _) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
     | MenhirState52 ->
         let _menhir_stack = Obj.magic _menhir_stack in
-        let ((_menhir_stack, _menhir_s), _) = _menhir_stack in
-        _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
-    | MenhirState50 ->
-        let _menhir_stack = Obj.magic _menhir_stack in
-        let ((_menhir_stack, _menhir_s, _, _), _, _) = _menhir_stack in
-        _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
-    | MenhirState47 ->
-        let _menhir_stack = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _, _) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
-    | MenhirState44 ->
+    | MenhirState49 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         let (((_menhir_stack, _menhir_s, _, _), _, _), _) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
-    | MenhirState40 ->
+    | MenhirState45 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         let (_menhir_stack, _menhir_s, _, _) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
-    | MenhirState38 ->
+    | MenhirState43 ->
         let _menhir_stack = Obj.magic _menhir_stack in
         let ((((_menhir_stack, _menhir_s), _), _, _), _) = _menhir_stack in
+        _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
+    | MenhirState39 ->
+        let _menhir_stack = Obj.magic _menhir_stack in
+        let (_menhir_stack, _menhir_s, _, _) = _menhir_stack in
+        _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
+    | MenhirState36 ->
+        let _menhir_stack = Obj.magic _menhir_stack in
+        let ((_menhir_stack, _menhir_s, _), _) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
     | MenhirState34 ->
         let _menhir_stack = Obj.magic _menhir_stack in
@@ -2060,10 +2293,10 @@ and _menhir_run6 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
         let (_menhir_stack, _menhir_s) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
 
-and _menhir_run71 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
+and _menhir_run77 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 7 "parser.mly"
        (string)
-# 2067 "parser.ml"
+# 2300 "parser.ml"
 ) -> Lexing.position -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v _startpos ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v, _startpos) in
@@ -2078,17 +2311,17 @@ and _menhir_run71 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
         let _tok = _menhir_env._menhir_token in
         (match _tok with
         | Lbool _v ->
-            _menhir_run11 _menhir_env (Obj.magic _menhir_stack) MenhirState72 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run11 _menhir_env (Obj.magic _menhir_stack) MenhirState78 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lint _v ->
-            _menhir_run10 _menhir_env (Obj.magic _menhir_stack) MenhirState72 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run10 _menhir_env (Obj.magic _menhir_stack) MenhirState78 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lstring _v ->
-            _menhir_run9 _menhir_env (Obj.magic _menhir_stack) MenhirState72 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run9 _menhir_env (Obj.magic _menhir_stack) MenhirState78 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lvar _v ->
-            _menhir_run8 _menhir_env (Obj.magic _menhir_stack) MenhirState72 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run8 _menhir_env (Obj.magic _menhir_stack) MenhirState78 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | _ ->
             assert (not _menhir_env._menhir_error);
             _menhir_env._menhir_error <- true;
-            _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState72)
+            _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState78)
     | _ ->
         assert (not _menhir_env._menhir_error);
         _menhir_env._menhir_error <- true;
@@ -2096,26 +2329,58 @@ and _menhir_run71 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
         let (_menhir_stack, _menhir_s, _, _) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
 
-and _menhir_run75 : _menhir_env -> 'ttv_tail -> _menhir_state -> Lexing.position -> 'ttv_return =
+and _menhir_run81 : _menhir_env -> 'ttv_tail -> _menhir_state -> Lexing.position -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _startpos ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _startpos) in
     let _menhir_env = _menhir_discard _menhir_env in
     let _tok = _menhir_env._menhir_token in
     match _tok with
     | Lbool _v ->
-        _menhir_run11 _menhir_env (Obj.magic _menhir_stack) MenhirState75 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        _menhir_run11 _menhir_env (Obj.magic _menhir_stack) MenhirState81 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
     | Lint _v ->
-        _menhir_run10 _menhir_env (Obj.magic _menhir_stack) MenhirState75 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        _menhir_run10 _menhir_env (Obj.magic _menhir_stack) MenhirState81 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
     | Lstring _v ->
-        _menhir_run9 _menhir_env (Obj.magic _menhir_stack) MenhirState75 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        _menhir_run9 _menhir_env (Obj.magic _menhir_stack) MenhirState81 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
     | Lvar _v ->
-        _menhir_run8 _menhir_env (Obj.magic _menhir_stack) MenhirState75 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        _menhir_run8 _menhir_env (Obj.magic _menhir_stack) MenhirState81 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
     | _ ->
         assert (not _menhir_env._menhir_error);
         _menhir_env._menhir_error <- true;
-        _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState75
+        _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState81
 
-and _menhir_run78 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
+and _menhir_run84 : _menhir_env -> 'ttv_tail -> _menhir_state -> Lexing.position -> 'ttv_return =
+  fun _menhir_env _menhir_stack _menhir_s _startpos ->
+    let _menhir_stack = (_menhir_stack, _menhir_s, _startpos) in
+    let _menhir_env = _menhir_discard _menhir_env in
+    let _tok = _menhir_env._menhir_token in
+    match _tok with
+    | Lparo ->
+        let _menhir_stack = Obj.magic _menhir_stack in
+        let _startpos = _menhir_env._menhir_lexbuf.Lexing.lex_start_p in
+        let _menhir_stack = (_menhir_stack, _startpos) in
+        let _menhir_env = _menhir_discard _menhir_env in
+        let _tok = _menhir_env._menhir_token in
+        (match _tok with
+        | Lbool _v ->
+            _menhir_run11 _menhir_env (Obj.magic _menhir_stack) MenhirState85 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        | Lint _v ->
+            _menhir_run10 _menhir_env (Obj.magic _menhir_stack) MenhirState85 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        | Lstring _v ->
+            _menhir_run9 _menhir_env (Obj.magic _menhir_stack) MenhirState85 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        | Lvar _v ->
+            _menhir_run8 _menhir_env (Obj.magic _menhir_stack) MenhirState85 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+        | _ ->
+            assert (not _menhir_env._menhir_error);
+            _menhir_env._menhir_error <- true;
+            _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState85)
+    | _ ->
+        assert (not _menhir_env._menhir_error);
+        _menhir_env._menhir_error <- true;
+        let _menhir_stack = Obj.magic _menhir_stack in
+        let (_menhir_stack, _menhir_s, _) = _menhir_stack in
+        _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
+
+and _menhir_run89 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s ->
     let _menhir_stack = (_menhir_stack, _menhir_s) in
     let _menhir_env = _menhir_discard _menhir_env in
@@ -2143,17 +2408,17 @@ and _menhir_run78 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
                 let _tok = _menhir_env._menhir_token in
                 (match _tok with
                 | Lbool _v ->
-                    _menhir_run11 _menhir_env (Obj.magic _menhir_stack) MenhirState81 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                    _menhir_run11 _menhir_env (Obj.magic _menhir_stack) MenhirState92 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lint _v ->
-                    _menhir_run10 _menhir_env (Obj.magic _menhir_stack) MenhirState81 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                    _menhir_run10 _menhir_env (Obj.magic _menhir_stack) MenhirState92 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lstring _v ->
-                    _menhir_run9 _menhir_env (Obj.magic _menhir_stack) MenhirState81 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                    _menhir_run9 _menhir_env (Obj.magic _menhir_stack) MenhirState92 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | Lvar _v ->
-                    _menhir_run8 _menhir_env (Obj.magic _menhir_stack) MenhirState81 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                    _menhir_run8 _menhir_env (Obj.magic _menhir_stack) MenhirState92 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                 | _ ->
                     assert (not _menhir_env._menhir_error);
                     _menhir_env._menhir_error <- true;
-                    _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState81)
+                    _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState92)
             | _ ->
                 assert (not _menhir_env._menhir_error);
                 _menhir_env._menhir_error <- true;
@@ -2173,10 +2438,10 @@ and _menhir_run78 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
         let (_menhir_stack, _menhir_s) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
 
-and _menhir_run92 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
+and _menhir_run103 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
 # 12 "parser.mly"
        (Ast.type_t)
-# 2180 "parser.ml"
+# 2445 "parser.ml"
 ) -> Lexing.position -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s _v _startpos ->
     let _menhir_stack = (_menhir_stack, _menhir_s, _v, _startpos) in
@@ -2196,23 +2461,25 @@ and _menhir_run92 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
             let _tok = _menhir_env._menhir_token in
             (match _tok with
             | Lacof ->
-                _menhir_run104 _menhir_env (Obj.magic _menhir_stack) MenhirState94
+                _menhir_run115 _menhir_env (Obj.magic _menhir_stack) MenhirState105
             | Lcond ->
-                _menhir_run95 _menhir_env (Obj.magic _menhir_stack) MenhirState94
+                _menhir_run106 _menhir_env (Obj.magic _menhir_stack) MenhirState105
             | Ldecl _v ->
-                _menhir_run92 _menhir_env (Obj.magic _menhir_stack) MenhirState94 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                _menhir_run103 _menhir_env (Obj.magic _menhir_stack) MenhirState105 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
             | Lfor ->
-                _menhir_run78 _menhir_env (Obj.magic _menhir_stack) MenhirState94
+                _menhir_run89 _menhir_env (Obj.magic _menhir_stack) MenhirState105
+            | Lprints ->
+                _menhir_run84 _menhir_env (Obj.magic _menhir_stack) MenhirState105 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
             | Lreturn ->
-                _menhir_run75 _menhir_env (Obj.magic _menhir_stack) MenhirState94 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                _menhir_run81 _menhir_env (Obj.magic _menhir_stack) MenhirState105 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
             | Lvar _v ->
-                _menhir_run71 _menhir_env (Obj.magic _menhir_stack) MenhirState94 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                _menhir_run77 _menhir_env (Obj.magic _menhir_stack) MenhirState105 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
             | Lwhile ->
-                _menhir_run6 _menhir_env (Obj.magic _menhir_stack) MenhirState94
+                _menhir_run6 _menhir_env (Obj.magic _menhir_stack) MenhirState105
             | _ ->
                 assert (not _menhir_env._menhir_error);
                 _menhir_env._menhir_error <- true;
-                _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState94)
+                _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState105)
         | _ ->
             assert (not _menhir_env._menhir_error);
             _menhir_env._menhir_error <- true;
@@ -2226,7 +2493,7 @@ and _menhir_run92 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
         let (_menhir_stack, _menhir_s, _, _) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
 
-and _menhir_run95 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
+and _menhir_run106 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s ->
     let _menhir_stack = (_menhir_stack, _menhir_s) in
     let _menhir_env = _menhir_discard _menhir_env in
@@ -2240,17 +2507,17 @@ and _menhir_run95 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
         let _tok = _menhir_env._menhir_token in
         (match _tok with
         | Lbool _v ->
-            _menhir_run11 _menhir_env (Obj.magic _menhir_stack) MenhirState96 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run11 _menhir_env (Obj.magic _menhir_stack) MenhirState107 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lint _v ->
-            _menhir_run10 _menhir_env (Obj.magic _menhir_stack) MenhirState96 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run10 _menhir_env (Obj.magic _menhir_stack) MenhirState107 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lstring _v ->
-            _menhir_run9 _menhir_env (Obj.magic _menhir_stack) MenhirState96 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run9 _menhir_env (Obj.magic _menhir_stack) MenhirState107 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | Lvar _v ->
-            _menhir_run8 _menhir_env (Obj.magic _menhir_stack) MenhirState96 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+            _menhir_run8 _menhir_env (Obj.magic _menhir_stack) MenhirState107 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
         | _ ->
             assert (not _menhir_env._menhir_error);
             _menhir_env._menhir_error <- true;
-            _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState96)
+            _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) MenhirState107)
     | _ ->
         assert (not _menhir_env._menhir_error);
         _menhir_env._menhir_error <- true;
@@ -2258,14 +2525,14 @@ and _menhir_run95 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
         let (_menhir_stack, _menhir_s) = _menhir_stack in
         _menhir_errorcase _menhir_env (Obj.magic _menhir_stack) _menhir_s
 
-and _menhir_run104 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
+and _menhir_run115 : _menhir_env -> 'ttv_tail -> _menhir_state -> 'ttv_return =
   fun _menhir_env _menhir_stack _menhir_s ->
-    _menhir_reduce8 _menhir_env (Obj.magic _menhir_stack) _menhir_s
+    _menhir_reduce9 _menhir_env (Obj.magic _menhir_stack) _menhir_s
 
 and _menhir_goto_prog : _menhir_env -> 'ttv_tail -> (
 # 20 "parser.mly"
       (Ast.Syntax.prog)
-# 2269 "parser.ml"
+# 2536 "parser.ml"
 ) -> 'ttv_return =
   fun _menhir_env _menhir_stack _v ->
     let _menhir_stack = Obj.magic _menhir_stack in
@@ -2273,7 +2540,7 @@ and _menhir_goto_prog : _menhir_env -> 'ttv_tail -> (
     let (_1 : (
 # 20 "parser.mly"
       (Ast.Syntax.prog)
-# 2277 "parser.ml"
+# 2544 "parser.ml"
     )) = _v in
     Obj.magic _1
 
@@ -2292,7 +2559,7 @@ and _menhir_discard : _menhir_env -> _menhir_env =
 and prog : (Lexing.lexbuf -> token) -> Lexing.lexbuf -> (
 # 20 "parser.mly"
       (Ast.Syntax.prog)
-# 2296 "parser.ml"
+# 2563 "parser.ml"
 ) =
   fun lexer lexbuf ->
     let _menhir_env = let _tok = Obj.magic () in
@@ -2313,11 +2580,11 @@ and prog : (Lexing.lexbuf -> token) -> Lexing.lexbuf -> (
         let _v : (
 # 20 "parser.mly"
       (Ast.Syntax.prog)
-# 2317 "parser.ml"
+# 2584 "parser.ml"
         ) = 
 # 34 "parser.mly"
        ( [] )
-# 2321 "parser.ml"
+# 2588 "parser.ml"
          in
         _menhir_goto_prog _menhir_env _menhir_stack _v
     | Lfunc ->
@@ -2350,17 +2617,19 @@ and prog : (Lexing.lexbuf -> token) -> Lexing.lexbuf -> (
                         let _tok = _menhir_env._menhir_token in
                         (match _tok with
                         | Lacof ->
-                            _menhir_run104 _menhir_env (Obj.magic _menhir_stack) MenhirState5
+                            _menhir_run115 _menhir_env (Obj.magic _menhir_stack) MenhirState5
                         | Lcond ->
-                            _menhir_run95 _menhir_env (Obj.magic _menhir_stack) MenhirState5
+                            _menhir_run106 _menhir_env (Obj.magic _menhir_stack) MenhirState5
                         | Ldecl _v ->
-                            _menhir_run92 _menhir_env (Obj.magic _menhir_stack) MenhirState5 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                            _menhir_run103 _menhir_env (Obj.magic _menhir_stack) MenhirState5 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                         | Lfor ->
-                            _menhir_run78 _menhir_env (Obj.magic _menhir_stack) MenhirState5
+                            _menhir_run89 _menhir_env (Obj.magic _menhir_stack) MenhirState5
+                        | Lprints ->
+                            _menhir_run84 _menhir_env (Obj.magic _menhir_stack) MenhirState5 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                         | Lreturn ->
-                            _menhir_run75 _menhir_env (Obj.magic _menhir_stack) MenhirState5 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                            _menhir_run81 _menhir_env (Obj.magic _menhir_stack) MenhirState5 _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                         | Lvar _v ->
-                            _menhir_run71 _menhir_env (Obj.magic _menhir_stack) MenhirState5 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
+                            _menhir_run77 _menhir_env (Obj.magic _menhir_stack) MenhirState5 _v _menhir_env._menhir_lexbuf.Lexing.lex_start_p
                         | Lwhile ->
                             _menhir_run6 _menhir_env (Obj.magic _menhir_stack) MenhirState5
                         | _ ->
@@ -2396,4 +2665,4 @@ and prog : (Lexing.lexbuf -> token) -> Lexing.lexbuf -> (
 # 269 "<standard.mly>"
   
 
-# 2400 "parser.ml"
+# 2669 "parser.ml"

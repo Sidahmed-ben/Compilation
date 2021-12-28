@@ -6,12 +6,16 @@ type type_t_aux =
 type type_t =
 | Int_t  of type_t_aux * bool 
 | Bool_t of type_t_aux * bool  
+| Str_t  
+| Void_t
 | Func_t of type_t * type_t list
 
 let rec string_of_type_t t =
   match t with
-  | Int_t  (_,_)-> "int"
-  | Bool_t (_,_)-> "bool"
+  | Void_t        -> "Void"
+  | Int_t  (_,_)-> "Int"
+  | Bool_t (_,_)-> "Bool"
+  | Str_t       -> "Str"
   | Func_t (r, a) ->
      (if (List.length a) > 1 then "(" else "")
      ^ (String.concat ", " (List.map string_of_type_t a))
@@ -22,6 +26,9 @@ let rec string_of_type_t t =
 module Syntax = struct
   type ident = string
   type expr =
+    | Void of {value: int
+              ; pos: Lexing.position 
+              }
     | Int  of { value: int
               ; pos: Lexing.position }
     | Bool of { value:bool
@@ -64,6 +71,10 @@ module Syntax = struct
                       ;bloc_w  : block
                       ;pos     : Lexing.position
                      }
+
+    |Call_func of {  appel : expr
+                    ;pos   : Lexing.position
+                    }
       
   and block = instr list
   type def = 
@@ -77,7 +88,7 @@ end
 
 
 type value = 
-  | Nil
+  | Void
   | Bool of  int 
   | Int  of  int
   | Str  of  string
@@ -86,8 +97,8 @@ module IR = struct
   type ident = string
   type expr =
     | Value of value
-    | Var  of ident
-    | Call of ident * expr list 
+    | Var   of ident
+    | Call  of ident * expr list 
   type instr =
     | Decl   of ident
     | Assign of ident * expr
@@ -95,6 +106,7 @@ module IR = struct
     | Cond   of expr  * block * block
     | Boucle of instr * expr  * instr * block
     | Boucle_while of  expr * block 
+    | Call_func    of  expr
 
   and block = instr list
   type def = 
