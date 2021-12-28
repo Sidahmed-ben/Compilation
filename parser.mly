@@ -10,7 +10,7 @@
 %token Ladd Lsub Lmul Ldiv Lopar Lcpar
 %token Lreturn Lassign Lsc Lend
 %token <Ast.type_t>Ldecl
-%token Lparo Lparf Lacoo Lacof Lfunc Lcond Lelse Lsup Linf Lfor
+%token Lparo Lparf Lacoo Lacof Lfunc Lcond Lelse Lsup Linf Lfor Lwhile
  
 %left Ladd Lsub
 %left Lmul Ldiv
@@ -38,6 +38,13 @@ prog:
 
 block: 
 
+| Lwhile ; Lparo ; condi = expr ; Lparf ; Lacoo ; b_while = block ; b = block {
+                                                                            [Boucle_while{ 
+                                                                              condit = condi
+                                                                            ; bloc_w = b_while
+                                                                            ; pos    = $startpos(condi)
+                                                                             }] @ b  
+                                                                          }  
 
 | Lfor ; Lparo ; v = Lvar ; Lassign ; init = expr ; 
   Lsc ; cond = expr ; Lsc ;  v_incr = Lvar  ; Lassign ; e_incr = expr  ; Lparf ; Lacoo ; b_for = block ; b = block { 

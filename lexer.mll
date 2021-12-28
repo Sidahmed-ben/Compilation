@@ -34,7 +34,7 @@ rule token = parse
 | ">"             {Lsup}
 | "<"             {Linf}
 | "for"           {Lfor}
-
+| "while"         {Lwhile}
 | identifier+ as var { Lvar (var) }
 | '"'             { Lstring ( String.of_seq (List.to_seq (string_ lexbuf)) )  }
 

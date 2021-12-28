@@ -71,8 +71,8 @@ let rec compile_instr i info =
      ; counter = ce.counter }
 
   | Boucle (init,condit,instr_incr,block_for) -> 
-        let uniq        =  string_of_int info.counter   in
-        let init_comp   =  compile_instr init           { info       with  code = [] }     in
+        let uniq        =  string_of_int  (info.counter)   in
+        let init_comp   =  compile_instr init           { info  with  code = []  }     in
         let condit_comp =  compile_expr  condit   init_comp.env   in
         let block_for_comp  =  compile_block block_for  { init_comp  with  code = [] }     in
         let instr_incr_comp   =  compile_instr instr_incr    { block_for_comp  with code = [] } in
@@ -80,15 +80,31 @@ let rec compile_instr i info =
         { info with 
           code = info.code 
                  @ init_comp.code 
-                 @ [Label ("loop"^uniq)]
+                 @ [Label ("loop_for"^uniq)]
                  @ condit_comp 
-                 @ [Beqz(V0,"exit_loop"^uniq)]
+                 @ [Beqz(V0,"exit_loop_for"^uniq)]
                  @ block_for_comp.code
                  @ instr_incr_comp.code 
-                 @ [B ("loop"^uniq)
-                   ;Label ("exit_loop"^uniq)]
+                 @ [B ("loop_for"^uniq)
+                   ;Label ("exit_loop_for"^uniq)]
+          ; counter = info.counter +1
         }        
         
+    | Boucle_while(ana_cond, ana_blco_w) -> 
+        let uniq =  string_of_int  (info.counter) in 
+        let condit_comp      =  compile_expr ana_cond      info.env in
+        let block_while_comp =  compile_block ana_blco_w  { info  with code = [] } in
+
+        {info with 
+          code = info.code 
+                 @ [Label ("loop_while"^uniq)]
+                 @ condit_comp 
+                 @ [Beqz(V0,"exit_loop_while"^uniq)]
+                 @ block_while_comp.code
+                 @ [B ("loop_while"^uniq)
+                   ;Label ("exit_loop_while"^uniq)]
+          ; counter = info.counter +1
+        }        
         
 
 

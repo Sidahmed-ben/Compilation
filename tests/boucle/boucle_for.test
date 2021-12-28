@@ -2,9 +2,27 @@ func main () {
     int a ;
     int b ;
     b = 5 + 5;
+    int c ;
+    c = 0;
+    int incr;
+    incr = 0;
+
+    # boucle 1
     for( a = 1 ; a < 5 ; a = a * 2 )
     {
         b = b + 10 ;
+    }
+
+    # boucle 2
+    for( a = 1 ; a < 5 ; a = a + 2 )
+    {
+        b = b + 10 ;
+    }
+
+    # boucle 3
+    while (c < 3){
+        incr = incr +1 ;
+        c = c + 12 ;
     }
 
 }

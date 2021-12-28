@@ -71,7 +71,7 @@ let rec analyze_expr expr env =
                                                 end
                                               else
                                                 begin
-                                                  raise (Error (Printf.sprintf "unasigned variable  '%s'" (var_name aa) ,c.pos))
+                                                  raise (Error (Printf.sprintf "unassigned variable  '%s'" (var_name aa) ,c.pos))
                                                 end )
                      at c.args in
         Call (c.func, args), rt    (* retour de Call *)
@@ -102,7 +102,7 @@ let rec analyze_instr instr env =
                             else
                               errt vt et (expr_pos a.expr)
       | _ ->  match a.expr with 
-                | Var v -> raise (Error (Printf.sprintf "unasigned variable  '%s'" v.name ,v.pos))
+                | Var v -> raise (Error (Printf.sprintf "unassigned variable  '%s'" v.name ,v.pos))
     else 
       raise (Error (Printf.sprintf "unbound variable '%s'" a.var,a.pos))
 
@@ -116,12 +116,19 @@ let rec analyze_instr instr env =
                     let ab2, new_env2 = analyze_block c.block2 new_env1  in 
                     Cond(ae, ab1, ab2) , new_env2  
   
-  |Syntax.Boucle b -> let ai , new_env  = analyze_instr b.init env         in
+  |Syntax.Boucle b -> let ai , new_env  = analyze_instr b.init    env      in
                       let ae , et       = analyze_expr  b.condit  new_env  in
                       let abf, new_enbf = analyze_block b.bloc_f  new_env  in  
                       let aii , new_envb = analyze_instr b.incr   new_enbf in
                      
                       Boucle(ai,ae,aii,abf),  new_envb 
+
+
+  |Syntax.Boucle_while w -> 
+                    let ana_cond, type_cond = analyze_expr w.condit  env  in
+                    let ana_blco_w, new_env = analyze_block w.bloc_w env  in
+
+                    Boucle_while(ana_cond, ana_blco_w), new_env
 
 
 

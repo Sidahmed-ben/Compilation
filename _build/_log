@@ -32,67 +32,15 @@ menhir --ocamlc /usr/bin/ocamlc.opt --infer parser.mly # cached
 # Target: lexer.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:lexer.cmo, file:lexer.ml, implem, ocaml, quiet }
 /usr/bin/ocamlc.opt -c -o lexer.cmo lexer.ml # cached
 # Target: semantics.ml.depends, tags: { extension:ml, file:semantics.ml, ocaml, ocamldep, quiet }
-/usr/bin/ocamldep.opt -modules semantics.ml > semantics.ml.depends
+/usr/bin/ocamldep.opt -modules semantics.ml > semantics.ml.depends # cached
 # Target: semantics.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:semantics.cmo, file:semantics.ml, implem, ocaml, quiet }
-/usr/bin/ocamlc.opt -c -o semantics.cmo semantics.ml
-+ /usr/bin/ocamlc.opt -c -o semantics.cmo semantics.ml
-File "semantics.ml", line 10, characters 2-294:
-10 | ..match type1 with 
-11 |     | Int_t(Int_t,_) -> (match type2 with 
-12 |                           | Int_t(Int_t,_) -> true 
-13 |                           | _ -> false)
-14 | 
-15 |     | Bool_t(Bool_t,_) -> (match type2 with 
-16 |                           | Bool_t(Bool_t,_) -> true 
-17 |                           | _ -> false).
-Warning 8: this pattern-matching is not exhaustive.
-Here is an example of a case that is not matched:
-(Int_t (Bool_t, _)|Bool_t (Int_t, _)|Func_t (_, _))
-File "semantics.ml", line 26, characters 2-125:
-26 | ..match expr with
-27 |   | Syntax.Int  n -> n.pos
-28 |   | Syntax.Bool b -> b.pos
-29 |   | Syntax.Var  v -> v.pos
-30 |   | Syntax.Call c -> c.pos
-Warning 8: this pattern-matching is not exhaustive.
-Here is an example of a case that is not matched:
-Str _
-File "semantics.ml", line 33, characters 4-36:
-33 | ....match expr with
-34 |     | Var v -> v
-Warning 8: this pattern-matching is not exhaustive.
-Here is an example of a case that is not matched:
-(Value _|Call (_, _))
-File "semantics.ml", line 49, characters 2-2042:
-49 | ..match expr with
-50 |   | Syntax.Int n  ->  Value(Int n.value), Int_t(Int_t,true) (* retour de Int *) 
-51 |   | Syntax.Bool b -> (match b.value with 
-52 |                       | true  ->  Value(Bool 1), Bool_t(Bool_t,true)
-53 |                       | false ->  Value(Bool 0), Bool_t(Bool_t,true) ) (* retour de Bool*)
-...
-78 |      | Some _ -> raise (Error (Printf.sprintf "'%s' is not a function" c.func,
-79 |                                c.pos))
-80 |      | None -> raise (Error (Printf.sprintf "undefined function '%s'" c.func,
-81 |                              c.pos))
-Warning 8: this pattern-matching is not exhaustive.
-Here is an example of a case that is not matched:
-Str _
-File "semantics.ml", line 104, characters 14-131:
-104 | ..............match a.expr with 
-105 |                 | Var v -> raise (Error (Printf.sprintf "unasigned variable  '%s'" v.name ,v.pos))
-Warning 8: this pattern-matching is not exhaustive.
-Here is an example of a case that is not matched:
-Int {pos=_; _ }
-File "semantics.ml", line 140, characters 6-7:
-140 |     | _ -> [] 
-            ^
-Warning 11: this match case is unused.
+/usr/bin/ocamlc.opt -c -o semantics.cmo semantics.ml # cached
 # Target: main.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:main.cmo, file:main.ml, implem, ocaml, quiet }
-/usr/bin/ocamlc.opt -c -o main.cmo main.ml
+/usr/bin/ocamlc.opt -c -o main.cmo main.ml # cached
 # Target: parser.ml.depends, tags: { extension:ml, file:parser.ml, ocaml, ocamldep, quiet }
 /usr/bin/ocamldep.opt -modules parser.ml > parser.ml.depends # cached
 # Target: parser.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:parser.cmo, file:parser.ml, implem, ocaml, quiet }
 /usr/bin/ocamlc.opt -c -o parser.cmo parser.ml # cached
 # Target: main.byte, tags: { byte, dont_link_with, extension:byte, file:main.byte, link, ocaml, program, quiet }
-/usr/bin/ocamlc.opt ast.cmo mips.cmo baselib.cmo compiler.cmo parser.cmo lexer.cmo semantics.cmo main.cmo -o main.byte
+/usr/bin/ocamlc.opt ast.cmo mips.cmo baselib.cmo compiler.cmo parser.cmo lexer.cmo semantics.cmo main.cmo -o main.byte # cached
 # Compilation successful.

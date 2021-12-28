@@ -59,6 +59,11 @@ module Syntax = struct
                ;bloc_f  : block
                ;pos     : Lexing.position
               }
+    |Boucle_while of {
+                       condit  : expr 
+                      ;bloc_w  : block
+                      ;pos     : Lexing.position
+                     }
       
   and block = instr list
   type def = 
@@ -89,6 +94,7 @@ module IR = struct
     | Return of expr
     | Cond   of expr  * block * block
     | Boucle of instr * expr  * instr * block
+    | Boucle_while of  expr * block 
 
   and block = instr list
   type def = 

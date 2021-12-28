@@ -2,6 +2,7 @@
 (* The type of tokens. *)
 
 type token = 
+  | Lwhile
   | Lvar of (string)
   | Lsup
   | Lsub
