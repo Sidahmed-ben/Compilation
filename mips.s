@@ -10,15 +10,41 @@ _sup:
   lw $t1, 4($sp)
   slt $v0, $t0, $t1
   jr $ra
+_egal:
+  lw $t0, 0($sp)
+  lw $t1, 4($sp)
+  addi $sp, $sp, -4
+  sw $ra, 0($sp)
+  sub $v0, $t0, $t1
+  beqz $v0, zero
+  li $v0, 0
+  jal fin_egal
+zero:
+  li $v0, 1
+  jal fin_egal
+fin_egal:
+  lw $ra, 0($sp)
+  addi $sp, $sp, 4
+  jr $ra
 _add:
   lw $t0, 0($sp)
   lw $t1, 4($sp)
   add $v0, $t0, $t1
   jr $ra
+_sub:
+  lw $t0, 0($sp)
+  lw $t1, 4($sp)
+  sub $v0, $t1, $t0
+  jr $ra
 _mul:
   lw $t0, 0($sp)
   lw $t1, 4($sp)
   mul $v0, $t0, $t1
+  jr $ra
+_div:
+  lw $t0, 0($sp)
+  lw $t1, 4($sp)
+  div $v0,$t1,$t0
   jr $ra
 _puti:
   lw $a0, 0($sp)
@@ -47,6 +73,20 @@ main:
   jal _geti
   addi $sp, $sp, 0
   sw $v0, -8($fp)
+  la $v0, str2
+  addi $sp, $sp, -4
+  sw $v0, 0($sp)
+  jal _puts
+  addi $sp, $sp, 4
+  lw $v0, -8($fp)
+  addi $sp, $sp, -4
+  sw $v0, 0($sp)
+  li $v0, 2
+  addi $sp, $sp, -4
+  sw $v0, 0($sp)
+  jal _sub
+  addi $sp, $sp, 8
+  sw $v0, -8($fp)
   lw $v0, -8($fp)
   addi $sp, $sp, -4
   sw $v0, 0($sp)
@@ -61,3 +101,4 @@ ret0:
 .data
 str1: .asciiz "saisissez un entier SVP !! 
 "
+str2: .asciiz " a - 2  = "

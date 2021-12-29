@@ -115,11 +115,6 @@ let rec compile_instr i info =
 
 
 
-    
-  | _ -> Printf.fprintf Stdlib.stdout " OUps dekhelt f else*********** ";  info  
-
-
-
 and compile_block b info =
   match b with
   | [] -> info
@@ -154,8 +149,7 @@ let compile_def  func counter =
                                         ; Addi (SP, SP, cb.fpo)
                                         ; Lw (RA, Mem (FP, 0))
                                         ; Lw (FP, Mem (FP, -4))
-                                        ; Jr (RA) ]
-    | _ -> Printf.fprintf Stdlib.stdout " makach fonction 3emi ! " ;  0, []         )
+                                        ; Jr (RA) ] )
      
 
 

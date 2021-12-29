@@ -1,10 +1,8 @@
 func main () {
     int a ;
+    bool b;
+    b = True;
     prints("saisissez un entier SVP !! \n");
-    a = geti(); 
-
-    prints(" a - 2  = ");
-    a = a - 2;
+    b = geti(); #erreur de type
     puti(a);
-
 }

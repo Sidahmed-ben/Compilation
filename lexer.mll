@@ -20,11 +20,14 @@ rule token = parse
 | ';'             { Lsc }
 | '='             { Lassign}        
 | '+'             { Ladd }
+| '/'             { Ldiv }
+| '-'             { Lsub }
 | "func"          {Lfunc}
 | '('             {Lparo}
 | ')'             {Lparf}
 | '{'             {Lacoo}
 | '}'             {Lacof}
+| "=="            {Legal}
 | "int"           {Ldecl (Int_t(Int_t,false))}
 | "bool"          {Ldecl (Bool_t(Bool_t,false))}
 | "True"          {Lbool (true)}

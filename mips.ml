@@ -32,7 +32,11 @@ type instr =
   | Beqz  of reg * label
   | Jal   of label
   | Jr    of reg
-  | Slt   of reg*reg*reg 
+  | Slt   of reg * reg * reg 
+  | Sub   of reg * reg * reg
+  | Div   of reg * reg * reg
+  | Mflo  of reg
+  | Mfhi  of reg
 
 type directive =
   | Asciiz of string
@@ -84,6 +88,10 @@ let fmt_instr = function
   | Jal (l)          -> ps "  jal %s" l
   | Jr (r)           -> ps "  jr %s" (fmt_reg r)
   | Slt (r1,r2,r3)   -> ps "  slt %s, %s, %s" (fmt_reg r1) (fmt_reg r2) (fmt_reg r3)
+  | Sub (r1,r2,r3)   -> ps "  sub %s, %s, %s" (fmt_reg r1) (fmt_reg r2) (fmt_reg r3)
+  | Div (r1,r2,r3)      -> ps "  div %s,%s,%s"   (fmt_reg r1) (fmt_reg r2) (fmt_reg r3)
+  | Mflo(r)          -> ps "  mflo %s"  (fmt_reg r)
+  | Mfhi(r)          -> ps "  mfhi %s"  (fmt_reg r)
 
 let fmt_dir = function
   | Asciiz (s) -> ps ".asciiz \"%s\"" s

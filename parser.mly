@@ -7,10 +7,10 @@
 %token <string> Lvar
 %token <string> Lstring
 %token <bool> Lbool
-%token Ladd Lsub Lmul Ldiv Lopar Lcpar
+%token Ladd Lsub Lmul Ldiv
 %token Lreturn Lassign Lsc Lend
 %token <Ast.type_t>Ldecl
-%token Lparo Lparf Lacoo Lacof Lfunc Lcond Lelse Lsup Linf Lfor Lwhile Lprints Lgeti Lputi
+%token Lparo Lparf Lacoo Lacof Lfunc Lcond Lelse Lsup Linf Lfor Lwhile Lprints Lgeti Lputi Legal
  
 %left Ladd Lsub
 %left Lmul Ldiv
@@ -23,11 +23,11 @@
 
 prog:
 | Lfunc ; v = Lvar ; Lparo ; Lparf ; Lacoo ; b = block  
-                                                      { [Func {  nom  = v;
+                                                      { [Func { nom  = v;
                                                                 args = [];
                                                                 block = b ; 
                                                                 pos  = $startpos(v)
-                                                              }]
+                                                              }] 
                                                       } 
                                                         
 
@@ -106,6 +106,20 @@ block:
                                             ] @ b 
                                           }
 
+| i = Ldecl ; v = Lvar ; Lassign ; e = expr ; Lsc  ; b = block { [ Decl {      name = v
+                                                                              ; type_t = i
+                                                                              ; pos  = $startpos(i)
+                                                                        } 
+                                                                  ] @ 
+                                                                  [
+                                                                    Assign {    var = v 
+                                                                              ; expr = e
+                                                                              ; pos = $startpos(v)
+                                                                    }    
+                                                                  ] @b 
+                                                                }
+
+
 | v = Lvar  ; Lassign ; e = expr ; Lsc ; b = block {
                                                       [ Assign {    var = v 
                                                                   ; expr = e
@@ -140,6 +154,11 @@ expr:
                                           ;pos  = $startpos($2)}
                                }
 
+| i1 = expr ; Legal ; i2 = expr {    Call { func = "_egal" 
+                                          ;args = [i1 ; i2] 
+                                          ;pos  = $startpos($2)}
+                               }                             
+
 | i1 = expr ; Lsup ; i2 = expr {    Call { func = "_sup" 
                                           ;args = [i1 ; i2] 
                                           ;pos  = $startpos($2)}
@@ -163,4 +182,19 @@ expr:
     ; args = [a ; b]
     ; pos = $startpos($2)}
   }
+
+| a = expr ; Lsub ; b = expr {   
+  Call {
+      func = "_sub"
+    ; args = [a ; b]
+    ; pos = $startpos($2)}
+  }
+
+| a = expr ; Ldiv ; b = expr {   
+  Call {
+      func = "_div"
+    ; args = [a ; b]
+    ; pos = $startpos($2)}
+  }
+
 ;
