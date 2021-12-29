@@ -9,6 +9,7 @@ type token =
   | Lstring of (string)
   | Lsc
   | Lreturn
+  | Lputi
   | Lprints
   | Lparo
   | Lparf
@@ -16,6 +17,7 @@ type token =
   | Lmul
   | Lint of (int)
   | Linf
+  | Lgeti
   | Lfunc
   | Lfor
   | Lend

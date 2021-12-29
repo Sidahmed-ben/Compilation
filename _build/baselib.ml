@@ -13,6 +13,8 @@ let _types_ =
        ; "_inf",  Func_t (Int_t(Int_t,true), [ Int_t(Int_t,true) ; Int_t(Int_t,true) ])
        ; "_sup",  Func_t (Int_t(Int_t,true), [ Int_t(Int_t,true) ; Int_t(Int_t,true) ])
        ; "_puts", Func_t (Void_t, [Str_t])
+       ; "_geti", Func_t (Int_t(Int_t,true), [])
+       ; "_puti", Func_t (Void_t, [Int_t(Int_t,true)])
     ])
 
 

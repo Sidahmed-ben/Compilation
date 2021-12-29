@@ -58,7 +58,7 @@ let collect_constant_strings code =
       
       |Boucle (init,cond,incr,block_for) ->
          let block_f, ccs , new_env = ccs_block block_for counter env in
-            Boucle (init,cond,incr,block_for), ccs , new_env     
+            Boucle (init,cond,incr,block_f), ccs , new_env     
             
       | Boucle_while (cond,block_while)  ->
          let block_w, ccs , new_env = ccs_block block_while counter env in

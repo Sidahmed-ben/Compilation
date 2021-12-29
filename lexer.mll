@@ -36,6 +36,8 @@ rule token = parse
 | "for"           {Lfor}
 | "while"         {Lwhile}
 | "prints"        {Lprints}
+| "geti"          {Lgeti}
+| "puti"          {Lputi}
 | '"'             { Lstring ( String.of_seq (List.to_seq (string_ lexbuf)) )  }
 
 

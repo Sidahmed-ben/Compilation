@@ -146,10 +146,10 @@ let compile_def  func counter =
                                         ; Sw (FP, Mem (SP, cb.fpo - 8))
                                         ; Addi (FP, SP, cb.fpo - 4) ]
                                       @ cb.code
-                                      @ [ Move (A0, V0) 
+                                      (* @ [ Move (A0, V0) 
                                         ; Li (V0, 1)
                                         ; Syscall
-                                        ]
+                                        ] *)
                                       @ [ Label cb.return
                                         ; Addi (SP, SP, cb.fpo)
                                         ; Lw (RA, Mem (FP, 0))

@@ -35,36 +35,29 @@ _puts:
   syscall
   jr $ra
 main:
-  addi $sp, $sp, -8
-  sw $ra, 4($sp)
-  sw $fp, 0($sp)
-  addi $fp, $sp, 4
+  addi $sp, $sp, -12
+  sw $ra, 8($sp)
+  sw $fp, 4($sp)
+  addi $fp, $sp, 8
   la $v0, str1
   addi $sp, $sp, -4
   sw $v0, 0($sp)
   jal _puts
   addi $sp, $sp, 4
-  la $v0, str2
+  jal _geti
+  addi $sp, $sp, 0
+  sw $v0, -8($fp)
+  lw $v0, -8($fp)
   addi $sp, $sp, -4
   sw $v0, 0($sp)
-  jal _puts
+  jal _puti
   addi $sp, $sp, 4
-  la $v0, str2
-  addi $sp, $sp, -4
-  sw $v0, 0($sp)
-  jal _puts
-  addi $sp, $sp, 4
-  move $a0, $v0
-  li $v0, 1
-  syscall
 ret0:
-  addi $sp, $sp, 8
+  addi $sp, $sp, 12
   lw $ra, 0($fp)
   lw $fp, -4($fp)
   jr $ra
 
 .data
-str1: .asciiz "bonjour
-"
-str2: .asciiz "salut
+str1: .asciiz "saisissez un entier SVP !! 
 "

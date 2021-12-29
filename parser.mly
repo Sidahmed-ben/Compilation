@@ -10,7 +10,7 @@
 %token Ladd Lsub Lmul Ldiv Lopar Lcpar
 %token Lreturn Lassign Lsc Lend
 %token <Ast.type_t>Ldecl
-%token Lparo Lparf Lacoo Lacof Lfunc Lcond Lelse Lsup Linf Lfor Lwhile Lprints
+%token Lparo Lparf Lacoo Lacof Lfunc Lcond Lelse Lsup Linf Lfor Lwhile Lprints Lgeti Lputi
  
 %left Ladd Lsub
 %left Lmul Ldiv
@@ -23,12 +23,12 @@
 
 prog:
 | Lfunc ; v = Lvar ; Lparo ; Lparf ; Lacoo ; b = block  
-                                                              { [Func {  nom  = v;
-                                                                        args = [];
-                                                                        block = b ; 
-                                                                        pos  = $startpos(v)
-                                                                      }]
-                                                              } 
+                                                      { [Func {  nom  = v;
+                                                                args = [];
+                                                                block = b ; 
+                                                                pos  = $startpos(v)
+                                                              }]
+                                                      } 
                                                         
 
 | Lend { [] }
@@ -37,6 +37,16 @@ prog:
 
 
 block: 
+
+| Lputi ; Lparo ; entier = expr ; Lparf ; Lsc ; b = block  {
+                                                              [Call_func {
+                                                                          appel = Call { func = "_puti" 
+                                                                                        ;args = [entier] 
+                                                                                        ;pos  = $startpos($1)}
+
+                                                                          ; pos = $startpos($1)
+                                                                       }] @ b
+                                                           }  
 
 | Lprints; Lparo ; str = expr ;Lparf ; Lsc ; b = block {
                                                             [Call_func {
@@ -135,8 +145,11 @@ expr:
                                           ;pos  = $startpos($2)}
                                }
 
-
-
+|Lgeti ; Lparo ;  Lparf  {         
+                                Call { func = "_geti" 
+                                ;args = [] 
+                                ;pos  = $startpos($2)}
+                              } 
 
 | a = expr ; Lmul ; b = expr {
   Call { func = "_mul" 

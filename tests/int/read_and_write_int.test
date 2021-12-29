@@ -1,0 +1,6 @@
+func main () {
+    int a ;
+    prints("saisissez un entier SVP !! \n");
+    a = geti();
+    puti(a);
+}
