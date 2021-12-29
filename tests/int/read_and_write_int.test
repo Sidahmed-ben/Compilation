@@ -1,10 +1,11 @@
 func main () {
     int a ;
-    prints("saisissez un entier SVP !! \n");
+    prints("saisissez un entier sup à 20 SVP !! \n");
     a = geti(); 
-
-    prints(" a - 2  = ");
-    a = a - 2;
+    while(a < 20){
+        prints("saisissez un entier SVP !! \n");
+        a = geti(); 
+    }
+    prints(" a = ");
     puti(a);
-
 }
