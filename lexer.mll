@@ -42,11 +42,8 @@ rule token = parse
 | "geti"          {Lgeti}
 | "puti"          {Lputi}
 | '"'             { Lstring ( String.of_seq (List.to_seq (string_ lexbuf)) )  }
-
-
 | identifier+ as var { Lvar (var) }
 | _ as c          {Printf.fprintf Stdlib.stdout "wch" ;raise (Error c) }
-
 
 
 and string_ = parse
@@ -56,12 +53,6 @@ and string_ = parse
 | "\\t" { '\t' :: (string_ lexbuf) } (* idem pour "\t" *)
 | "\\\\" { '\\' :: (string_ lexbuf) } (* idem pour "\\" *)
 | _ as c { c :: (string_ lexbuf) } (* pour tous les autres caractères pas de traitement particulier ils se valent eux-mêmes *)
-
-
-
-
-
-
 
 
 and comment = parse

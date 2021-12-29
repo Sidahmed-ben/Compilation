@@ -32,19 +32,19 @@ menhir --ocamlc /usr/bin/ocamlc.opt --infer parser.mly # cached
 # Target: lexer.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:lexer.cmo, file:lexer.ml, implem, ocaml, quiet }
 /usr/bin/ocamlc.opt -c -o lexer.cmo lexer.ml # cached
 # Target: semantics.ml.depends, tags: { extension:ml, file:semantics.ml, ocaml, ocamldep, quiet }
-/usr/bin/ocamldep.opt -modules semantics.ml > semantics.ml.depends # cached
-# Target: semantics.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:semantics.cmo, file:semantics.ml, implem, ocaml, quiet }
-/usr/bin/ocamlc.opt -c -o semantics.cmo semantics.ml # cached
+/usr/bin/ocamldep.opt -modules semantics.ml > semantics.ml.depends
 # Target: simplifier.ml.depends, tags: { extension:ml, file:simplifier.ml, ocaml, ocamldep, quiet }
 /usr/bin/ocamldep.opt -modules simplifier.ml > simplifier.ml.depends # cached
 # Target: simplifier.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:simplifier.cmo, file:simplifier.ml, implem, ocaml, quiet }
 /usr/bin/ocamlc.opt -c -o simplifier.cmo simplifier.ml # cached
+# Target: semantics.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:semantics.cmo, file:semantics.ml, implem, ocaml, quiet }
+/usr/bin/ocamlc.opt -c -o semantics.cmo semantics.ml
 # Target: main.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:main.cmo, file:main.ml, implem, ocaml, quiet }
-/usr/bin/ocamlc.opt -c -o main.cmo main.ml # cached
+/usr/bin/ocamlc.opt -c -o main.cmo main.ml
 # Target: parser.ml.depends, tags: { extension:ml, file:parser.ml, ocaml, ocamldep, quiet }
 /usr/bin/ocamldep.opt -modules parser.ml > parser.ml.depends # cached
 # Target: parser.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:parser.cmo, file:parser.ml, implem, ocaml, quiet }
 /usr/bin/ocamlc.opt -c -o parser.cmo parser.ml # cached
 # Target: main.byte, tags: { byte, dont_link_with, extension:byte, file:main.byte, link, ocaml, program, quiet }
-/usr/bin/ocamlc.opt ast.cmo mips.cmo baselib.cmo compiler.cmo parser.cmo lexer.cmo semantics.cmo simplifier.cmo main.cmo -o main.byte # cached
+/usr/bin/ocamlc.opt ast.cmo mips.cmo baselib.cmo compiler.cmo parser.cmo lexer.cmo semantics.cmo simplifier.cmo main.cmo -o main.byte
 # Compilation successful.

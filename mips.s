@@ -73,20 +73,31 @@ main:
   jal _geti
   addi $sp, $sp, 0
   sw $v0, -8($fp)
+loop_while1:
+  lw $v0, -8($fp)
+  addi $sp, $sp, -4
+  sw $v0, 0($sp)
+  li $v0, 20
+  addi $sp, $sp, -4
+  sw $v0, 0($sp)
+  jal _inf
+  addi $sp, $sp, 8
+  beqz $v0, exit_loop_while1
   la $v0, str2
   addi $sp, $sp, -4
   sw $v0, 0($sp)
   jal _puts
   addi $sp, $sp, 4
-  lw $v0, -8($fp)
-  addi $sp, $sp, -4
-  sw $v0, 0($sp)
-  li $v0, 2
-  addi $sp, $sp, -4
-  sw $v0, 0($sp)
-  jal _sub
-  addi $sp, $sp, 8
+  jal _geti
+  addi $sp, $sp, 0
   sw $v0, -8($fp)
+  b loop_while1
+exit_loop_while1:
+  la $v0, str3
+  addi $sp, $sp, -4
+  sw $v0, 0($sp)
+  jal _puts
+  addi $sp, $sp, 4
   lw $v0, -8($fp)
   addi $sp, $sp, -4
   sw $v0, 0($sp)
@@ -99,6 +110,8 @@ ret0:
   jr $ra
 
 .data
-str1: .asciiz "saisissez un entier SVP !! 
+str1: .asciiz "saisissez un entier sup à 20 SVP !! 
 "
-str2: .asciiz " a - 2  = "
+str2: .asciiz "saisissez un entier SVP !! 
+"
+str3: .asciiz " a = "
