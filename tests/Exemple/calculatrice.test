@@ -1,0 +1,68 @@
+void main () {
+    int control = 1 ;
+    int op1 = 1;
+    int op2 = 1;
+
+    while(control > 0){
+        prints("============= MENU =============\n");
+        prints(" '1' -> Faire une Addition \n");
+        prints(" '2' -> Faire une Soustraction \n");
+        prints(" '3' -> Faire une Dévision  \n");
+        prints(" '4' -> Faire une Multiplication \n");
+        prints(" '0' -> Quiter \n");
+
+        control = geti();
+        if(control == 1){
+            prints(" Vous avez choisie l'addition \n");
+            prints(" Veuillez saisir le premier  operand \n");
+            op1 = geti();
+            prints(" Veuillez saisir le deuxieme operand \n");
+            op2 = geti();
+            prints("----- le resultat de l'addition ->  ");
+            puti(op1 + op2);
+            prints("\n");
+
+        }else{
+
+            if(control == 2){
+                prints(" Vous avez choisie la soustraction \n");
+                prints(" Veuillez saisir le premier  operand \n");
+                op1 = geti();
+                prints(" Veuillez saisir le deuxieme operand \n");
+                op2 = geti();
+
+                prints("------ le resultat de la soustraction ->  ");
+                puti(op1 - op2);
+                prints("\n");
+            }else{
+
+                if(control == 3){
+                    prints(" Vous avez choisie la dévision \n");
+                    prints(" Veuillez saisir le premier  operand \n");
+                    op1 = geti();
+                    op2 = 0;
+                    while(op2 == 0){
+                        prints(" Veuillez saisir le deuxieme operand  (!=0) \n");
+                        op2 = geti();
+                    }
+                    prints("------ le resultat de la devision ->  ");
+                    puti(op1 / op2);
+                    prints("\n");
+
+                }else{
+                    if(control == 4){
+                        prints(" Vous avez choisie la Multiplication \n");
+                        prints(" Veuillez saisir le premier  operand \n");
+                        op1 = geti();
+                        prints(" Veuillez saisir le deuxieme operand \n");
+                        op2 = geti();
+
+                        prints("------ le resultat de la Multiplication ->  ");
+                        puti(op1 * op2);
+                        prints("\n");
+                    }               
+                }
+            }
+        }
+    }
+}

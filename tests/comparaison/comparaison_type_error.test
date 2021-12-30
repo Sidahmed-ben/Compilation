@@ -1,7 +1,0 @@
-func main(){
-    int a ;
-    a = 20;
-    if(True < 6){
-        a = 10;
-    }
-}

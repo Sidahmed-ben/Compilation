@@ -1,7 +1,0 @@
-func main(){
-    bool b ;
-    int a;
-    a = 4;
-    b = a;
-    return 0;
-}

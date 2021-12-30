@@ -1,8 +1,0 @@
-func test () {
-    int a;
-    int b;
-    a = 5;
-    b = a;
-    a = b;
-    return 42 ;
-}

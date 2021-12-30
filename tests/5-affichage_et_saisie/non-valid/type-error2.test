@@ -1,0 +1,4 @@
+void main () {
+    bool b = True ;
+    prints(b);  # expected str but given bool
+}

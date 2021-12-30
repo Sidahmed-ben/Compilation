@@ -1,0 +1,7 @@
+void main(){
+    int a ;
+    a = 20;
+    if(True < 6){  # error type 
+        a = 10;
+    }
+}

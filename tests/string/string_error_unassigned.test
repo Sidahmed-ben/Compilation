@@ -1,4 +1,0 @@
-func main(){
-    int i ;
-    i = "hello"; #error str not assignable
-}

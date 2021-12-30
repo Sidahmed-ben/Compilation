@@ -1,8 +1,0 @@
-func main () {
-    int a ;
-    bool b;
-    b = True;
-    prints("saisissez un entier SVP !! \n");
-    b = geti(); #erreur de type
-    puti(a);
-}

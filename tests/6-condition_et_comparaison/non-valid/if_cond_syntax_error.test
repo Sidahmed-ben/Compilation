@@ -1,0 +1,7 @@
+void main(){
+    int a ;
+    a = 20;
+    if( < 6  8 ){  # suntax-error 
+        a = 10;
+    }
+}

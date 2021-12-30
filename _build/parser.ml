@@ -5,17 +5,18 @@ module MenhirBasics = struct
   
   type token = 
     | Lwhile
+    | Lvoid
     | Lvar of (
 # 7 "parser.mly"
        (string)
-# 12 "parser.ml"
+# 13 "parser.ml"
   )
     | Lsup
     | Lsub
     | Lstring of (
 # 8 "parser.mly"
        (string)
-# 19 "parser.ml"
+# 20 "parser.ml"
   )
     | Lsc
     | Lreturn
@@ -27,11 +28,10 @@ module MenhirBasics = struct
     | Lint of (
 # 6 "parser.mly"
        (int)
-# 31 "parser.ml"
+# 32 "parser.ml"
   )
     | Linf
     | Lgeti
-    | Lfunc
     | Lfor
     | Lend
     | Lelse
@@ -360,7 +360,7 @@ and _menhir_reduce1 : _menhir_env -> ((((('ttv_tail * _menhir_state * Lexing.pos
                                                               [Call_func {
                                                                           appel = Call { func = "_puti" 
                                                                                         ;args = [entier] 
-                                                                                        ;pos  = _startpos__1_}
+                                                                                        ;pos  = _startpos__2_}
 
                                                                           ; pos = _startpos__1_
                                                                        }] @ b
@@ -979,7 +979,7 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
             let _2 = () in
             let _startpos = _startpos_i1_ in
             let _v : (Ast.Syntax.expr) = 
-# 162 "parser.mly"
+# 161 "parser.mly"
                                (    Call { func = "_sup" 
                                           ;args = [i1 ; i2] 
                                           ;pos  = _startpos__2_}
@@ -1014,7 +1014,7 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
             let _2 = () in
             let _startpos = _startpos_a_ in
             let _v : (Ast.Syntax.expr) = 
-# 186 "parser.mly"
+# 185 "parser.mly"
                              (   
   Call {
       func = "_sub"
@@ -1047,7 +1047,7 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
             let _2 = () in
             let _startpos = _startpos_a_ in
             let _v : (Ast.Syntax.expr) = 
-# 173 "parser.mly"
+# 172 "parser.mly"
                              (
   Call { func = "_mul" 
         ;args = [a ; b] 
@@ -1087,7 +1087,7 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
             let _2 = () in
             let _startpos = _startpos_i1_ in
             let _v : (Ast.Syntax.expr) = 
-# 152 "parser.mly"
+# 151 "parser.mly"
                                (    Call { func = "_inf" 
                                           ;args = [i1 ; i2] 
                                           ;pos  = _startpos__2_}
@@ -1126,7 +1126,7 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
             let _2 = () in
             let _startpos = _startpos_i1_ in
             let _v : (Ast.Syntax.expr) = 
-# 157 "parser.mly"
+# 156 "parser.mly"
                                 (    Call { func = "_egal" 
                                           ;args = [i1 ; i2] 
                                           ;pos  = _startpos__2_}
@@ -1157,7 +1157,7 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
             let _2 = () in
             let _startpos = _startpos_a_ in
             let _v : (Ast.Syntax.expr) = 
-# 193 "parser.mly"
+# 192 "parser.mly"
                              (   
   Call {
       func = "_div"
@@ -1194,7 +1194,7 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> (Ast.Syntax
             let _2 = () in
             let _startpos = _startpos_a_ in
             let _v : (Ast.Syntax.expr) = 
-# 179 "parser.mly"
+# 178 "parser.mly"
                              (   
   Call {
       func = "_add"
@@ -2748,7 +2748,7 @@ and _menhir_run9 : _menhir_env -> 'ttv_tail -> _menhir_state -> (
     let _startpos_s_ = _startpos in
     let _startpos = _startpos_s_ in
     let _v : (Ast.Syntax.expr) = 
-# 150 "parser.mly"
+# 148 "parser.mly"
               ( Str  { chaine = s; pos = _startpos_s_} )
 # 2754 "parser.ml"
      in
@@ -2799,7 +2799,7 @@ and _menhir_run11 : _menhir_env -> 'ttv_tail -> _menhir_state -> Lexing.position
             let _1 = () in
             let _startpos = _startpos__1_ in
             let _v : (Ast.Syntax.expr) = 
-# 167 "parser.mly"
+# 166 "parser.mly"
                          (         
                                 Call { func = "_geti" 
                                 ;args = [] 
@@ -3475,7 +3475,7 @@ and prog : (Lexing.lexbuf -> token) -> Lexing.lexbuf -> (
 # 3476 "parser.ml"
          in
         _menhir_goto_prog _menhir_env _menhir_stack _v
-    | Lfunc ->
+    | Lvoid ->
         let _menhir_stack = Obj.magic _menhir_stack in
         let _menhir_env = _menhir_discard _menhir_env in
         let _tok = _menhir_env._menhir_token in

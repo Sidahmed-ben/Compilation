@@ -10,7 +10,7 @@
 %token Ladd Lsub Lmul Ldiv
 %token Lreturn Lassign Lsc Lend
 %token <Ast.type_t>Ldecl
-%token Lparo Lparf Lacoo Lacof Lfunc Lcond Lelse Lsup Linf Lfor Lwhile Lprints Lgeti Lputi Legal
+%token Lparo Lparf Lacoo Lacof Lvoid Lcond Lelse Lsup Linf Lfor Lwhile Lprints Lgeti Lputi Legal
  
 %left Ladd Lsub
 %left Lmul Ldiv
@@ -22,7 +22,7 @@
 %%
 
 prog:
-| Lfunc ; v = Lvar ; Lparo ; Lparf ; Lacoo ; b = block  
+| Lvoid ; v = Lvar ; Lparo ; Lparf ; Lacoo ; b = block  
                                                       { [Func { nom  = v;
                                                                 args = [];
                                                                 block = b ; 
@@ -42,7 +42,7 @@ block:
                                                               [Call_func {
                                                                           appel = Call { func = "_puti" 
                                                                                         ;args = [entier] 
-                                                                                        ;pos  = $startpos($1)}
+                                                                                        ;pos  = $startpos($2)}
 
                                                                           ; pos = $startpos($1)
                                                                        }] @ b
@@ -145,9 +145,8 @@ expr:
 | n  = Lint   { Int  { value = n ; pos = $startpos(n)} }
 | b  = Lbool  { Bool { value = b ; pos = $startpos(b)} }                                  
 | v  = Lvar   { Var  { name =  v ; pos = $startpos(v)} }
-
-// Essayer de rajouter la chaine de char 
 | s = Lstring { Str  { chaine = s; pos = $startpos(s)} }
+
 
 | i1 = expr ; Linf ; i2 = expr {    Call { func = "_inf" 
                                           ;args = [i1 ; i2] 

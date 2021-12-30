@@ -1,0 +1,8 @@
+void main () {
+    
+    prints("Saisissez un int svp !! \n");
+    int a = geti();     # lecture du int
+    prints(" a = ");
+
+    puti(a);
+}

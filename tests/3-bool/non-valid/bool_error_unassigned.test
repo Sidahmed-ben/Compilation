@@ -1,0 +1,6 @@
+void main(){
+    bool b ;
+    bool a ;
+    b = a  ;  # unassigned variable a 
+    return 0;
+}

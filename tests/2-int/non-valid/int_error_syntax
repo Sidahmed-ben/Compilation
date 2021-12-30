@@ -1,0 +1,4 @@
+void main (){
+    a int ;   #syntax-error
+    return 0;
+}

@@ -1,0 +1,4 @@
+void main () {
+    int a  = 0 ;
+    pputi(a);  #syntax error 
+}

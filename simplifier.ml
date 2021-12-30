@@ -2,8 +2,6 @@ open Ast
 open Baselib
 open Ast.IR
 
-
-
 let collect_constant_strings code =
   let counter = ref 0 in
   let ccs_value v counter env = 
@@ -15,7 +13,6 @@ let collect_constant_strings code =
                         | None ->   counter := !counter + 1 ;
                                     let l = "str" ^ (string_of_int !counter) in
                                     let new_env  = Env.add s l env in 
-                                    Printf.fprintf Stdlib.stdout "label ->  %s \n" l ;
                                     (Str  l, [l, s], new_env)
                            
                         | Some l ->  (Str l, [],env) )

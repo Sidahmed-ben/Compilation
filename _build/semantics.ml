@@ -93,8 +93,6 @@ let rec analyze_expr expr env =
      | None   -> raise (Error (Printf.sprintf "undefined function '%s'" c.func, c.pos))
 
 
-
-
 let rec analyze_instr instr env =
   match instr with
   | Syntax.Decl d   -> Decl d.name , Env.add d.name d.type_t env

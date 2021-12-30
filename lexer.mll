@@ -22,7 +22,7 @@ rule token = parse
 | '+'             { Ladd }
 | '/'             { Ldiv }
 | '-'             { Lsub }
-| "func"          {Lfunc}
+| "void"          {Lvoid}
 | '('             {Lparo}
 | ')'             {Lparf}
 | '{'             {Lacoo}
@@ -43,7 +43,7 @@ rule token = parse
 | "puti"          {Lputi}
 | '"'             { Lstring ( String.of_seq (List.to_seq (string_ lexbuf)) )  }
 | identifier+ as var { Lvar (var) }
-| _ as c          {Printf.fprintf Stdlib.stdout "wch" ;raise (Error c) }
+| _ as c          {raise (Error c) }
 
 
 and string_ = parse

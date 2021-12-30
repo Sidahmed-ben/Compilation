@@ -1,0 +1,12 @@
+void main () {
+    int a ;
+    prints("saisissez un entier sup à 20 SVP !! \n");
+    a = geti(); 
+    
+    while(a < 20){
+        prints(" Veuillez saisir un entier sup à 20 !! \n");
+        a = geti();
+    }
+    prints(" a = ");
+    puti(a);
+}

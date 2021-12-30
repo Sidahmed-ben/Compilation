@@ -1,0 +1,4 @@
+void main(){
+    bool b = True ;
+    int a = b;   # expected int but given bool
+}

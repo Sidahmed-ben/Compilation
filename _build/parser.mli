@@ -3,6 +3,7 @@
 
 type token = 
   | Lwhile
+  | Lvoid
   | Lvar of (string)
   | Lsup
   | Lsub
@@ -17,7 +18,6 @@ type token =
   | Lint of (int)
   | Linf
   | Lgeti
-  | Lfunc
   | Lfor
   | Lend
   | Lelse

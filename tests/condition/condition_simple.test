@@ -1,9 +1,0 @@
-func main () {
-    int a;
-    a = 0;
-    int b;
-    if(a){
-        b = 6;
-    }
-    return 0;
-}

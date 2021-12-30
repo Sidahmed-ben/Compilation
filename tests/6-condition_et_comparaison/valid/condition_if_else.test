@@ -1,0 +1,22 @@
+void main () {
+
+    prints(" saisissez un entier SVP !! ");
+    int b = geti();
+
+    if(b>5){   
+        if(b>15){   
+            prints("   b est sup à 15  \n");
+        }
+        prints("b est entre 5 et 15 \n");
+        
+    }else{ 
+        if( b == 5 ){
+            prints(" b est ègale à 5 \n");
+        }else{
+            prints(" b est inf à 5 \n");
+        }
+    }
+
+
+    return 0;
+}

@@ -13,9 +13,9 @@ type type_t =
 let rec string_of_type_t t =
   match t with
   | Void_t        -> "Void"
-  | Int_t  (_,_)-> "Int"
-  | Bool_t (_,_)-> "Bool"
-  | Str_t       -> "Str"
+  | Int_t  (_,_)  -> "Int"
+  | Bool_t (_,_)  -> "Bool"
+  | Str_t         -> "Str"
   | Func_t (r, a) ->
      (if (List.length a) > 1 then "(" else "")
      ^ (String.concat ", " (List.map string_of_type_t a))
@@ -33,7 +33,6 @@ module Syntax = struct
               ; pos: Lexing.position }
     | Bool of { value:bool
               ; pos: Lexing.position }
-    (* char *)
     | Str of  { chaine: string
               ; pos: Lexing.position
               }

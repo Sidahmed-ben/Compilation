@@ -1,0 +1,10 @@
+void main () {
+    int a ;
+    int b ;
+    b = 0;
+    for( a = 1 ; a < 5 ; a = a * 2 )
+        # syntax error ( l'oublie de l'acolade ouvrante '{' )
+        b = b + 10 ;
+    }
+
+}

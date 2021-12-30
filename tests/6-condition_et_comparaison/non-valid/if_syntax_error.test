@@ -1,0 +1,8 @@
+void main(){
+    int a = 2;
+
+    if( True )
+    {{  # suntax-error 
+        a = 10;
+    }
+}

@@ -1,0 +1,9 @@
+void main () {
+    int a = 0; 
+    if(a){
+        prints("je suis dans le if \n");
+    }else (  # syntax error
+        prints("je suis dans le else \n");
+    }
+
+}
