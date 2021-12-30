@@ -1,0 +1,25 @@
+void main () {
+    int nbr = -1;
+    int resultat = 1;
+    int stock = 0;
+    int i ;
+    prints("======  Calcul du factoriel ======= \n");
+    while(nbr < 0){
+        prints(" Veuillez saisir un entier sup à 0 \n");
+        nbr = geti();
+    }
+    if(nbr == 0){
+        prints(" le factoriel de 0 est ègal à 1 \n");
+    }else{
+        stock = nbr;
+        for( i = 1 ; i < stock ; i= i+1 ){
+            resultat = resultat * nbr ;
+            nbr = nbr - 1 ; 
+        }
+        prints(" le factoriel de '");
+        puti(stock) ;
+        prints("' est égal à ");
+        puti(resultat);
+        prints("\n");
+    }
+}   
