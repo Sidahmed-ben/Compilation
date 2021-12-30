@@ -47,7 +47,6 @@ rule token = parse
 
 
 and string_ = parse
-(* | eof { raise (StrEndError) } *)
 | '"' { [] } (* on a fini de lire la chaine, on renvoie la liste vide, dans tous les autres cas on construit une liste des caractères dans la chaine : celui lu suivi par la suite de la chaîne *)
 | "\\n" { '\n' :: (string_ lexbuf) } (* on rencontre un '\' suivi d'un 'n' donc on met un retour à la ligne dans la chaîne *)
 | "\\t" { '\t' :: (string_ lexbuf) } (* idem pour "\t" *)

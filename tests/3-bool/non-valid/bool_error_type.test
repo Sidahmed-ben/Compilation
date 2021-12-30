@@ -2,5 +2,4 @@ void main(){
     bool b ;
     int a = 9;
     b = a;    #  Expected bool but given int  
-    return 0;
 }

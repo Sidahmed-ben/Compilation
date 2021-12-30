@@ -1376,32 +1376,32 @@ and string_ lexbuf =
 and __ocaml_lex_string__rec lexbuf __ocaml_lex_state =
   match Lexing.engine __ocaml_lex_tables __ocaml_lex_state lexbuf with
       | 0 ->
-# 51 "lexer.mll"
+# 50 "lexer.mll"
       ( [] )
 # 1382 "lexer.ml"
 
   | 1 ->
-# 52 "lexer.mll"
+# 51 "lexer.mll"
         ( '\n' :: (string_ lexbuf) )
 # 1387 "lexer.ml"
 
   | 2 ->
-# 53 "lexer.mll"
+# 52 "lexer.mll"
         ( '\t' :: (string_ lexbuf) )
 # 1392 "lexer.ml"
 
   | 3 ->
-# 54 "lexer.mll"
+# 53 "lexer.mll"
          ( '\\' :: (string_ lexbuf) )
 # 1397 "lexer.ml"
 
   | 4 ->
 let
-# 55 "lexer.mll"
+# 54 "lexer.mll"
        c
 # 1403 "lexer.ml"
 = Lexing.sub_lexeme_char lexbuf lexbuf.Lexing.lex_start_pos in
-# 55 "lexer.mll"
+# 54 "lexer.mll"
          ( c :: (string_ lexbuf) )
 # 1407 "lexer.ml"
 
@@ -1413,17 +1413,17 @@ and comment lexbuf =
 and __ocaml_lex_comment_rec lexbuf __ocaml_lex_state =
   match Lexing.engine __ocaml_lex_tables __ocaml_lex_state lexbuf with
       | 0 ->
-# 59 "lexer.mll"
+# 58 "lexer.mll"
        ( Lend )
 # 1419 "lexer.ml"
 
   | 1 ->
-# 60 "lexer.mll"
+# 59 "lexer.mll"
        ( Lexing.new_line lexbuf; token lexbuf )
 # 1424 "lexer.ml"
 
   | 2 ->
-# 61 "lexer.mll"
+# 60 "lexer.mll"
        ( comment lexbuf )
 # 1429 "lexer.ml"
 

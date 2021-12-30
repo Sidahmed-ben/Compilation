@@ -3,5 +3,4 @@ void main(){
     bool a ;
     a = True;
     b = a;
-    return 0;
 }

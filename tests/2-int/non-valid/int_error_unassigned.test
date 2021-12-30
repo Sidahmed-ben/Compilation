@@ -2,5 +2,4 @@ void test () {
     int a;
     int b;
     a = b; # unassigned error
-    return 42 ;
 }

@@ -3,5 +3,4 @@ void test () {
     int b;
     b = a;
     a = b;
-    return b ;
 }

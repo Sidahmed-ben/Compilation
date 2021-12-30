@@ -1,5 +1,4 @@
 void main (){
     b bool;   #syntax error
     b = True;
-    return 0; 
 }
