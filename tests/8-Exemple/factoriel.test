@@ -1,11 +1,11 @@
 void main () {
-    int nbr = -1;
+    int nbr = 0;
     int resultat = 1;
     int stock = 0;
     int i ;
     prints("======  Calcul du factoriel ======= \n");
-    while(nbr < 0){
-        prints(" Veuillez saisir un entier sup à 0 \n");
+    while(nbr < 2){
+        prints(" Veuillez saisir un entier sup à 1 \n");
         nbr = geti();
     }
     if(nbr == 0){

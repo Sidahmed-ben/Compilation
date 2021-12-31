@@ -6,7 +6,7 @@
 }
 
 let alpha = ['a'-'z' 'A'-'Z']
-let num = ['0'-'9']|'-' 
+let num = ['0'-'9']
 let identifier = alpha (alpha | num | '-' | '_')*
 
 rule token = parse

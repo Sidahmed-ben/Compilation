@@ -65,7 +65,7 @@ main:
   sw $ra, 20($sp)
   sw $fp, 16($sp)
   addi $fp, $sp, 20
-  li $v0, -1
+  li $v0, 0
   sw $v0, -8($fp)
   li $v0, 1
   sw $v0, -12($fp)
@@ -80,7 +80,7 @@ loop_while1:
   lw $v0, -8($fp)
   addi $sp, $sp, -4
   sw $v0, 0($sp)
-  li $v0, 0
+  li $v0, 2
   addi $sp, $sp, -4
   sw $v0, 0($sp)
   jal _inf
@@ -190,7 +190,7 @@ ret0:
 .data
 str1: .asciiz "======  Calcul du factoriel ======= 
 "
-str2: .asciiz " Veuillez saisir un entier sup à 0 
+str2: .asciiz " Veuillez saisir un entier sup à 1 
 "
 str3: .asciiz " le factoriel de 0 est ègal à 1 
 "
